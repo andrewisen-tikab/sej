@@ -1,8 +1,10 @@
 import * as THREE from 'three';
 // @ts-ignore
-import WebGPU from 'three/addons/capabilities/WebGPU.js';
+import WebGPU from 'three/examples/jsm/capabilities/WebGPU.js';
 // @ts-ignore
-import WebGPURenderer from 'three/addons/renderers/webgpu/WebGPURenderer.js';
+import WebGPURenderer from 'three/examples/jsm/renderers/webgpu/WebGPURenderer.js';
+
+import { MeshBasicNodeMaterial, positionLocal } from 'three/nodes';
 import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
 import CameraControls from 'camera-controls';
 import { InitProps } from './types';
@@ -67,11 +69,14 @@ export default class Sej {
         );
 
         const renderer = new WebGPURenderer();
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         container.appendChild(renderer.domElement);
 
         const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        const material = new MeshBasicNodeMaterial();
+        material.colorNode = positionLocal;
+
         const cube = new THREE.Mesh(geometry, material);
         scene.add(cube);
 
