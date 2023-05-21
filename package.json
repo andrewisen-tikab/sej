@@ -10,6 +10,7 @@
     "main": "dist/sej.js",
     "types:": "dist/Sej.d.ts",
     "author": "André Wisén",
+    "license": "MIT",
     "scripts": {
         "dev": "vite",
         "preview": "vite preview",
