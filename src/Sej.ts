@@ -67,6 +67,7 @@ export default class Sej {
         );
 
         const renderer = new WebGPURenderer();
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         container.appendChild(renderer.domElement);
 
