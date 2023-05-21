@@ -1,8 +1,10 @@
 import * as THREE from 'three';
 // @ts-ignore
-import WebGPU from 'three/addons/capabilities/WebGPU.js';
+import WebGPU from 'three/examples/jsm/capabilities/WebGPU.js';
 // @ts-ignore
-import WebGPURenderer from 'three/addons/renderers/webgpu/WebGPURenderer.js';
+import WebGPURenderer from 'three/examples/jsm/renderers/webgpu/WebGPURenderer.js';
+
+import { MeshBasicNodeMaterial, positionLocal } from 'three/nodes';
 import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
 import CameraControls from 'camera-controls';
 import { InitProps } from './types';
