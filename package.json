@@ -1,0 +1,31 @@
+{
+    "name": "sej",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/andrewisen-tikab/sej"
+    },
+    "version": "0.0.0",
+    "type": "module",
+    "module": "src/index.ts",
+    "main": "dist/sej.js",
+    "types:": "dist/Sej.d.ts",
+    "author": "André Wisén",
+    "license": "MIT",
+    "scripts": {
+        "dev": "vite",
+        "preview": "vite preview",
+        "build": "tsc && vite build && vite build -c vite.config.example.ts",
+        "ts": "tsc"
+    },
+    "devDependencies": {
+        "@types/three": "^0.152.0",
+        "typescript": "^5.0.2",
+        "vite": "^4.3.2",
+        "vite-plugin-dts": "^2.3.0"
+    },
+    "dependencies": {
+        "camera-controls": "^2.3.5",
+        "three": "^0.152.2",
+        "three-mesh-bvh": "^0.6.0"
+    }
+}
