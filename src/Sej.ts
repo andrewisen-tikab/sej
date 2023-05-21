@@ -1,14 +1,19 @@
 import * as THREE from 'three';
 // @ts-ignore
-import WebGPU from 'three/examples/jsm/capabilities/WebGPU.js';
+import WebGPU from 'three/addons/capabilities/WebGPU.js';
 // @ts-ignore
-import WebGPURenderer from 'three/examples/jsm/renderers/webgpu/WebGPURenderer.js';
+import WebGPURenderer from 'three/addons/renderers/webgpu/WebGPURenderer.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 import { MeshBasicNodeMaterial, positionLocal } from 'three/nodes';
 import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
 import CameraControls from 'camera-controls';
 import { InitProps } from './types';
 import ErrorManager from './utils/ErrorManager';
+
+import glb from '../public/glb/spartan_armour_mkv_-_halo_reach.glb?url';
+
 /**
  * Sej [ˈsɛj].
  */
@@ -56,6 +61,7 @@ export default class Sej {
             0.1,
             1000,
         );
+        this.scene.add(this.perspectiveCamera);
     }
 
     /**
@@ -88,24 +94,32 @@ export default class Sej {
         this.container = container;
 
         const renderer = new WebGPURenderer();
+
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
+
         this.container.appendChild(renderer.domElement);
 
-        const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const material = new MeshBasicNodeMaterial();
-        material.colorNode = positionLocal;
+        const controls = new OrbitControls(this.perspectiveCamera, renderer.domElement);
+        this.perspectiveCamera.position.x = -0.4;
+        this.perspectiveCamera.position.y = 3.2;
+        this.perspectiveCamera.position.z = 1;
+        controls.target.set(0, 3.5 - 1, 0);
+        controls.update();
 
-        const cube = new THREE.Mesh(geometry, material);
-        this.scene.add(cube);
+        const light1 = new THREE.AmbientLight();
+        this.perspectiveCamera.add(light1);
+        const light2 = new THREE.DirectionalLight();
+        light2.position.set(5, 10, 7.5);
+        this.perspectiveCamera.add(light2);
 
-        this.perspectiveCamera.position.z = 5;
+        const loader = new GLTFLoader();
+        loader.load(glb, (gltf) => {
+            this.scene.add(gltf.scene);
+        });
 
         const animate = () => {
             requestAnimationFrame(animate);
-            cube.rotation.x += 0.01;
-            cube.rotation.y += 0.01;
-            cube.updateMatrix();
             renderer.render(this.scene, this.perspectiveCamera);
         };
 
