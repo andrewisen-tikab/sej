@@ -18,6 +18,22 @@ export default class Sej {
      */
     private static _instance: Sej;
 
+    private container: HTMLDivElement | null = null;
+
+    /**
+     * Scenes allow you to set up what and where is to be rendered by three.js.
+     * This is where you place objects, lights and cameras.
+     */
+    private scene: THREE.Scene;
+
+    /**
+     * Camera that uses perspective projection.
+     *
+     * This projection mode is designed to mimic the way the human eye sees.
+     * It is the most common projection mode used for rendering a 3D scene.
+     */
+    private perspectiveCamera: THREE.PerspectiveCamera;
+
     /**
      * Generate {@link Sej} singleton
      */
@@ -31,6 +47,16 @@ export default class Sej {
     private state = {
         hasInstalled: false,
     };
+
+    constructor() {
+        this.scene = new THREE.Scene();
+        this.perspectiveCamera = new THREE.PerspectiveCamera(
+            75,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000,
+        );
+    }
 
     /**
      * Install dependencies and setup `three`.
@@ -59,38 +85,43 @@ export default class Sej {
             throw new Error(ErrorManager.Init.WebGPU);
         }
         if (container == null) throw new Error(ErrorManager.Init.Container);
-
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(
-            75,
-            window.innerWidth / window.innerHeight,
-            0.1,
-            1000,
-        );
+        this.container = container;
 
         const renderer = new WebGPURenderer();
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
-        container.appendChild(renderer.domElement);
+        this.container.appendChild(renderer.domElement);
 
         const geometry = new THREE.BoxGeometry(1, 1, 1);
         const material = new MeshBasicNodeMaterial();
         material.colorNode = positionLocal;
 
         const cube = new THREE.Mesh(geometry, material);
-        scene.add(cube);
+        this.scene.add(cube);
 
-        camera.position.z = 5;
+        this.perspectiveCamera.position.z = 5;
 
-        function animate() {
+        const animate = () => {
             requestAnimationFrame(animate);
-
             cube.rotation.x += 0.01;
             cube.rotation.y += 0.01;
-
-            renderer.render(scene, camera);
-        }
+            renderer.render(this.scene, this.perspectiveCamera);
+        };
 
         animate();
+    }
+
+    /**
+     * Dispose {@link Sej} singleton.
+     * @returns Returns {@link Sej} singleton
+     */
+    public dispose(): Sej {
+        // Dispose container, if possible.
+        if (this.container) {
+            this.container.innerHTML = null as unknown as any;
+            this.container = null;
+        }
+
+        return this;
     }
 }
