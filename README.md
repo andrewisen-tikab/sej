@@ -6,6 +6,12 @@ Sej \[ˈsɛj\].
 
 The goal of `Sej` is to be both powerful and flexible.
 
+## Demo
+
+Requires a browser with WebGPU support.
+
+[https://andrewisen-tikab.github.io/sej/examples/simple/](https://andrewisen-tikab.github.io/sej/examples/simple/)
+
 ## WIP
 
 Sej is still a work in progress. It is not ready for production use.
