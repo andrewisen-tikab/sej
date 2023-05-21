@@ -34,10 +34,12 @@ export default class Sej {
      */
     public install(): Sej {
         if (this.state.hasInstalled) return this;
-        THREE.Object3D.DefaultMatrixAutoUpdate = false;
+        THREE.Object3D.DEFAULT_MATRIX_AUTO_UPDATE = false;
         CameraControls.install({ THREE });
         THREE.Cache.enabled = true;
+        // @ts-ignore
         THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
+        // @ts-ignore
         THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
         THREE.Mesh.prototype.raycast = acceleratedRaycast;
         this.state.hasInstalled = true;
