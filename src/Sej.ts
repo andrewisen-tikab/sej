@@ -13,7 +13,7 @@ import ErrorManager from './utils/ErrorManager';
 
 // @ts-ignore
 import glb from '../public/glb/spartan_armour_mkv_-_halo_reach.glb?url';
-import { DispatcherEvent, EventDispatcher, Listener } from './core/events/EventDispatcher';
+import { EventDispatcher, Listener } from './core/events/EventDispatcher';
 import { SejEventKeys, SejEvents } from './core/events/types';
 
 /**
