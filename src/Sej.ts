@@ -6,12 +6,12 @@ import WebGPURenderer from 'three/addons/renderers/webgpu/WebGPURenderer.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-import { MeshBasicNodeMaterial, positionLocal } from 'three/nodes';
 import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
 import CameraControls from 'camera-controls';
 import { InitProps } from './types';
 import ErrorManager from './utils/ErrorManager';
 
+// @ts-ignore
 import glb from '../public/glb/spartan_armour_mkv_-_halo_reach.glb?url';
 
 /**
