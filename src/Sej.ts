@@ -13,6 +13,8 @@ import ErrorManager from './utils/ErrorManager';
 
 // @ts-ignore
 import glb from '../public/glb/spartan_armour_mkv_-_halo_reach.glb?url';
+import { EventDispatcher, Listener } from './core/events/EventDispatcher';
+import { SejEventKeys, SejEvents } from './core/events/types';
 
 /**
  * The seconds passed since the time `.oldTime` was set and sets `.oldTime` to the current time.
@@ -24,7 +26,7 @@ let _animationMixer: /* @__PURE__ */ THREE.AnimationMixer;
 /**
  * Sej [ˈsɛj].
  */
-export default class Sej {
+export default class Sej extends EventDispatcher {
     /**
      * {@link Sej} singleton
      */
@@ -76,6 +78,7 @@ export default class Sej {
     };
 
     constructor() {
+        super();
         this.clock = new THREE.Clock();
         this.scene = new THREE.Scene();
         this.perspectiveCamera = new THREE.PerspectiveCamera(
@@ -105,6 +108,27 @@ export default class Sej {
         THREE.Mesh.prototype.raycast = acceleratedRaycast;
         this.state.hasInstalled = true;
         return this;
+    }
+
+    /**
+     * Adds the specified event listener.
+     * @param type event name
+     * @param listener handler function
+     */
+    public addEventListener<K extends keyof SejEvents, T extends SejEvents[K]['data']>(
+        type: K,
+        listener: (event: Omit<SejEvents[K], 'data'> & { data: T }) => any,
+    ): void {
+        super.addEventListener(type, listener as Listener);
+    }
+
+    /**
+     * Fire an event type.
+     * @param event DispatcherEvent
+     * @category Methods
+     */
+    public dispatchEvent<K extends keyof SejEvents, T extends SejEvents[K]>(event: T): void {
+        super.dispatchEvent(event);
     }
 
     /**
@@ -205,6 +229,8 @@ export default class Sej {
         };
 
         animate();
+
+        this.dispatchEvent({ type: SejEventKeys.init });
     }
 
     /**
