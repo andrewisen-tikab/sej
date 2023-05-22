@@ -56,6 +56,11 @@ export default class Sej {
     private animationMixers: THREE.AnimationMixer[];
 
     /**
+     * Handles and keeps track of loaded and pending data.
+     */
+    private loadingManager: THREE.LoadingManager;
+
+    /**
      * Generate {@link Sej} singleton
      */
     public static get Instance() {
@@ -81,6 +86,7 @@ export default class Sej {
         );
         this.scene.add(this.perspectiveCamera);
         this.animationMixers = [];
+        this.loadingManager = new THREE.LoadingManager();
     }
 
     /**
@@ -132,7 +138,39 @@ export default class Sej {
         light2.position.set(5, 10, 7.5);
         this.perspectiveCamera.add(light2);
 
-        const loader = new GLTFLoader();
+        this.loadingManager.onStart = (url, itemsLoaded, itemsTotal) => {
+            console.log(
+                'Started loading file: ' +
+                    url +
+                    '.\nLoaded ' +
+                    itemsLoaded +
+                    ' of ' +
+                    itemsTotal +
+                    ' files.',
+            );
+        };
+
+        this.loadingManager.onLoad = () => {
+            console.log('Loading complete!');
+        };
+
+        this.loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
+            console.log(
+                'Loading file: ' +
+                    url +
+                    '.\nLoaded ' +
+                    itemsLoaded +
+                    ' of ' +
+                    itemsTotal +
+                    ' files.',
+            );
+        };
+
+        this.loadingManager.onError = function (url) {
+            console.log('There was an error loading ' + url);
+        };
+
+        const loader = new GLTFLoader(this.loadingManager);
         loader.load(glb, (gltf) => {
             // Bypass `sej`'s default behavior of updating the matrix of the object
             gltf.scene.traverse((child) => {
