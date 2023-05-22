@@ -67,6 +67,7 @@ export default class Sej {
      */
     private state = {
         hasInstalled: false,
+        playAnimation: false,
     };
 
     constructor() {
@@ -133,11 +134,13 @@ export default class Sej {
 
         const loader = new GLTFLoader();
         loader.load(glb, (gltf) => {
+            // Bypass `sej`'s default behavior of updating the matrix of the object
             gltf.scene.traverse((child) => {
                 child.matrixAutoUpdate = true;
             });
             this.scene.add(gltf.scene);
 
+            // Play the first animation
             if (gltf.animations.length > 0) {
                 const mixer = new THREE.AnimationMixer(gltf.scene);
                 const action = mixer.clipAction(gltf.animations[0]);
@@ -146,13 +149,18 @@ export default class Sej {
             }
         });
 
+        /**
+         * Animation loop
+         */
         const animate = () => {
             requestAnimationFrame(animate);
             _clockDelta = this.clock.getDelta();
 
-            for (_i = 0; _i < this.animationMixers.length; _i++) {
-                _animationMixer = this.animationMixers[_i];
-                _animationMixer.update(_clockDelta);
+            if (this.state.playAnimation) {
+                for (_i = 0; _i < this.animationMixers.length; _i++) {
+                    _animationMixer = this.animationMixers[_i];
+                    _animationMixer.update(_clockDelta);
+                }
             }
 
             renderer.render(this.scene, this.perspectiveCamera);
