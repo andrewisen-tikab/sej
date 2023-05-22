@@ -15,6 +15,13 @@ import ErrorManager from './utils/ErrorManager';
 import glb from '../public/glb/spartan_armour_mkv_-_halo_reach.glb?url';
 
 /**
+ * The seconds passed since the time `.oldTime` was set and sets `.oldTime` to the current time.
+ */
+let _clockDelta = /* @__PURE__ */ 0;
+let _i = /* @__PURE__ */ 0;
+let _animationMixer: /* @__PURE__ */ THREE.AnimationMixer;
+
+/**
  * Sej [ˈsɛj].
  */
 export default class Sej {
@@ -40,6 +47,15 @@ export default class Sej {
     private perspectiveCamera: THREE.PerspectiveCamera;
 
     /**
+     * Object for keeping track of time.
+     * This uses `performance.now` if it is available,
+     * otherwise it reverts to the less accurate `Date.now`.
+     */
+    private clock: THREE.Clock;
+
+    private animationMixers: THREE.AnimationMixer[];
+
+    /**
      * Generate {@link Sej} singleton
      */
     public static get Instance() {
@@ -54,6 +70,7 @@ export default class Sej {
     };
 
     constructor() {
+        this.clock = new THREE.Clock();
         this.scene = new THREE.Scene();
         this.perspectiveCamera = new THREE.PerspectiveCamera(
             75,
@@ -62,6 +79,7 @@ export default class Sej {
             1000,
         );
         this.scene.add(this.perspectiveCamera);
+        this.animationMixers = [];
     }
 
     /**
@@ -115,11 +133,28 @@ export default class Sej {
 
         const loader = new GLTFLoader();
         loader.load(glb, (gltf) => {
+            gltf.scene.traverse((child) => {
+                child.matrixAutoUpdate = true;
+            });
             this.scene.add(gltf.scene);
+
+            if (gltf.animations.length > 0) {
+                const mixer = new THREE.AnimationMixer(gltf.scene);
+                const action = mixer.clipAction(gltf.animations[0]);
+                action.play();
+                this.animationMixers.push(mixer);
+            }
         });
 
         const animate = () => {
             requestAnimationFrame(animate);
+            _clockDelta = this.clock.getDelta();
+
+            for (_i = 0; _i < this.animationMixers.length; _i++) {
+                _animationMixer = this.animationMixers[_i];
+                _animationMixer.update(_clockDelta);
+            }
+
             renderer.render(this.scene, this.perspectiveCamera);
         };
 
