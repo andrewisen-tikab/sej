@@ -163,35 +163,40 @@ export default class Sej extends EventDispatcher {
         this.perspectiveCamera.add(light2);
 
         this.loadingManager.onStart = (url, itemsLoaded, itemsTotal) => {
-            console.log(
-                'Started loading file: ' +
-                    url +
-                    '.\nLoaded ' +
-                    itemsLoaded +
-                    ' of ' +
-                    itemsTotal +
-                    ' files.',
-            );
+            this.dispatchEvent({
+                type: SejEventKeys.onStart,
+                data: {
+                    url,
+                    itemsLoaded,
+                    itemsTotal,
+                },
+            });
         };
 
         this.loadingManager.onLoad = () => {
-            console.log('Loading complete!');
+            this.dispatchEvent({
+                type: SejEventKeys.onLoad,
+            });
         };
 
         this.loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
-            console.log(
-                'Loading file: ' +
-                    url +
-                    '.\nLoaded ' +
-                    itemsLoaded +
-                    ' of ' +
-                    itemsTotal +
-                    ' files.',
-            );
+            this.dispatchEvent({
+                type: SejEventKeys.onProgress,
+                data: {
+                    url,
+                    itemsLoaded,
+                    itemsTotal,
+                },
+            });
         };
 
-        this.loadingManager.onError = function (url) {
-            console.log('There was an error loading ' + url);
+        this.loadingManager.onError = (url) => {
+            this.dispatchEvent({
+                type: SejEventKeys.onError,
+                data: {
+                    url,
+                },
+            });
         };
 
         const loader = new GLTFLoader(this.loadingManager);
