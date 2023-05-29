@@ -8,6 +8,8 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
 import CameraControls from 'camera-controls';
+import localForage from 'localforage';
+
 import { InitProps } from './types';
 import ErrorManager from './utils/ErrorManager';
 
@@ -88,6 +90,34 @@ export default class Sej extends EventDispatcher {
         this.scene.add(this.perspectiveCamera);
         this.animationMixers = [];
         this.loadingManager = new THREE.LoadingManager();
+        this._dev();
+    }
+
+    private _dev(): Sej {
+        document.addEventListener('keydown', (e) => {
+            switch (e.key) {
+                case 'ä':
+                    console.log('Saving scene...');
+                    localForage.setItem('sej', JSON.stringify(this.toJSON()));
+                    break;
+                case 'ö':
+                    console.log('Loading scene...');
+                    localForage
+                        .getItem('sej')
+                        .then((value) => {
+                            this.fromJSON(JSON.parse(value as string));
+                            console.log('Scene loaded.');
+                        })
+                        .catch((error: any) => {
+                            console.log(error);
+                        });
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        return this;
     }
 
     /**
@@ -243,7 +273,8 @@ export default class Sej extends EventDispatcher {
             gltf.scene.traverse((child) => {
                 child.matrixAutoUpdate = true;
             });
-            this.scene.add(gltf.scene);
+
+            this.addObject(gltf.scene);
 
             // Play the first animation
             if (gltf.animations.length > 0) {
@@ -252,11 +283,75 @@ export default class Sej extends EventDispatcher {
                 action.play();
                 this.animationMixers.push(mixer);
             }
-
-            this.dispatchEvent({
-                type: SejEventKeys.objectAdded,
-                data: { object: gltf.scene },
-            });
         });
+    }
+
+    /**
+     * Load a JSON resource in the [JSON Object/Scene](https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4) format.
+     */
+    private async fromJSON(json: ReturnType<Sej['toJSON']>) {
+        this.scene.clear();
+        const loader = new THREE.ObjectLoader();
+        // const camera = (await loader.parseAsync(json.camera)) as typeof this.camera;
+        // this.camera.copy(camera);
+
+        const scene = (await loader.parseAsync(json.scene)) as THREE.Scene;
+
+        this.setScene(scene);
+    }
+
+    /**
+     * Set the scene of the {@link Sej} singleton.
+     * @param scene
+     */
+    private setScene(scene: THREE.Scene): Sej {
+        if (scene.isScene !== true) throw new Error(ErrorManager.THREE.IsScene);
+
+        this.scene.uuid = scene.uuid;
+        this.scene.name = scene.name;
+
+        this.scene.background = scene.background;
+        this.scene.environment = scene.environment;
+        this.scene.fog = scene.fog;
+
+        this.scene.userData = { ...scene.userData };
+
+        while (scene.children.length > 0) {
+            this.addObject(scene.children[0]);
+        }
+
+        return this;
+    }
+
+    /**
+     * Add an object to the scene.
+     * @param object
+     * @param parent
+     * @param index
+     */
+    private addObject(object: THREE.Object3D, parent?: THREE.Object3D, index: number = 0) {
+        if (parent === undefined) {
+            this.scene.add(object);
+        } else {
+            parent.children.splice(index, 0, object);
+            object.parent = parent;
+        }
+        object.updateMatrix();
+
+        this.dispatchEvent({
+            type: SejEventKeys.objectAdded,
+            data: { object },
+        });
+    }
+
+    /**
+     * Generate a JSON resource in the [JSON Object/Scene](https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4) format.
+     */
+    private toJSON() {
+        return {
+            metadata: {},
+            camera: this.perspectiveCamera.toJSON(),
+            scene: this.scene.toJSON(),
+        };
     }
 }
