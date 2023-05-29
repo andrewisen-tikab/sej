@@ -11,8 +11,6 @@ import CameraControls from 'camera-controls';
 import { InitProps } from './types';
 import ErrorManager from './utils/ErrorManager';
 
-// @ts-ignore
-import glb from '../public/glb/spartan_armour_mkv_-_halo_reach.glb?url';
 import { EventDispatcher, Listener } from './core/events/EventDispatcher';
 import { SejEventKeys, SejEvents } from './core/events/types';
 
@@ -199,23 +197,6 @@ export default class Sej extends EventDispatcher {
             });
         };
 
-        const loader = new GLTFLoader(this.loadingManager);
-        loader.load(glb, (gltf) => {
-            // Bypass `sej`'s default behavior of updating the matrix of the object
-            gltf.scene.traverse((child) => {
-                child.matrixAutoUpdate = true;
-            });
-            this.scene.add(gltf.scene);
-
-            // Play the first animation
-            if (gltf.animations.length > 0) {
-                const mixer = new THREE.AnimationMixer(gltf.scene);
-                const action = mixer.clipAction(gltf.animations[0]);
-                action.play();
-                this.animationMixers.push(mixer);
-            }
-        });
-
         /**
          * Animation loop
          */
@@ -250,5 +231,27 @@ export default class Sej extends EventDispatcher {
         }
 
         return this;
+    }
+
+    /**
+     * @deprecated WIP
+     */
+    public loadModel(url: string): void {
+        const loader = new GLTFLoader(this.loadingManager);
+        loader.load(url, (gltf) => {
+            // Bypass `sej`'s default behavior of updating the matrix of the object
+            gltf.scene.traverse((child) => {
+                child.matrixAutoUpdate = true;
+            });
+            this.scene.add(gltf.scene);
+
+            // Play the first animation
+            if (gltf.animations.length > 0) {
+                const mixer = new THREE.AnimationMixer(gltf.scene);
+                const action = mixer.clipAction(gltf.animations[0]);
+                action.play();
+                this.animationMixers.push(mixer);
+            }
+        });
     }
 }
