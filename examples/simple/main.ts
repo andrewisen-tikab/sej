@@ -40,3 +40,5 @@ Sej.addEventListener(SejEventKeys.onLoad, (e) => {
 
 Sej.install();
 Sej.init({ container });
+// @ts-ignore
+Sej.state.playAnimation = true;
