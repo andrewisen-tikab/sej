@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import WebGPU from 'three/addons/capabilities/WebGPU.js';
 // @ts-ignore
 import WebGPURenderer from 'three/addons/renderers/webgpu/WebGPURenderer.js';
+import Stats from 'three/addons/libs/stats.module.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
@@ -71,6 +72,8 @@ export default class Sej extends EventDispatcher {
      */
     private history: _History;
 
+    private stats: Stats;
+
     /**
      * Generate {@link Sej} singleton
      */
@@ -100,6 +103,7 @@ export default class Sej extends EventDispatcher {
         this.animationMixers = [];
         this.loadingManager = new THREE.LoadingManager();
         this.history = new _History();
+        this.stats = new Stats();
 
         this._dev();
     }
@@ -181,6 +185,8 @@ export default class Sej extends EventDispatcher {
         if (container == null) throw new Error(ErrorManager.Init.Container);
         this.container = container;
 
+        this.container.appendChild(this.stats.dom);
+
         const renderer = new WebGPURenderer();
 
         renderer.setPixelRatio(window.devicePixelRatio);
@@ -251,6 +257,8 @@ export default class Sej extends EventDispatcher {
                     _animationMixer.update(_clockDelta);
                 }
             }
+
+            this.stats.update();
 
             renderer.render(this.scene, this.perspectiveCamera);
         };
