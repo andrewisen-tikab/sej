@@ -16,6 +16,8 @@ import ErrorManager from './utils/ErrorManager';
 import { EventDispatcher, Listener } from './core/events/EventDispatcher';
 import { SejEventKeys, SejEvents } from './core/events/types';
 
+import _History from './core/history/History';
+
 /**
  * The seconds passed since the time `.oldTime` was set and sets `.oldTime` to the current time.
  */
@@ -63,6 +65,11 @@ export default class Sej extends EventDispatcher {
     private loadingManager: THREE.LoadingManager;
 
     /**
+     * History manager.
+     */
+    private history: _History;
+
+    /**
      * Generate {@link Sej} singleton
      */
     public static get Instance() {
@@ -90,6 +97,8 @@ export default class Sej extends EventDispatcher {
         this.scene.add(this.perspectiveCamera);
         this.animationMixers = [];
         this.loadingManager = new THREE.LoadingManager();
+        this.history = new _History();
+
         this._dev();
     }
 
@@ -259,6 +268,8 @@ export default class Sej extends EventDispatcher {
             this.container.innerHTML = null as unknown as any;
             this.container = null;
         }
+
+        this.history.clear();
 
         return this;
     }
