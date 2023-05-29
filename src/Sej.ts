@@ -340,7 +340,7 @@ export default class Sej extends EventDispatcher {
      * @param parent
      * @param index
      */
-    private addObject(object: THREE.Object3D, parent?: THREE.Object3D, index: number = 0) {
+    public addObject(object: THREE.Object3D, parent?: THREE.Object3D, index: number = 0) {
         if (parent === undefined) {
             this.scene.add(object);
         } else {
