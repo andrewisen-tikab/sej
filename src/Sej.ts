@@ -97,19 +97,21 @@ export default class Sej extends EventDispatcher {
         document.addEventListener('keydown', (e) => {
             switch (e.key) {
                 case 'ä':
+                    console.log('Saving scene...');
                     localForage.setItem('sej', JSON.stringify(this.toJSON()));
                     break;
                 case 'ö':
+                    console.log('Loading scene...');
                     localForage
                         .getItem('sej')
                         .then((value) => {
                             this.fromJSON(JSON.parse(value as string));
+                            console.log('Scene loaded.');
                         })
                         .catch((error: any) => {
                             console.log(error);
                         });
                     break;
-
                 default:
                     break;
             }
