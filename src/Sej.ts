@@ -252,6 +252,11 @@ export default class Sej extends EventDispatcher {
                 action.play();
                 this.animationMixers.push(mixer);
             }
+
+            this.dispatchEvent({
+                type: SejEventKeys.objectAdded,
+                data: { object: gltf.scene },
+            });
         });
     }
 }
