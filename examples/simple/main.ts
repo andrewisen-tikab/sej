@@ -44,4 +44,5 @@ Sej.install();
 Sej.init({ container });
 // @ts-ignore
 Sej.state.playAnimation = true;
-Sej.loadModel(glb);
+
+Sej.api.loadModel(glb);

@@ -21,7 +21,7 @@ export default class AddObjectCommand extends Command {
     }
 
     execute() {
-        Sej.addObject(this.object);
+        Sej.api.addObject(this.object);
     }
 
     undo() {}

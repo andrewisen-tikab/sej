@@ -89,6 +89,16 @@ export default class Sej extends EventDispatcher {
         playAnimation: false,
     };
 
+    /**
+     * API for {@link Sej}.
+     *
+     * Use this to access {@link Sej}'s methods.
+     */
+    public api = {
+        loadModel: this.loadModel,
+        addObject: this.addObject,
+    };
+
     constructor() {
         super();
         this.clock = new THREE.Clock();
@@ -287,7 +297,7 @@ export default class Sej extends EventDispatcher {
     /**
      * @deprecated WIP
      */
-    public loadModel(url: string): void {
+    private loadModel(url: string): void {
         const loader = new GLTFLoader(this.loadingManager);
         loader.load(url, (gltf) => {
             // Bypass `sej`'s default behavior of updating the matrix of the object
@@ -350,7 +360,7 @@ export default class Sej extends EventDispatcher {
      * @param parent
      * @param index
      */
-    public addObject(object: THREE.Object3D, parent?: THREE.Object3D, index: number = 0) {
+    private addObject(object: THREE.Object3D, parent?: THREE.Object3D, index: number = 0) {
         if (parent === undefined) {
             this.scene.add(object);
         } else {
@@ -376,7 +386,7 @@ export default class Sej extends EventDispatcher {
         };
     }
 
-    public execute(command: Command, optionalName?: string) {
+    private execute(command: Command, optionalName?: string) {
         this.history.execute(command, optionalName);
     }
 }
