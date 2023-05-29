@@ -7,6 +7,9 @@ export const SejEventKeys = {
     onLoad: 'onLoad',
     onProgress: 'onProgress',
     onError: 'onError',
+    objectAdded: 'objectAdded',
+    objectChanged: 'objectChanged',
+    objectRemoved: 'objectRemoved',
 } as const;
 
 export type Loading = {
@@ -20,6 +23,10 @@ export type SejEventsBase = {
     [SejEventKeys.onLoad]: { type: typeof SejEventKeys.onLoad; data?: undefined };
     [SejEventKeys.onProgress]: { type: typeof SejEventKeys.onProgress; data: Loading };
     [SejEventKeys.onError]: { type: typeof SejEventKeys.onError; data: { url: string } };
+    [SejEventKeys.objectAdded]: {
+        type: typeof SejEventKeys.objectAdded;
+        data: { object: THREE.Object3D };
+    };
 };
 
 export interface SejEvents extends SejEventsBase {}
