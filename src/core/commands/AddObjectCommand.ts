@@ -6,7 +6,7 @@ export interface AddObjectCommandBase extends CommandBase {
     object: THREE.Object3D;
 }
 
-class AddObjectCommand extends Command {
+export default class AddObjectCommand extends Command {
     object: THREE.Object3D;
 
     constructor(object: THREE.Object3D) {
@@ -41,5 +41,3 @@ class AddObjectCommand extends Command {
         this.object = loader.parse(json.object);
     }
 }
-
-export { AddObjectCommand };
