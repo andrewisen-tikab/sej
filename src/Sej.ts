@@ -8,6 +8,8 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
 import CameraControls from 'camera-controls';
+import localForage from 'localforage';
+
 import { InitProps } from './types';
 import ErrorManager from './utils/ErrorManager';
 
@@ -88,6 +90,32 @@ export default class Sej extends EventDispatcher {
         this.scene.add(this.perspectiveCamera);
         this.animationMixers = [];
         this.loadingManager = new THREE.LoadingManager();
+        this._dev();
+    }
+
+    private _dev(): Sej {
+        document.addEventListener('keydown', (e) => {
+            switch (e.key) {
+                case 'ä':
+                    localForage.setItem('sej', JSON.stringify(this.toJSON()));
+                    break;
+                case 'ö':
+                    localForage
+                        .getItem('sej')
+                        .then((value) => {
+                            this.fromJSON(JSON.parse(value as string));
+                        })
+                        .catch((error: any) => {
+                            console.log(error);
+                        });
+                    break;
+
+                default:
+                    break;
+            }
+        });
+
+        return this;
     }
 
     /**
