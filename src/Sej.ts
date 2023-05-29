@@ -17,6 +17,8 @@ import { EventDispatcher, Listener } from './core/events/EventDispatcher';
 import { SejEventKeys, SejEvents } from './core/events/types';
 
 import _History from './core/history/History';
+import Command from './core/commands/Command';
+import { AddObjectCommand } from './core/commands';
 
 /**
  * The seconds passed since the time `.oldTime` was set and sets `.oldTime` to the current time.
@@ -285,7 +287,7 @@ export default class Sej extends EventDispatcher {
                 child.matrixAutoUpdate = true;
             });
 
-            this.addObject(gltf.scene);
+            this.execute(new AddObjectCommand(gltf.scene));
 
             // Play the first animation
             if (gltf.animations.length > 0) {
@@ -340,7 +342,7 @@ export default class Sej extends EventDispatcher {
      * @param parent
      * @param index
      */
-    private addObject(object: THREE.Object3D, parent?: THREE.Object3D, index: number = 0) {
+    public addObject(object: THREE.Object3D, parent?: THREE.Object3D, index: number = 0) {
         if (parent === undefined) {
             this.scene.add(object);
         } else {
@@ -364,5 +366,9 @@ export default class Sej extends EventDispatcher {
             camera: this.perspectiveCamera.toJSON(),
             scene: this.scene.toJSON(),
         };
+    }
+
+    public execute(command: Command, optionalName?: string) {
+        this.history.execute(command, optionalName);
     }
 }
