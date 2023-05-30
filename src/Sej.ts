@@ -6,6 +6,7 @@ import WebGPURenderer from 'three/addons/renderers/webgpu/WebGPURenderer.js';
 import Stats from 'three/addons/libs/stats.module.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 
 import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
 import CameraControls from 'camera-controls';
@@ -75,6 +76,12 @@ export default class Sej extends EventDispatcher {
     private stats: Stats;
 
     /**
+     * Makes a floating panel for controllers on the web.
+     * Works as a drop-in replacement for dat.gui in most projects.
+     */
+    private gui: GUI;
+
+    /**
      * Generate {@link Sej} singleton
      */
     public static get Instance() {
@@ -87,6 +94,7 @@ export default class Sej extends EventDispatcher {
     private state = {
         hasInstalled: false,
         playAnimation: false,
+        commands: '',
     };
 
     /**
@@ -101,6 +109,12 @@ export default class Sej extends EventDispatcher {
 
     constructor() {
         super();
+
+        Object.entries(this.api).forEach(([key, value]) => {
+            // @ts-ignore
+            this.api[key] = value.bind(this);
+        });
+
         this.clock = new THREE.Clock();
         this.scene = new THREE.Scene();
         this.perspectiveCamera = new THREE.PerspectiveCamera(
@@ -114,6 +128,9 @@ export default class Sej extends EventDispatcher {
         this.loadingManager = new THREE.LoadingManager();
         this.history = new _History();
         this.stats = new Stats();
+
+        this.gui = new GUI();
+        this.gui.add(this.state, 'commands').name('Latest command').listen();
 
         this._dev();
     }
@@ -290,7 +307,7 @@ export default class Sej extends EventDispatcher {
         }
 
         this.history.clear();
-
+        this.gui.destroy();
         return this;
     }
 
@@ -388,5 +405,6 @@ export default class Sej extends EventDispatcher {
 
     private execute(command: Command, optionalName?: string) {
         this.history.execute(command, optionalName);
+        this.state.commands = command.type;
     }
 }
