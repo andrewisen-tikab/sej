@@ -3,7 +3,7 @@ import './style.css';
 import Sej from '../../src/';
 import { SejEventKeys } from '../../src/core/events/types';
 // @ts-ignore
-import glb from '../../public/glb/spartan_armour_mkv_-_halo_reach.glb?url';
+import glb from '../assets/glb/spartan_armour_mkv_-_halo_reach.glb?url';
 
 const container = document.getElementById('app') as HTMLDivElement | null;
 if (container == null) throw new Error('Container not found');
