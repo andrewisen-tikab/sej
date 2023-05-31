@@ -1,4 +1,3 @@
-import { ObjectLoader } from 'three';
 import Command, { CommandBase } from './Command';
 import Sej from '../..';
 
@@ -30,7 +29,7 @@ export default class AddTilesetCommand extends Command {
         return this;
     }
 
-    fromJSON(json: AddTilesetCommandBase) {
+    fromJSON(_json: AddTilesetCommandBase) {
         return this;
     }
 }
