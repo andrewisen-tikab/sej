@@ -24,6 +24,7 @@
         "vite-plugin-dts": "^2.3.0"
     },
     "dependencies": {
+        "3d-tiles-renderer": "^0.3.18",
         "camera-controls": "^2.3.5",
         "localforage": "^1.10.0",
         "three": "^0.152.2",
