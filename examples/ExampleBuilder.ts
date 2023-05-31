@@ -16,6 +16,10 @@ export default class ExampleBuilder {
     constructor({ url, type, up }: Params) {
         const container = document.getElementById('app') as HTMLDivElement | null;
         if (container == null) throw new Error('Container not found');
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'loading';
+        loadingDiv.innerHTML = 'Loading: 0%';
+        container.appendChild(loadingDiv);
 
         Sej.addEventListener(SejEventKeys.init, (e) => {
             console.log('Init done!');
@@ -49,6 +53,13 @@ export default class ExampleBuilder {
                     itemsTotal +
                     ' files.',
             );
+
+            const percentage = Math.round((itemsLoaded / itemsTotal) * 100);
+            if (percentage >= 100) {
+                loadingDiv.remove();
+                return;
+            }
+            loadingDiv.innerHTML = `Loading: ${percentage}%`;
         });
 
         Sej.addEventListener(SejEventKeys.onLoad, (e) => {
