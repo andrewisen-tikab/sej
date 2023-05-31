@@ -8,6 +8,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 
+import { TilesRenderer } from '3d-tiles-renderer';
 import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
 import CameraControls from 'camera-controls';
 import localForage from 'localforage';
@@ -21,6 +22,7 @@ import { SejEventKeys, SejEvents } from './core/events/types';
 import _History from './core/history/History';
 import Command from './core/commands/Command';
 import { AddObjectCommand } from './core/commands';
+import AddTilesetCommand from './core/commands/AddTilesetCommand';
 
 /**
  * The seconds passed since the time `.oldTime` was set and sets `.oldTime` to the current time.
@@ -81,6 +83,10 @@ export default class Sej extends EventDispatcher {
      */
     private gui: GUI;
 
+    private tilesRenderer: TilesRenderer | null = null;
+
+    private renderer: WebGPURenderer | null = null;
+
     /**
      * Generate {@link Sej} singleton
      */
@@ -104,6 +110,7 @@ export default class Sej extends EventDispatcher {
      */
     public api = {
         loadModel: this.loadModel,
+        loadTileset: this.loadTileset,
         addObject: this.addObject,
     };
 
@@ -214,14 +221,14 @@ export default class Sej extends EventDispatcher {
 
         this.container.appendChild(this.stats.dom);
 
-        const renderer = new WebGPURenderer();
+        this.renderer = new WebGPURenderer();
 
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setPixelRatio(window.devicePixelRatio);
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
 
-        this.container.appendChild(renderer.domElement);
+        this.container.appendChild(this.renderer.domElement);
 
-        const controls = new OrbitControls(this.perspectiveCamera, renderer.domElement);
+        const controls = new OrbitControls(this.perspectiveCamera, this.renderer.domElement);
         this.perspectiveCamera.position.x = -0.4;
         this.perspectiveCamera.position.y = 3.2;
         this.perspectiveCamera.position.z = 1;
@@ -287,7 +294,11 @@ export default class Sej extends EventDispatcher {
 
             this.stats.update();
 
-            renderer.render(this.scene, this.perspectiveCamera);
+            this.renderer.render(this.scene, this.perspectiveCamera);
+            if (this.tilesRenderer) {
+                this.perspectiveCamera.updateMatrixWorld();
+                this.tilesRenderer.update();
+            }
         };
 
         animate();
@@ -332,6 +343,17 @@ export default class Sej extends EventDispatcher {
                 this.animationMixers.push(mixer);
             }
         });
+    }
+
+    /**
+     * @deprecated WIP
+     */
+    private loadTileset(url: string): void {
+        this.tilesRenderer = new TilesRenderer(url);
+        this.tilesRenderer.setCamera(this.perspectiveCamera);
+        this.tilesRenderer.setResolutionFromRenderer(this.perspectiveCamera, this.renderer);
+
+        this.execute(new AddTilesetCommand(this.tilesRenderer.group));
     }
 
     /**
