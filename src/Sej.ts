@@ -295,6 +295,10 @@ export default class Sej extends EventDispatcher {
             this.stats.update();
 
             this.renderer.render(this.scene, this.perspectiveCamera);
+            if (this.tilesRenderer) {
+                this.perspectiveCamera.updateMatrixWorld();
+                this.tilesRenderer.update();
+            }
         };
 
         animate();
