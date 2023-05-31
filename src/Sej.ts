@@ -6,6 +6,7 @@ import WebGPURenderer from 'three/addons/renderers/webgpu/WebGPURenderer.js';
 import Stats from 'three/addons/libs/stats.module.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 
 import { TilesRenderer } from '3d-tiles-renderer';
@@ -23,6 +24,9 @@ import _History from './core/history/History';
 import Command from './core/commands/Command';
 import { AddObjectCommand } from './core/commands';
 import AddTilesetCommand from './core/commands/AddTilesetCommand';
+
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath('/libs/draco/gltf/');
 
 /**
  * The seconds passed since the time `.oldTime` was set and sets `.oldTime` to the current time.
@@ -352,6 +356,10 @@ export default class Sej extends EventDispatcher {
         this.tilesRenderer = new TilesRenderer(url);
         this.tilesRenderer.setCamera(this.perspectiveCamera);
         this.tilesRenderer.setResolutionFromRenderer(this.perspectiveCamera, this.renderer);
+
+        const loader = new GLTFLoader(this.tilesRenderer.manager);
+        loader.setDRACOLoader(dracoLoader);
+        this.tilesRenderer.manager.addHandler(/\.gltf$/, loader);
 
         this.execute(new AddTilesetCommand(this.tilesRenderer.group));
     }
