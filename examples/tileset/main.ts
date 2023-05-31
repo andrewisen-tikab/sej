@@ -4,4 +4,4 @@ import tileset from '../assets/tilesets/city/tileset.json?url';
 
 import ExampleBuilder from '../ExampleBuilder';
 
-new ExampleBuilder({ url: tileset, type: 'tileset' });
+new ExampleBuilder({ url: tileset, type: 'tileset', up: '+Z' });

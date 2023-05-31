@@ -1,17 +1,19 @@
 import Sej, { SejEventKeys } from '../src';
+import { Up } from '../src/types';
 
 export type ObjectType = 'glb' | 'tileset';
 
 export type Params = {
     url: string;
     type: ObjectType;
+    up: Up;
 };
 
 /**
  * Helper class that builds the example using the {@link Params} object.
  */
 export default class ExampleBuilder {
-    constructor({ url, type }: Params) {
+    constructor({ url, type, up }: Params) {
         const container = document.getElementById('app') as HTMLDivElement | null;
         if (container == null) throw new Error('Container not found');
 
@@ -51,6 +53,27 @@ export default class ExampleBuilder {
 
         Sej.addEventListener(SejEventKeys.onLoad, (e) => {
             console.log('Loading complete!');
+        });
+
+        Sej.addEventListener(SejEventKeys.objectAdded, (e) => {
+            console.log('Object added!');
+            const {
+                data: { object },
+            } = e;
+
+            switch (up) {
+                case '+Y':
+                    break;
+                case '+Z':
+                    object.rotation.x = -Math.PI / 2;
+                    break;
+                case '-Z':
+                    object.rotation.x = Math.PI / 2;
+                    break;
+                default:
+                    break;
+            }
+            object.updateMatrix();
         });
 
         Sej.install();
