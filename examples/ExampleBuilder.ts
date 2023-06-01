@@ -9,6 +9,8 @@ export type Params = {
     up: Up;
 };
 
+const loadingDiv = document.createElement('div');
+
 /**
  * Helper class that builds the example using the {@link Params} object.
  */
@@ -16,7 +18,6 @@ export default class ExampleBuilder {
     constructor({ url, type, up }: Params) {
         const container = document.getElementById('app') as HTMLDivElement | null;
         if (container == null) throw new Error('Container not found');
-        const loadingDiv = document.createElement('div');
         loadingDiv.className = 'loading';
         loadingDiv.innerHTML = 'Loading: 0%';
         container.appendChild(loadingDiv);
@@ -63,6 +64,7 @@ export default class ExampleBuilder {
         });
 
         Sej.addEventListener(SejEventKeys.onLoad, (e) => {
+            loadingDiv.remove();
             console.log('Loading complete!');
         });
 
