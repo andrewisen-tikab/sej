@@ -6,10 +6,14 @@ export interface AddObjectCommandBase extends CommandBase {
     object: THREE.Object3D;
 }
 
+export type AddObjectCommandParams = Partial<
+    Pick<THREE.Object3D, 'position' | 'rotation' | 'scale'>
+>;
+
 export default class AddObjectCommand extends Command {
     object: THREE.Object3D;
 
-    constructor(object: THREE.Object3D) {
+    constructor(object: THREE.Object3D, params?: AddObjectCommandParams) {
         super();
 
         this.type = 'AddObjectCommand';
@@ -17,6 +21,14 @@ export default class AddObjectCommand extends Command {
         this.object = object;
         if (object !== undefined) {
             this.name = `Add Object: ${object.name}`;
+        }
+
+        if (params) {
+            const { position, rotation, scale } = params;
+            if (position) this.object.position.copy(position);
+            if (rotation) this.object.rotation.copy(rotation);
+            if (scale) this.object.scale.copy(scale);
+            this.object.updateMatrix();
         }
     }
 

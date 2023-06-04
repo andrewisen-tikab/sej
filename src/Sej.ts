@@ -24,6 +24,7 @@ import _History from './core/history/History';
 import Command from './core/commands/Command';
 import { AddObjectCommand } from './core/commands';
 import AddTilesetCommand from './core/commands/AddTilesetCommand';
+import { AddObjectCommandParams } from './core/commands/AddObjectCommand';
 
 /**
  * The seconds passed since the time `.oldTime` was set and sets `.oldTime` to the current time.
@@ -379,14 +380,14 @@ export default class Sej extends EventDispatcher {
     /**
      * @deprecated WIP
      */
-    private loadModel(url: string): void {
+    private loadModel(url: string, params?: AddObjectCommandParams): void {
         this.gltfLoader.load(url, (gltf) => {
             // Bypass `sej`'s default behavior of updating the matrix of the object
             gltf.scene.traverse((child) => {
                 child.matrixAutoUpdate = true;
             });
 
-            this.execute(new AddObjectCommand(gltf.scene));
+            this.execute(new AddObjectCommand(gltf.scene, params));
 
             // Play the first animation
             if (gltf.animations.length > 0) {
@@ -401,7 +402,7 @@ export default class Sej extends EventDispatcher {
     /**
      * @deprecated WIP
      */
-    private loadTileset(url: string): void {
+    private loadTileset(url: string, params: AddObjectCommandParams): void {
         this.tilesRenderer = new TilesRenderer(url);
         this.initLoadingManger(this.tilesRenderer.manager);
 
@@ -413,7 +414,7 @@ export default class Sej extends EventDispatcher {
 
         this.tilesRenderer.manager.addHandler(/\.gltf$/, loader);
 
-        this.execute(new AddTilesetCommand(this.tilesRenderer.group));
+        this.execute(new AddTilesetCommand(this.tilesRenderer.group, params));
     }
 
     /**
