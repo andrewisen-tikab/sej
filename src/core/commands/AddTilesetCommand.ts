@@ -1,22 +1,16 @@
-import Command, { CommandBase } from './Command';
+import { CommandBase } from './Command';
 import Sej from '../..';
+import { AddObjectCommand } from '.';
+import { AddObjectCommandParams } from './AddObjectCommand';
 
 export interface AddTilesetCommandBase extends CommandBase {
     object: THREE.Object3D;
 }
 
-export default class AddTilesetCommand extends Command {
-    object: THREE.Object3D;
-
-    constructor(object: THREE.Object3D) {
-        super();
-
+export default class AddTilesetCommand extends AddObjectCommand {
+    constructor(object: THREE.Object3D, params?: AddObjectCommandParams) {
+        super(object, params);
         this.type = 'AddTilesetCommand';
-
-        this.object = object;
-        if (object !== undefined) {
-            this.name = `Add Object: ${object.name}`;
-        }
     }
 
     execute() {

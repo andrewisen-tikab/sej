@@ -1,9 +1,10 @@
 import Sej, { SejEventKeys } from '../src';
+import { AddObjectCommandParams } from '../src/core/commands/AddObjectCommand';
 import { Up } from '../src/types';
 
 export type ObjectType = 'glb' | 'tileset';
 
-export type Params = {
+export type Params = AddObjectCommandParams & {
     url: string;
     type: ObjectType;
     up: Up;
@@ -15,6 +16,11 @@ const loadingDiv = document.createElement('div');
  * Helper class that builds the example using the {@link Params} object.
  */
 export default class ExampleBuilder {
+    /**
+     * Reference to the Sej instance.
+     */
+    public sej = Sej;
+
     constructor({ url, type, up }: Params) {
         const container = document.getElementById('app') as HTMLDivElement | null;
         if (container == null) throw new Error('Container not found');
