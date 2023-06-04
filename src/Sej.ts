@@ -223,6 +223,10 @@ export default class Sej extends EventDispatcher {
         this.scene.add(gridHelper);
     }
 
+    public addDebugBackground() {
+        this.renderer.setClearColor(new THREE.Color(0x263238).convertLinearToSRGB(), 1);
+    }
+
     /**
      * Install dependencies and setup `three`.
      * @returns Returns {@link Sej} singleton
