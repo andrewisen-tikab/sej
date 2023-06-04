@@ -512,4 +512,10 @@ export default class Sej extends EventDispatcher {
         this.history.execute(command, optionalName);
         this.state.commands = command.type;
     }
+
+    public getLoaders() {
+        return {
+            gltfLoader: this.gltfLoader,
+        };
+    }
 }
