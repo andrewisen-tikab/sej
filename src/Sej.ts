@@ -402,7 +402,7 @@ export default class Sej extends EventDispatcher {
     /**
      * @deprecated WIP
      */
-    private loadTileset(url: string, params: AddObjectCommandParams): void {
+    private loadTileset(url: string, params?: AddObjectCommandParams): void {
         this.tilesRenderer = new TilesRenderer(url);
         this.initLoadingManger(this.tilesRenderer.manager);
 
