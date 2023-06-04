@@ -64,6 +64,10 @@ export default class Sej extends EventDispatcher {
      */
     private clock: THREE.Clock;
 
+    /**
+     * The AnimationMixer is a player for animations on a particular object in the scene.
+     * When multiple objects in the scene are animated independently, one AnimationMixer may be used for each object.
+     */
     private animationMixers: THREE.AnimationMixer[];
 
     /**
@@ -84,12 +88,40 @@ export default class Sej extends EventDispatcher {
      */
     private gui: GUI;
 
+    /**
+     * Three.js renderer implementation for the 3D Tiles format.
+     * The renderer supports most of the 3D Tiles spec features with a few exceptions.
+     */
     private tilesRenderer: TilesRenderer | null = null;
 
     private renderer: WebGPURenderer | null = null;
 
+    /**
+     * A loader for geometry compressed with the Draco library.
+     * Draco is an open source library for compressing and decompressing 3D meshes and point clouds.
+     * Compressed geometry can be significantly smaller, at the cost of additional decoding time on the client device.
+     */
     private dracoLoader: DRACOLoader;
 
+    /**
+     * A loader for glTF 2.0 resources.
+     *
+     * glTF (GL Transmission Format) is an open format specification for efficient delivery and loading of 3D content.
+     * Assets may be provided either in JSON (.gltf) or binary (.glb) format.
+     *
+     * External files store textures (.jpg, .png) and additional binary data (.bin).
+     * A glTF asset may deliver one or more scenes,
+     * including
+     * - meshes
+     * - materials
+     * - textures
+     * - skins
+     * - skeletons
+     * - morph targets
+     * - animations
+     * - lights
+     * - cameras
+     */
     private gltfLoader: GLTFLoader;
 
     /**
@@ -151,6 +183,9 @@ export default class Sej extends EventDispatcher {
         this._dev();
     }
 
+    /**
+     * @deprecated WIP
+     */
     private _dev(): Sej {
         document.addEventListener('keydown', (e) => {
             switch (e.key) {
