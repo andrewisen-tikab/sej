@@ -1,4 +1,4 @@
-import Command, { CommandBase } from './Command';
+import { CommandBase } from './Command';
 import Sej from '../..';
 import { AddObjectCommand } from '.';
 import { AddObjectCommandParams } from './AddObjectCommand';
