@@ -214,6 +214,15 @@ export default class Sej extends EventDispatcher {
         return this;
     }
 
+    public addGridHelper() {
+        const gridHelper = new THREE.GridHelper(10, 10, 0xffffff, 0xffffff);
+        const gridMaterial = gridHelper.material as THREE.Material;
+        gridMaterial.opacity = 0.2;
+        gridMaterial.transparent = true;
+        gridHelper.position.y = -2.75;
+        this.scene.add(gridHelper);
+    }
+
     /**
      * Install dependencies and setup `three`.
      * @returns Returns {@link Sej} singleton

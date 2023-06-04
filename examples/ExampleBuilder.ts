@@ -100,6 +100,7 @@ export default class ExampleBuilder {
         // @ts-ignore
         Sej.state.playAnimation = true;
 
+        Sej.addGridHelper();
         switch (type) {
             case 'glb':
                 Sej.api.loadModel(url);
