@@ -215,6 +215,27 @@ export default class Sej extends EventDispatcher {
     }
 
     /**
+     * Add a {@link THREE.GridHelper} to the scene.
+     */
+    public addGridHelper(): Sej {
+        const gridHelper = new THREE.GridHelper(10, 10, 0xffffff, 0xffffff);
+        const gridMaterial = gridHelper.material as THREE.Material;
+        gridMaterial.opacity = 0.2;
+        gridMaterial.transparent = true;
+        gridHelper.position.y = -2.75;
+        this.scene.add(gridHelper);
+        return this;
+    }
+
+    /**
+     * Add a debug background to the scene.
+     */
+    public addDebugBackground(): Sej {
+        this.renderer.setClearColor(new THREE.Color(0x263238).convertLinearToSRGB(), 1);
+        return this;
+    }
+
+    /**
      * Install dependencies and setup `three`.
      * @returns Returns {@link Sej} singleton
      */
@@ -256,7 +277,7 @@ export default class Sej extends EventDispatcher {
     /**
      * @deprecated WIP
      */
-    public init({ container }: InitProps) {
+    public init({ container }: InitProps): Sej {
         if (WebGPU.isAvailable() === false) {
             document.body.appendChild(WebGPU.getErrorMessage());
             throw new Error(ErrorManager.Init.WebGPU);
@@ -316,6 +337,7 @@ export default class Sej extends EventDispatcher {
         animate();
 
         this.dispatchEvent({ type: SejEventKeys.init });
+        return this;
     }
 
     /**
