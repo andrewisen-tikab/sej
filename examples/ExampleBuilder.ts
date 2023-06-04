@@ -5,7 +5,7 @@ import { Up } from '../src/types';
 export type ObjectType = 'glb' | 'tileset';
 
 export type Params = AddObjectCommandParams & {
-    url: string;
+    url?: string;
     type: ObjectType;
     up: Up;
 };
@@ -21,7 +21,7 @@ export default class ExampleBuilder {
      */
     public sej = Sej;
 
-    constructor({ url, type, up }: Params) {
+    constructor({ url, type, up, ...rest }: Params) {
         const container = document.getElementById('app') as HTMLDivElement | null;
         if (container == null) throw new Error('Container not found');
         loadingDiv.className = 'loading';
@@ -99,15 +99,17 @@ export default class ExampleBuilder {
         Sej.state.playAnimation = true;
         Sej.install().init({ container }).addGridHelper().addDebugBackground();
 
-        switch (type) {
-            case 'glb':
-                Sej.api.loadModel(url);
-                break;
-            case 'tileset':
-                Sej.api.loadTileset(url);
-                break;
-            default:
-                break;
+        if (url) {
+            switch (type) {
+                case 'glb':
+                    Sej.api.loadModel(url, rest);
+                    break;
+                case 'tileset':
+                    Sej.api.loadTileset(url, rest);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
