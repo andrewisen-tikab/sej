@@ -95,13 +95,9 @@ export default class ExampleBuilder {
             object.updateMatrix();
         });
 
-        Sej.install();
-        Sej.init({ container });
         // @ts-ignore
         Sej.state.playAnimation = true;
-
-        Sej.addGridHelper();
-        Sej.addDebugBackground();
+        Sej.install().init({ container }).addGridHelper().addDebugBackground();
 
         switch (type) {
             case 'glb':
