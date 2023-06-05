@@ -20,3 +20,11 @@ Sej is still a work in progress. It is not ready for production use.
 [![PR Checker](https://github.com/andrewisen-tikab/sej/actions/workflows/pr.yml/badge.svg)](https://github.com/andrewisen-tikab/sej/actions/workflows/pr.yml)
 
 [![Release](https://github.com/andrewisen-tikab/sej/actions/workflows/release.yml/badge.svg)](https://github.com/andrewisen-tikab/sej/actions/workflows/release.yml)
+
+## Models used
+
+["Spartan Armour MKV - Halo Reach" by McCarthy3D](https://sketchfab.com/3d-models/spartan-armour-mkv-halo-reach-57070b2fd9ff472c8988e76d8c5cbe66)
+
+["Simple Metal Fence" by Blender3D](https://sketchfab.com/3d-models/simple-metal-fence-9450c03e6c074982b9f86cd73866b461)
+
+["City 1" by ithappy](https://sketchfab.com/3d-models/city-1-55b5426840fd45f19f19efdb4293f986)

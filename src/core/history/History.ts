@@ -28,7 +28,7 @@ export default class History {
         command.execute();
         command.inMemory = true;
 
-        command.json = command.toJSON();
+        // command.json = command.toJSON();
 
         this.lastCmdTime = Date.now();
 
