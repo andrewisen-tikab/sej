@@ -10,8 +10,10 @@ The goal of `Sej` is to be both powerful and flexible.
 
 Requires a browser with WebGPU support.
 
-[https://andrewisen-tikab.github.io/sej/examples/simple/](https://andrewisen-tikab.github.io/sej/examples/simple/)
-[https://andrewisen-tikab.github.io/sej/examples/tileset/](https://andrewisen-tikab.github.io/sej/examples/tileset/)
+-   [https://andrewisen-tikab.github.io/sej/examples/simple/](https://andrewisen-tikab.github.io/sej/examples/simple/)
+-   [https://andrewisen-tikab.github.io/sej/examples/tileset/](https://andrewisen-tikab.github.io/sej/examples/tileset/)
+-   [https://andrewisen-tikab.github.io/sej/examples/glb-copies/](https://andrewisen-tikab.github.io/sej/examples/glb-copies/)
+-   [https://andrewisen-tikab.github.io/sej/examples/memory-test/](https://andrewisen-tikab.github.io/sej/examples/memory-test/)
 
 ## WIP
 
