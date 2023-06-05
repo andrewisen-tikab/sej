@@ -16,6 +16,6 @@ example.sej.getLoaders().gltfLoader.load(glb, (gltf) => {
         clone.scale.copy(scale);
         clone.position.set(0, 0, i * 2);
         clone.updateMatrix();
-        example.sej.api.addObject(clone);
+        example.sej.api.execute(new AddObjectCommand(clone));
     }
 });

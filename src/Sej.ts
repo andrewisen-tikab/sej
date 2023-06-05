@@ -147,6 +147,7 @@ export default class Sej extends EventDispatcher {
      * Use this to access {@link Sej}'s methods.
      */
     public api = {
+        execute: this.execute,
         loadModel: this.loadModel,
         loadTileset: this.loadTileset,
         addObject: this.addObject,
