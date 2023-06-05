@@ -1,7 +1,7 @@
 import '../assets/css/styles.css';
-// @ts-ignore
-import tileset from '../assets/tilesets/city/tileset.json?url';
 
 import ExampleBuilder from '../ExampleBuilder';
+
+const tileset = '../../assets/tilesets/city/tileset.json';
 
 new ExampleBuilder({ url: tileset, type: 'tileset', up: '+Z' });
