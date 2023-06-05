@@ -310,7 +310,7 @@ export default class Sej extends EventDispatcher {
 
         this.initLoadingManger(this.loadingManager);
 
-        this.dracoLoader.setDecoderPath('/libs/draco/gltf/');
+        this.dracoLoader.setDecoderPath('../../libs/draco/gltf/');
 
         /**
          * Animation loop
