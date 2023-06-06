@@ -4,7 +4,7 @@
         "type": "git",
         "url": "git+https://github.com/andrewisen-tikab/sej"
     },
-    "version": "0.0.15",
+    "version": "0.0.16",
     "type": "module",
     "module": "src/index.ts",
     "main": "dist/sej.js",
