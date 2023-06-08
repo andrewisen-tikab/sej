@@ -223,7 +223,8 @@ export default class Sej extends EventDispatcher {
         const gridMaterial = gridHelper.material as THREE.Material;
         gridMaterial.opacity = 0.2;
         gridMaterial.transparent = true;
-        gridHelper.position.y = -2.75;
+        gridHelper.updateMatrix();
+
         this.scene.add(gridHelper);
         return this;
     }
@@ -296,16 +297,19 @@ export default class Sej extends EventDispatcher {
         this.container.appendChild(this.renderer.domElement);
 
         const controls = new OrbitControls(this.perspectiveCamera, this.renderer.domElement);
+        const y = 3;
         this.perspectiveCamera.position.x = -0.4;
-        this.perspectiveCamera.position.y = 3.2;
-        this.perspectiveCamera.position.z = 1;
-        controls.target.set(0, 3.5 - 1, 0);
+        this.perspectiveCamera.position.y = y;
+        this.perspectiveCamera.position.z = 2;
+        this.perspectiveCamera.updateMatrix();
+        controls.target.set(0, y - 1, 0);
         controls.update();
 
         const light1 = new THREE.AmbientLight();
         this.perspectiveCamera.add(light1);
         const light2 = new THREE.DirectionalLight();
         light2.position.set(5, 10, 7.5);
+        light2.updateMatrix();
         this.perspectiveCamera.add(light2);
 
         this.initLoadingManger(this.loadingManager);
