@@ -8,6 +8,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
+import { CSM } from 'three/addons/csm/CSM.js';
 
 import { TilesRenderer } from '3d-tiles-renderer';
 import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
@@ -124,6 +125,8 @@ export default class Sej extends EventDispatcher {
      * - cameras
      */
     private gltfLoader: GLTFLoader;
+    lightDirection: THREE.Vector3;
+    csm: CSM;
 
     /**
      * Generate {@link Sej} singleton
@@ -139,6 +142,13 @@ export default class Sej extends EventDispatcher {
         hasInstalled: false,
         playAnimation: false,
         commands: '',
+        lightX: -1,
+        lightY: -1,
+        lightZ: -1,
+        margin: 100,
+        lightFar: 5000,
+        lightNear: 1,
+        shadowBias: 0,
     };
 
     /**
@@ -179,8 +189,76 @@ export default class Sej extends EventDispatcher {
         this.gltfLoader = new GLTFLoader(this.loadingManager);
         this.loadingManager.addHandler(/\.gltf$/, this.gltfLoader);
 
+        this.lightDirection = new THREE.Vector3(-1, -1, -1).normalize();
+
+        this.csm = new CSM({
+            lightDirection: this.lightDirection,
+            camera: this.perspectiveCamera,
+            parent: this.scene,
+            margin: 100,
+            lightFar: 5000,
+            lightNear: 1,
+        });
+
         this.gui = new GUI();
         this.gui.add(this.state, 'commands').name('Latest command').listen();
+
+        this.gui
+            .add(this.state, 'lightX', -1, 1)
+            .name('light direction x')
+            .onChange((value) => {
+                this.csm.lightDirection.x = value;
+            });
+
+        this.gui
+            .add(this.state, 'lightY', -1, 1)
+            .name('light direction y')
+            .onChange((value) => {
+                this.csm.lightDirection.y = value;
+            });
+
+        this.gui
+            .add(this.state, 'lightZ', -1, 1)
+            .name('light direction z')
+            .onChange((value) => {
+                this.csm.lightDirection.z = value;
+            });
+
+        this.gui
+            .add(this.state, 'margin', 0, 200)
+            .name('light margin')
+            .onChange((value) => {
+                this.csm.lightMargin = value;
+            });
+
+        this.gui
+            .add(this.state, 'lightNear', 1, 10000)
+            .name('light near')
+            .onChange((value) => {
+                for (var i = 0; i < this.csm.lights.length; i++) {
+                    this.csm.lights[i].shadow.camera.near = value;
+                    this.csm.lights[i].shadow.camera.updateProjectionMatrix();
+                }
+            });
+
+        this.gui
+            .add(this.state, 'lightFar', 1, 10000)
+            .name('light far')
+            .onChange((value) => {
+                for (var i = 0; i < this.csm.lights.length; i++) {
+                    this.csm.lights[i].shadow.camera.far = value;
+                    this.csm.lights[i].shadow.camera.updateProjectionMatrix();
+                }
+            });
+
+        this.gui
+            .add(this.state, 'shadowBias', -0.000005, 0.000005)
+            .name('shadow bias')
+            .step(0.000001)
+            .onChange((value) => {
+                this.csm.shadowBias = value;
+                this.csm.updateFrustums();
+            });
 
         this._dev();
     }
@@ -223,7 +301,16 @@ export default class Sej extends EventDispatcher {
         const gridMaterial = gridHelper.material as THREE.Material;
         gridMaterial.opacity = 0.2;
         gridMaterial.transparent = true;
-        gridHelper.position.y = -2.75;
+
+        const geometry = new THREE.PlaneGeometry(2000, 2000);
+        geometry.rotateX(-Math.PI / 2);
+
+        const material = new THREE.ShadowMaterial();
+        material.opacity = 0.2;
+
+        const plane = new THREE.Mesh(geometry, material);
+        plane.receiveShadow = true;
+        this.scene.add(plane);
         this.scene.add(gridHelper);
         return this;
     }
@@ -242,6 +329,7 @@ export default class Sej extends EventDispatcher {
      */
     public install(): Sej {
         if (this.state.hasInstalled) return this;
+        return this;
         THREE.Object3D.DEFAULT_MATRIX_AUTO_UPDATE = false;
         CameraControls.install({ THREE });
         THREE.Cache.enabled = true;
@@ -288,7 +376,9 @@ export default class Sej extends EventDispatcher {
 
         this.container.appendChild(this.stats.dom);
 
-        this.renderer = new WebGPURenderer();
+        // this.renderer = new WebGPURenderer();
+        this.renderer = new THREE.WebGLRenderer();
+        this.renderer.shadowMap.enabled = true;
 
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -296,17 +386,15 @@ export default class Sej extends EventDispatcher {
         this.container.appendChild(this.renderer.domElement);
 
         const controls = new OrbitControls(this.perspectiveCamera, this.renderer.domElement);
+        const y = 2;
         this.perspectiveCamera.position.x = -0.4;
-        this.perspectiveCamera.position.y = 3.2;
+        this.perspectiveCamera.position.y = y;
         this.perspectiveCamera.position.z = 1;
-        controls.target.set(0, 3.5 - 1, 0);
+        controls.target.set(0, y - 1, 0);
         controls.update();
 
         const light1 = new THREE.AmbientLight();
         this.perspectiveCamera.add(light1);
-        const light2 = new THREE.DirectionalLight();
-        light2.position.set(5, 10, 7.5);
-        this.perspectiveCamera.add(light2);
 
         this.initLoadingManger(this.loadingManager);
 
@@ -328,11 +416,14 @@ export default class Sej extends EventDispatcher {
 
             this.stats.update();
 
-            this.renderer.render(this.scene, this.perspectiveCamera);
             if (this.tilesRenderer) {
                 this.perspectiveCamera.updateMatrixWorld();
                 this.tilesRenderer.update();
             }
+
+            this.csm.update(this.perspectiveCamera.matrix);
+
+            this.renderer.render(this.scene, this.perspectiveCamera);
         };
 
         animate();
@@ -408,6 +499,11 @@ export default class Sej extends EventDispatcher {
             // Bypass `sej`'s default behavior of updating the matrix of the object
             gltf.scene.traverse((child) => {
                 child.matrixAutoUpdate = true;
+                if (child.material) {
+                    this.csm.setupMaterial(child.material);
+                    child.castShadow = true;
+                    // child.receiveShadow = true;
+                }
             });
 
             this.execute(new AddObjectCommand(gltf.scene, params));
@@ -436,6 +532,17 @@ export default class Sej extends EventDispatcher {
         loader.setDRACOLoader(this.dracoLoader);
 
         this.tilesRenderer.manager.addHandler(/\.gltf$/, loader);
+
+        this.tilesRenderer.onLoadModel = (gltf) => {
+            gltf.traverse((child) => {
+                child.matrixAutoUpdate = true;
+                if (child.material) {
+                    this.csm.setupMaterial(child.material);
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
+        };
 
         this.execute(new AddTilesetCommand(this.tilesRenderer.group, params));
     }
