@@ -97,7 +97,9 @@ export default class ExampleBuilder {
 
         // @ts-ignore
         Sej.state.playAnimation = true;
-        Sej.install().init({ container }).addGridHelper().addDebugBackground();
+        Sej.install().init({ container });
+        Sej.managers.orientation.addGridHelper();
+        Sej.managers.dev.addDebugBackground();
 
         if (url) {
             switch (type) {

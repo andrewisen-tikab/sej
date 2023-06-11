@@ -12,7 +12,6 @@ import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 import { TilesRenderer } from '3d-tiles-renderer';
 import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
 import CameraControls from 'camera-controls';
-import localForage from 'localforage';
 
 import { InitProps } from './types';
 import ErrorManager from './utils/ErrorManager';
@@ -25,6 +24,9 @@ import Command from './core/commands/Command';
 import { AddObjectCommand } from './core/commands';
 import AddTilesetCommand from './core/commands/AddTilesetCommand';
 import { AddObjectCommandParams } from './core/commands/AddObjectCommand';
+import DEVManager from './managers/DEVManager';
+import OrientationManager from './managers/OrientationManager';
+import LoadingManager from './managers/LoadingManger';
 
 /**
  * The seconds passed since the time `.oldTime` was set and sets `.oldTime` to the current time.
@@ -151,6 +153,14 @@ export default class Sej extends EventDispatcher {
         loadModel: this.loadModel,
         loadTileset: this.loadTileset,
         addObject: this.addObject,
+        fromJSON: this.fromJSON,
+        toJSON: this.toJSON,
+    };
+
+    public managers = {
+        dev: new DEVManager(),
+        orientation: new OrientationManager(),
+        loading: new LoadingManager(),
     };
 
     constructor() {
@@ -182,59 +192,9 @@ export default class Sej extends EventDispatcher {
         this.gui = new GUI();
         this.gui.add(this.state, 'commands').name('Latest command').listen();
 
-        this._dev();
-    }
-
-    /**
-     * @deprecated WIP
-     */
-    private _dev(): Sej {
-        document.addEventListener('keydown', (e) => {
-            switch (e.key) {
-                case 'ä':
-                    console.log('Saving scene...');
-                    localForage.setItem('sej', JSON.stringify(this.toJSON()));
-                    break;
-                case 'ö':
-                    console.log('Loading scene...');
-                    localForage
-                        .getItem('sej')
-                        .then((value) => {
-                            this.fromJSON(JSON.parse(value as string));
-                            console.log('Scene loaded.');
-                        })
-                        .catch((error: any) => {
-                            console.log(error);
-                        });
-                    break;
-                default:
-                    break;
-            }
+        Object.values(this.managers).forEach((value) => {
+            value.init();
         });
-
-        return this;
-    }
-
-    /**
-     * Add a {@link THREE.GridHelper} to the scene.
-     */
-    public addGridHelper(): Sej {
-        const gridHelper = new THREE.GridHelper(10, 10, 0xffffff, 0xffffff);
-        const gridMaterial = gridHelper.material as THREE.Material;
-        gridMaterial.opacity = 0.2;
-        gridMaterial.transparent = true;
-        gridHelper.updateMatrix();
-
-        this.scene.add(gridHelper);
-        return this;
-    }
-
-    /**
-     * Add a debug background to the scene.
-     */
-    public addDebugBackground(): Sej {
-        this.renderer.setClearColor(new THREE.Color(0x263238).convertLinearToSRGB(), 1);
-        return this;
     }
 
     /**
@@ -312,7 +272,7 @@ export default class Sej extends EventDispatcher {
         light2.updateMatrix();
         this.perspectiveCamera.add(light2);
 
-        this.initLoadingManger(this.loadingManager);
+        this.managers.loading.initLoadingManger(this.loadingManager);
 
         this.dracoLoader.setDecoderPath('../../libs/draco/gltf/');
 
@@ -343,49 +303,6 @@ export default class Sej extends EventDispatcher {
 
         this.dispatchEvent({ type: SejEventKeys.init });
         return this;
-    }
-
-    /**
-     * Add event listeners.
-     * @param loadingManager {@link THREE.LoadingManager}
-     */
-    private initLoadingManger(loadingManager: THREE.LoadingManager): void {
-        loadingManager.onStart = (url, itemsLoaded, itemsTotal) => {
-            this.dispatchEvent({
-                type: SejEventKeys.onStart,
-                data: {
-                    url,
-                    itemsLoaded,
-                    itemsTotal,
-                },
-            });
-        };
-
-        loadingManager.onLoad = () => {
-            this.dispatchEvent({
-                type: SejEventKeys.onLoad,
-            });
-        };
-
-        loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
-            this.dispatchEvent({
-                type: SejEventKeys.onProgress,
-                data: {
-                    url,
-                    itemsLoaded,
-                    itemsTotal,
-                },
-            });
-        };
-
-        loadingManager.onError = (url) => {
-            this.dispatchEvent({
-                type: SejEventKeys.onError,
-                data: {
-                    url,
-                },
-            });
-        };
     }
 
     /**
@@ -431,7 +348,7 @@ export default class Sej extends EventDispatcher {
      */
     private loadTileset(url: string, params?: AddObjectCommandParams): void {
         this.tilesRenderer = new TilesRenderer(url);
-        this.initLoadingManger(this.tilesRenderer.manager);
+        this.managers.loading.initLoadingManger(this.tilesRenderer.manager);
 
         this.tilesRenderer.setCamera(this.perspectiveCamera);
         this.tilesRenderer.setResolutionFromRenderer(this.perspectiveCamera, this.renderer);
@@ -522,5 +439,9 @@ export default class Sej extends EventDispatcher {
         return {
             gltfLoader: this.gltfLoader,
         };
+    }
+
+    public getRenderer() {
+        return this.renderer;
     }
 }
