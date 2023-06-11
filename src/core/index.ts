@@ -40,6 +40,18 @@ let _animationMixer: /* @__PURE__ */ THREE.AnimationMixer;
  * ```
  */
 export default class SejCore extends EventDispatcher {
+    /**
+     * {@link SejCore} singleton
+     */
+    private static _instance: SejCore;
+
+    /**
+     * Generate {@link SejCore} singleton
+     */
+    public static get Instance() {
+        return this._instance || (this._instance = new this());
+    }
+
     private container: HTMLDivElement | null = null;
 
     /**
@@ -138,6 +150,9 @@ export default class SejCore extends EventDispatcher {
      * Use this to access {@link Sej}'s methods.
      */
     public api = {
+        addEventListener: this.addEventListener,
+        removeEventListener: this.removeEventListener,
+        dispatchEvent: this.dispatchEvent,
         execute: this.execute,
         loadModel: this.loadModel,
         loadTileset: this.loadTileset,
@@ -323,7 +338,7 @@ export default class SejCore extends EventDispatcher {
     /**
      * @deprecated WIP
      */
-    protected loadTileset(url: string, params?: AddObjectCommandParams): void {
+    private loadTileset(url: string, params?: AddObjectCommandParams): void {
         this.tilesRenderer = new TilesRenderer(url);
 
         this.tilesRenderer.setCamera(this.perspectiveCamera);

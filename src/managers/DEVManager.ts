@@ -1,4 +1,4 @@
-import Sej from '..';
+import Sej, { SejCore } from '..';
 import Manager from './manager';
 import localForage from 'localforage';
 import * as THREE from 'three';
@@ -36,7 +36,7 @@ export default class DEVManager extends Manager {
      * Add a debug background to the scene.
      */
     public addDebugBackground(): DEVManager {
-        Sej.getRenderer().setClearColor(new THREE.Color(0x263238).convertLinearToSRGB(), 1);
+        SejCore.getRenderer().setClearColor(new THREE.Color(0x263238).convertLinearToSRGB(), 1);
         return this;
     }
 }

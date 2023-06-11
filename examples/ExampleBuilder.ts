@@ -1,4 +1,4 @@
-import Sej, { SejEventKeys } from '../src';
+import { SejEngine, SejEventKeys, Manager } from '../src';
 import { AddObjectCommandParams } from '../src/core/commands/AddObjectCommand';
 import { Up } from '../src/types';
 
@@ -11,6 +11,34 @@ export type Params = AddObjectCommandParams & {
 };
 
 const loadingDiv = document.createElement('div');
+
+/**
+ * Custom manager example.
+ */
+class CustomManager extends Manager {
+    public init(): void {
+        console.log('CustomManager init');
+    }
+}
+/**
+ * New managers.
+ */
+const myMangers = { custom: new CustomManager() } as const;
+
+/**
+ * Extends the {@link SejEngine} class to add custom managers.
+ */
+class _Sej extends SejEngine {
+    readonly managers: SejEngine['managers'] & typeof myMangers = {
+        ...this.managers,
+        ...myMangers,
+    };
+}
+
+/**
+ * Custom Sej Engine object.
+ */
+const Sej = new _Sej();
 
 /**
  * Helper class that builds the example using the {@link Params} object.
@@ -28,11 +56,11 @@ export default class ExampleBuilder {
         loadingDiv.innerHTML = 'Loading: 0%';
         container.appendChild(loadingDiv);
 
-        Sej.addEventListener(SejEventKeys.init, (e) => {
+        Sej.api.addEventListener(SejEventKeys.init, (e) => {
             console.log('Init done!');
         });
 
-        Sej.addEventListener(SejEventKeys.onStart, (e) => {
+        Sej.api.addEventListener(SejEventKeys.onStart, (e) => {
             const {
                 data: { url, itemsLoaded, itemsTotal },
             } = e;
@@ -47,7 +75,7 @@ export default class ExampleBuilder {
             );
         });
 
-        Sej.addEventListener(SejEventKeys.onProgress, (e) => {
+        Sej.api.addEventListener(SejEventKeys.onProgress, (e) => {
             const {
                 data: { url, itemsLoaded, itemsTotal },
             } = e;
@@ -69,12 +97,12 @@ export default class ExampleBuilder {
             loadingDiv.innerHTML = `Loading: ${percentage}%`;
         });
 
-        Sej.addEventListener(SejEventKeys.onLoad, (e) => {
+        Sej.api.addEventListener(SejEventKeys.onLoad, (e) => {
             loadingDiv.remove();
             console.log('Loading complete!');
         });
 
-        Sej.addEventListener(SejEventKeys.objectAdded, (e) => {
+        Sej.api.addEventListener(SejEventKeys.objectAdded, (e) => {
             console.log('Object added!');
             const {
                 data: { object },
@@ -96,7 +124,7 @@ export default class ExampleBuilder {
         });
 
         // @ts-ignore
-        Sej.state.playAnimation = true;
+        // Sej.state.playAnimation = true;
         Sej.install().init({ container });
         Sej.managers.orientation.addGridHelper();
         Sej.managers.dev.addDebugBackground();

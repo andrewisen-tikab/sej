@@ -1,4 +1,4 @@
-import SejCore from './core';
+import { SejCore } from '.';
 import { AddObjectCommandParams } from './core/commands/AddObjectCommand';
 import DEVManager from './managers/DEVManager';
 import LoadingManager from './managers/LoadingManger';
@@ -10,8 +10,8 @@ import { InitProps } from './types';
  * Use this instance as a starting off point.
  * Extend the functionality by adding your own managers.
  */
-export default class SejEngine extends SejCore {
-    /**
+export default class SejEngine {
+    /*
      * {@link SejEngine} singleton
      */
     private static _instance: SejEngine;
@@ -23,24 +23,52 @@ export default class SejEngine extends SejCore {
         return this._instance || (this._instance = new this());
     }
 
-    public managers = {
+    public readonly managers = {
         dev: new DEVManager(),
         orientation: new OrientationManager(),
         loading: new LoadingManager(),
     };
 
-    public init(props: InitProps) {
-        super.init(props);
-        Object.values(this.managers).forEach((value) => {
-            value.init();
-        });
-        this.managers.loading.initLoadingManger(this.getLoaders().loadingManager);
+    /**
+     * Reference to the {@link SejCore} API.
+     */
+    public api = SejCore.api;
+
+    /**
+     * Reference to the {@link SejCore}.
+     */
+    public core = SejCore;
+
+    /**
+     * Install dependencies and setup `three`.
+     * @returns Returns {@link SejEngine} singleton
+     */
+    public install(): SejEngine {
+        SejCore.install();
         return this;
     }
 
+    /**
+     * Initialize {@link SejEngine}.
+     */
+    public init(props: InitProps) {
+        SejCore.init(props);
+
+        Object.values(this.managers).forEach((value) => {
+            value.init();
+        });
+        this.managers.loading.initLoadingManger(SejCore.getLoaders().loadingManager);
+        return this;
+    }
+
+    /**
+     *
+     * @param url
+     * @param params
+     */
     public loadTileset(url: string, params?: AddObjectCommandParams): void {
-        super.loadTileset(url, params);
-        const { tilesRenderer } = this.getLoaders();
+        SejCore.api.loadTileset(url, params);
+        const { tilesRenderer } = SejCore.getLoaders();
         if (tilesRenderer?.manager) this.managers.loading.initLoadingManger(tilesRenderer.manager);
     }
 }

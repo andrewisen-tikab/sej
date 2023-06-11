@@ -1,4 +1,4 @@
-import Sej, { SejEventKeys } from '..';
+import { SejCore, SejEventKeys } from '..';
 import Manager from './manager';
 import * as THREE from 'three';
 
@@ -15,7 +15,7 @@ export default class LoadingManager extends Manager {
      */
     public initLoadingManger(loadingManager: THREE.LoadingManager): void {
         loadingManager.onStart = (url, itemsLoaded, itemsTotal) => {
-            Sej.dispatchEvent({
+            SejCore.dispatchEvent({
                 type: SejEventKeys.onStart,
                 data: {
                     url,
@@ -26,13 +26,13 @@ export default class LoadingManager extends Manager {
         };
 
         loadingManager.onLoad = () => {
-            Sej.dispatchEvent({
+            SejCore.dispatchEvent({
                 type: SejEventKeys.onLoad,
             });
         };
 
         loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
-            Sej.dispatchEvent({
+            SejCore.dispatchEvent({
                 type: SejEventKeys.onProgress,
                 data: {
                     url,
@@ -43,7 +43,7 @@ export default class LoadingManager extends Manager {
         };
 
         loadingManager.onError = (url) => {
-            Sej.dispatchEvent({
+            SejCore.dispatchEvent({
                 type: SejEventKeys.onError,
                 data: {
                     url,

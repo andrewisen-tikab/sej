@@ -1,4 +1,4 @@
-import Sej from '..';
+import { SejCore } from '..';
 import Manager from './manager';
 import * as THREE from 'three';
 
@@ -17,7 +17,7 @@ export default class OrientationManager extends Manager {
         gridMaterial.transparent = true;
         gridHelper.updateMatrix();
 
-        Sej.api.addObject(gridHelper);
+        SejCore.api.addObject(gridHelper);
         return this;
     }
 }
