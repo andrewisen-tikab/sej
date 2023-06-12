@@ -1,6 +1,7 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
+import topLevelAwait from 'vite-plugin-top-level-await';
 
 export default defineConfig({
     esbuild: {
@@ -22,5 +23,13 @@ export default defineConfig({
             external: ['three'],
         },
     },
-    plugins: [dts()],
+    plugins: [
+        topLevelAwait({
+            // The export name of top-level await promise for each chunk module
+            promiseExportName: '__tla',
+            // The function to generate import names of top-level await promise in each chunk module
+            promiseImportName: (i) => `__tla_${i}`,
+        }),
+        dts(),
+    ],
 });
