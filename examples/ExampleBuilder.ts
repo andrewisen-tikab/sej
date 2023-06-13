@@ -2,12 +2,13 @@ import { SejEngine, SejEventKeys, Manager } from '../src';
 import { AddObjectCommandParams } from '../src/core/commands/AddObjectCommand';
 import { Up } from '../src/types';
 
-export type ObjectType = 'glb' | 'tileset';
+export type ObjectType = 'glb' | 'tileset' | 'google-tileset';
 
 export type Params = AddObjectCommandParams & {
     url?: string;
     type: ObjectType;
     up: Up;
+    api?: string;
 };
 
 const loadingDiv = document.createElement('div');
@@ -136,6 +137,14 @@ export default class ExampleBuilder {
                     break;
                 case 'tileset':
                     Sej.api.loadTileset(url, rest);
+                    break;
+                case 'google-tileset':
+                    const { api } = rest;
+                    if (api == null) throw new Error('Google API key not found');
+
+                    Sej.api.loadGoogleTileset(api);
+                    loadingDiv.remove();
+
                     break;
                 default:
                     break;
