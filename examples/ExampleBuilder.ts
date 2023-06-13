@@ -124,7 +124,7 @@ export default class ExampleBuilder {
         });
 
         // @ts-ignore
-        // Sej.state.playAnimation = true;
+        Sej.core.state.playAnimation = true;
         Sej.install().init({ container });
         Sej.managers.orientation.addGridHelper();
         Sej.managers.dev.addDebugBackground();
