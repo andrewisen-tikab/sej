@@ -10,7 +10,7 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 
 import { default as _History } from './history/History';
-import { TilesRenderer } from '3d-tiles-renderer';
+import { GoogleTilesRenderer, TilesRenderer } from '3d-tiles-renderer';
 import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
 import CameraControls from 'camera-controls';
 import { Listener } from 'camera-controls/dist/EventDispatcher';
@@ -156,6 +156,7 @@ export default class SejCore extends EventDispatcher {
         execute: this.execute,
         loadModel: this.loadModel,
         loadTileset: this.loadTileset,
+        loadGoogleTileset: this.loadGoogleTileset,
         addObject: this.addObject,
         fromJSON: this.fromJSON,
         toJSON: this.toJSON,
@@ -350,6 +351,30 @@ export default class SejCore extends EventDispatcher {
         this.tilesRenderer.manager.addHandler(/\.gltf$/, loader);
 
         this.execute(new AddTilesetCommand(this.tilesRenderer.group, params));
+    }
+
+    /**
+     * @deprecated WIP
+     */
+    private loadGoogleTileset(api: string): void {
+        THREE.Object3D.DEFAULT_MATRIX_AUTO_UPDATE = true;
+
+        this.tilesRenderer = new GoogleTilesRenderer(api);
+        // @ts-ignore
+        this.tilesRenderer.setLatLonToYUp(
+            59.3167 * THREE.MathUtils.DEG2RAD,
+            18.0716 * THREE.MathUtils.DEG2RAD,
+        ); // Stockholm, Sweden.
+
+        this.tilesRenderer.setCamera(this.perspectiveCamera);
+        this.tilesRenderer.setResolutionFromRenderer(this.perspectiveCamera, this.renderer);
+        const loader = new GLTFLoader(this.tilesRenderer.manager);
+        loader.setDRACOLoader(this.dracoLoader);
+        this.tilesRenderer.manager.addHandler(/\.gltf$/, loader);
+        const parent = new THREE.Group();
+        parent.add(this.tilesRenderer.group);
+        parent.scale.set(0.1, 0.1, 0.1);
+        this.scene.add(parent);
     }
 
     /**

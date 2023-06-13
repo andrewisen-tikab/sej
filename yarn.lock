@@ -5,12 +5,12 @@ __metadata:
   version: 6
   cacheKey: 8
 
-"3d-tiles-renderer@npm:^0.3.18":
-  version: 0.3.18
-  resolution: "3d-tiles-renderer@npm:0.3.18"
+"3d-tiles-renderer@npm:^0.3.19":
+  version: 0.3.19
+  resolution: "3d-tiles-renderer@npm:0.3.19"
   peerDependencies:
     three: ">=0.123.0"
-  checksum: bcbe63904af991e98b61ae76682813796f353107b377f788ce3a7903c216cdf3ff1b51bb0e01777cdd4bb1f7c93d92467405422baa93c7bee5727d9c6286c61c
+  checksum: c1122f4aa9c6269f2819a546a821ee2b3930187877dd865f2dcfee0932167eee2fe2d104eec1a88b56373edd3719d5a919872495e3883f090940530525ba5501
   languageName: node
   linkType: hard
 
@@ -1836,7 +1836,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "sej@workspace:."
   dependencies:
-    3d-tiles-renderer: ^0.3.18
+    3d-tiles-renderer: ^0.3.19
     "@types/three": ^0.152.1
     camera-controls: ^2.3.5
     localforage: ^1.10.0

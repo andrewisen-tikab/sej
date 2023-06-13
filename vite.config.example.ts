@@ -1,7 +1,7 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
-const EXAMPLES = ['simple', 'tileset', 'glb-copies', 'memory-test'] as const;
+const EXAMPLES = ['simple', 'tileset', 'glb-copies', 'memory-test', 'google-tileset'] as const;
 
 const input: { [key: string]: resolve } = {};
 
