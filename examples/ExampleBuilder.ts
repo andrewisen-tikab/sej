@@ -9,6 +9,7 @@ export type Params = AddObjectCommandParams & {
     type: ObjectType;
     up: Up;
     api?: string;
+    useWebGL?: boolean;
 };
 
 const loadingDiv = document.createElement('div');
@@ -50,7 +51,7 @@ export default class ExampleBuilder {
      */
     public sej = Sej;
 
-    constructor({ url, type, up, ...rest }: Params) {
+    constructor({ url, type, up, useWebGL, ...rest }: Params) {
         const container = document.getElementById('app') as HTMLDivElement | null;
         if (container == null) throw new Error('Container not found');
         loadingDiv.className = 'loading';
@@ -126,7 +127,7 @@ export default class ExampleBuilder {
 
         // @ts-ignore
         Sej.core.state.playAnimation = true;
-        Sej.install().init({ container });
+        Sej.install().init({ container, useWebGL });
         Sej.managers.orientation.addGridHelper();
         Sej.managers.dev.addDebugBackground();
 
