@@ -234,10 +234,15 @@ export default class SejCore extends EventDispatcher {
     /**
      * Initialize {@link Sej}.
      */
-    public init({ container }: InitProps): SejCore {
+    public init({ container, webGLFallback = true }: InitProps): SejCore {
+        let replaceRenderer = false;
         if (WebGPU.isAvailable() === false) {
-            document.body.appendChild(WebGPU.getErrorMessage());
-            throw new Error(ErrorManager.Init.WebGPU);
+            if (webGLFallback) {
+                replaceRenderer = true;
+            } else {
+                document.body.appendChild(WebGPU.getErrorMessage());
+                throw new Error(ErrorManager.Init.WebGPU);
+            }
         }
         if (container == null) throw new Error(ErrorManager.Init.Container);
         this.container = container;
@@ -245,7 +250,9 @@ export default class SejCore extends EventDispatcher {
         this.container.appendChild(this.stats.dom);
 
         this.renderer = new WebGPURenderer();
-
+        if (replaceRenderer) {
+            this.renderer = new THREE.WebGLRenderer();
+        }
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(window.innerWidth, window.innerHeight);
 
