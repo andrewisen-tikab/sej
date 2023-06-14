@@ -234,8 +234,9 @@ export default class SejCore extends EventDispatcher {
     /**
      * Initialize {@link Sej}.
      */
-    public init({ container, webGLFallback = true }: InitProps): SejCore {
-        let replaceRenderer = false;
+    public init({ container, webGLFallback = true, useWebGL }: InitProps): SejCore {
+        let replaceRenderer = useWebGL ?? false;
+
         if (WebGPU.isAvailable() === false) {
             if (webGLFallback) {
                 replaceRenderer = true;
