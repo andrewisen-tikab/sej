@@ -123,6 +123,9 @@ export default class ExampleBuilder {
                     break;
             }
             object.updateMatrix();
+
+            // @ts-ignore
+            if (object.tilesRenderer) loadingDiv.remove();
         });
 
         // @ts-ignore
