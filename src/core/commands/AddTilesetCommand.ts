@@ -1,5 +1,4 @@
 import { CommandBase } from './Command';
-import Sej from '../..';
 import { AddObjectCommand } from '.';
 import { AddObjectCommandParams } from './AddObjectCommand';
 
@@ -11,10 +10,6 @@ export default class AddTilesetCommand extends AddObjectCommand {
     constructor(object: THREE.Object3D, params?: AddObjectCommandParams) {
         super(object, params);
         this.type = 'AddTilesetCommand';
-    }
-
-    execute() {
-        Sej.api.addObject(this.object);
     }
 
     undo() {}

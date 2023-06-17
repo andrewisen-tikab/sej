@@ -10,6 +10,7 @@ export const SejEventKeys = {
     objectAdded: 'objectAdded',
     objectChanged: 'objectChanged',
     objectRemoved: 'objectRemoved',
+    materialAdded: 'materialAdded',
 } as const;
 
 export type Loading = {
@@ -27,6 +28,11 @@ export type SejEventsBase = {
         type: typeof SejEventKeys.objectAdded;
         data: { object: THREE.Object3D };
     };
+    [SejEventKeys.objectRemoved]: {
+        type: typeof SejEventKeys.objectRemoved;
+        data: { object: THREE.Object3D };
+    };
+    [SejEventKeys.materialAdded]: { type: typeof SejEventKeys.materialAdded; data?: undefined };
 };
 
 export interface SejEvents extends SejEventsBase {}
