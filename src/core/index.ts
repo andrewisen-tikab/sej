@@ -103,7 +103,7 @@ export default class SejCore extends EventDispatcher {
      * Three.js renderer implementation for the 3D Tiles format.
      * The renderer supports most of the 3D Tiles spec features with a few exceptions.
      */
-    private tilesRenderer: TilesRenderer | null = null;
+    private tilesRenderers: TilesRenderer[] = [];
 
     private renderer: WebGPURenderer | null = null;
 
@@ -293,11 +293,13 @@ export default class SejCore extends EventDispatcher {
 
             this.stats.update();
 
-            this.renderer.render(this.scene, this.perspectiveCamera);
-            if (this.tilesRenderer) {
-                this.perspectiveCamera.updateMatrixWorld();
-                this.tilesRenderer.update();
+            this.perspectiveCamera.updateMatrixWorld();
+            for (let u = 0; u < this.tilesRenderers.length; u++) {
+                const tilesRenderer = this.tilesRenderers[u];
+                tilesRenderer.update();
             }
+
+            this.renderer.render(this.scene, this.perspectiveCamera);
         };
 
         animate();
@@ -348,17 +350,18 @@ export default class SejCore extends EventDispatcher {
      * @deprecated WIP
      */
     private loadTileset(url: string, params?: AddObjectCommandParams): void {
-        this.tilesRenderer = new TilesRenderer(url);
+        const tilesRenderers = new TilesRenderer(url);
+        this.tilesRenderers.push(tilesRenderers);
 
-        this.tilesRenderer.setCamera(this.perspectiveCamera);
-        this.tilesRenderer.setResolutionFromRenderer(this.perspectiveCamera, this.renderer);
+        tilesRenderers.setCamera(this.perspectiveCamera);
+        tilesRenderers.setResolutionFromRenderer(this.perspectiveCamera, this.renderer);
 
-        const loader = new GLTFLoader(this.tilesRenderer.manager);
+        const loader = new GLTFLoader(tilesRenderers.manager);
         loader.setDRACOLoader(this.dracoLoader);
 
-        this.tilesRenderer.manager.addHandler(/\.gltf$/, loader);
+        tilesRenderers.manager.addHandler(/\.gltf$/, loader);
 
-        this.execute(new AddTilesetCommand(this.tilesRenderer.group, params));
+        this.execute(new AddTilesetCommand(tilesRenderers.group, params));
     }
 
     /**
@@ -367,20 +370,21 @@ export default class SejCore extends EventDispatcher {
     private loadGoogleTileset(api: string): void {
         THREE.Object3D.DEFAULT_MATRIX_AUTO_UPDATE = true;
 
-        this.tilesRenderer = new GoogleTilesRenderer(api);
+        const tilesRenderers = new GoogleTilesRenderer(api);
+        this.tilesRenderers.push(tilesRenderers);
         // @ts-ignore
-        this.tilesRenderer.setLatLonToYUp(
+        tilesRenderers.setLatLonToYUp(
             59.3167 * THREE.MathUtils.DEG2RAD,
             18.0716 * THREE.MathUtils.DEG2RAD,
         ); // Stockholm, Sweden.
 
-        this.tilesRenderer.setCamera(this.perspectiveCamera);
-        this.tilesRenderer.setResolutionFromRenderer(this.perspectiveCamera, this.renderer);
-        const loader = new GLTFLoader(this.tilesRenderer.manager);
+        tilesRenderers.setCamera(this.perspectiveCamera);
+        tilesRenderers.setResolutionFromRenderer(this.perspectiveCamera, this.renderer);
+        const loader = new GLTFLoader(tilesRenderers.manager);
         loader.setDRACOLoader(this.dracoLoader);
-        this.tilesRenderer.manager.addHandler(/\.gltf$/, loader);
+        tilesRenderers.manager.addHandler(/\.gltf$/, loader);
         const parent = new THREE.Group();
-        parent.add(this.tilesRenderer.group);
+        parent.add(tilesRenderers.group);
         parent.scale.set(0.1, 0.1, 0.1);
         this.scene.add(parent);
     }
@@ -465,7 +469,7 @@ export default class SejCore extends EventDispatcher {
         return {
             loadingManager: this.loadingManager,
             gltfLoader: this.gltfLoader,
-            tilesRenderer: this.tilesRenderer,
+            tilesRenderer: this.tilesRenderers,
         };
     }
 

@@ -69,6 +69,7 @@ export default class SejEngine {
     public loadTileset(url: string, params?: AddObjectCommandParams): void {
         SejCore.api.loadTileset(url, params);
         const { tilesRenderer } = SejCore.getLoaders();
-        if (tilesRenderer?.manager) this.managers.loading.initLoadingManger(tilesRenderer.manager);
+        if (tilesRenderer[0]?.manager)
+            this.managers.loading.initLoadingManger(tilesRenderer[0].manager);
     }
 }
