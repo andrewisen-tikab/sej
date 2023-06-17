@@ -46,6 +46,21 @@ export default class SejCore extends EventDispatcher {
     private static _instance: SejCore;
 
     /**
+     * Tracks how often is a material used by a 3D object.
+     */
+    private materialsRefCounter: Map<any, any>;
+
+    /**
+     * Buffer Geometries used by Sej
+     */
+    private geometries: { [key: string]: THREE.BufferGeometry };
+
+    /**
+     * Materials uses  by Sej.
+     */
+    private materials: { [key: string]: THREE.Material };
+
+    /**
      * Generate {@link SejCore} singleton
      */
     public static get Instance() {
@@ -158,6 +173,7 @@ export default class SejCore extends EventDispatcher {
         loadTileset: this.loadTileset,
         loadGoogleTileset: this.loadGoogleTileset,
         addObject: this.addObject,
+        removeObject: this.removeObject,
         fromJSON: this.fromJSON,
         toJSON: this.toJSON,
     };
@@ -187,6 +203,11 @@ export default class SejCore extends EventDispatcher {
         this.dracoLoader = new DRACOLoader();
         this.gltfLoader = new GLTFLoader(this.loadingManager);
         this.loadingManager.addHandler(/\.gltf$/, this.gltfLoader);
+
+        this.geometries = {};
+        this.materials = {};
+
+        this.materialsRefCounter = new Map();
 
         this.gui = new GUI();
         this.gui.add(this.state, 'commands').name('Latest command').listen();
@@ -433,6 +454,12 @@ export default class SejCore extends EventDispatcher {
      * @param index
      */
     private addObject(object: THREE.Object3D, parent?: THREE.Object3D, index: number = 0): SejCore {
+        object.traverse((child) => {
+            const mesh = child as THREE.Mesh;
+            if (mesh.geometry !== undefined) this.addGeometry(mesh.geometry);
+            if (mesh.material !== undefined) this.addMaterial(mesh.material);
+        });
+
         if (parent === undefined) {
             this.scene.add(object);
         } else {
@@ -446,6 +473,104 @@ export default class SejCore extends EventDispatcher {
             data: { object },
         });
         return this;
+    }
+
+    /**
+     * Add a geometry to {@link Sej}..
+     * @param geometry
+     */
+    private addGeometry(geometry: THREE.BufferGeometry) {
+        this.geometries[geometry.uuid] = geometry;
+    }
+
+    /**
+     * Add material(s) to {@link Sej}.
+     * @param material
+     */
+    private addMaterial(material: THREE.Material | THREE.Material[]) {
+        if (Array.isArray(material)) {
+            for (let i = 0, l = material.length; i < l; i++) {
+                this.addMaterialToRefCounter(material[i]);
+            }
+        } else {
+            this.addMaterialToRefCounter(material);
+        }
+
+        this.dispatchEvent({
+            type: SejEventKeys.materialAdded,
+        });
+    }
+
+    /**
+     * Add a single material to the `materialsRefCounter.`
+     * @param material
+     */
+    addMaterialToRefCounter(material: THREE.Material) {
+        let materialsRefCounter = this.materialsRefCounter;
+
+        let count = materialsRefCounter.get(material);
+
+        if (count === undefined) {
+            materialsRefCounter.set(material, 1);
+            this.materials[material.uuid] = material;
+        } else {
+            count++;
+            materialsRefCounter.set(material, count);
+        }
+    }
+
+    /**
+     * Remove  an object from the scene.
+     * @param object
+     */
+    private removeObject(object: THREE.Object3D) {
+        if (object.parent === null) return; // avoid deleting the camera or scene
+
+        object.traverse((child) => {
+            const mesh = child as THREE.Mesh;
+
+            if (mesh.material !== undefined) this.removeMaterial(mesh.material);
+        });
+
+        object.parent.remove(object);
+
+        this.dispatchEvent({
+            type: SejEventKeys.objectRemoved,
+            data: { object },
+        });
+        return this;
+    }
+
+    /**
+     * Remove material(s) from {@link Sej}.
+     * @param material
+     */
+    private removeMaterial(material: THREE.Material | THREE.Material[]) {
+        if (Array.isArray(material)) {
+            for (let i = 0, l = material.length; i < l; i++) {
+                this.removeMaterialFromRefCounter(material[i]);
+            }
+        } else {
+            this.removeMaterialFromRefCounter(material);
+        }
+    }
+
+    /**
+     * Remove a single material to the `materialsRefCounter.`
+     * @param material
+     */
+    private removeMaterialFromRefCounter(material: THREE.Material) {
+        var materialsRefCounter = this.materialsRefCounter;
+
+        let count = materialsRefCounter.get(material);
+        count--;
+
+        if (count === 0) {
+            materialsRefCounter.delete(material);
+            delete this.materials[material.uuid];
+        } else {
+            materialsRefCounter.set(material, count);
+        }
     }
 
     /**
