@@ -15,6 +15,7 @@ Requires a browser with WebGPU support.
 -   [https://andrewisen-tikab.github.io/sej/examples/google-tileset/](https://andrewisen-tikab.github.io/sej/examples/google-tileset/)
 -   [https://andrewisen-tikab.github.io/sej/examples/glb-copies/](https://andrewisen-tikab.github.io/sej/examples/glb-copies/)
 -   [https://andrewisen-tikab.github.io/sej/examples/memory-test/](https://andrewisen-tikab.github.io/sej/examples/memory-test/)
+-   [https://andrewisen-tikab.github.io/sej/examples/objects/](https://andrewisen-tikab.github.io/sej/examples/objects/)
 
 ## WIP
 
@@ -31,3 +32,5 @@ Sej is still a work in progress. It is not ready for production use.
 ["Simple Metal Fence" by Blender3D](https://sketchfab.com/3d-models/simple-metal-fence-9450c03e6c074982b9f86cd73866b461)
 
 ["City 1" by ithappy](https://sketchfab.com/3d-models/city-1-55b5426840fd45f19f19efdb4293f986)
+
+["Pringles Cans | 5 Different Flavours | GAMEREADY" by NKaap](https://sketchfab.com/3d-models/pringles-cans-5-different-flavours-gameready-ba9779250e314c16abe05e9a00f33a02)
