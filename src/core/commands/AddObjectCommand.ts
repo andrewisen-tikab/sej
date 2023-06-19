@@ -36,7 +36,9 @@ export default class AddObjectCommand extends Command {
         Sej.api.addObject(this.object);
     }
 
-    undo() {}
+    undo() {
+        Sej.api.removeObject(this.object);
+    }
 
     toJSON() {
         const output = super.toJSON() as AddObjectCommandBase;

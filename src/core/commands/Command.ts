@@ -58,4 +58,12 @@ export default class Command implements CommandBase {
     update() {
         throw new Error('Method not implemented.');
     }
+
+    undo() {
+        throw new Error('Method not implemented.');
+    }
+
+    redo() {
+        throw new Error('Method not implemented.');
+    }
 }

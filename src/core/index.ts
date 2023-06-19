@@ -176,6 +176,8 @@ export default class SejCore extends EventDispatcher {
         removeObject: this.removeObject,
         fromJSON: this.fromJSON,
         toJSON: this.toJSON,
+        undo: this.undo,
+        redo: this.redo,
     };
 
     constructor() {
@@ -590,6 +592,14 @@ export default class SejCore extends EventDispatcher {
         return this;
     }
 
+    undo() {
+        this.history.undo();
+    }
+
+    redo() {
+        this.history.redo();
+    }
+
     public getLoaders() {
         return {
             loadingManager: this.loadingManager,
@@ -600,5 +610,9 @@ export default class SejCore extends EventDispatcher {
 
     public getRenderer() {
         return this.renderer;
+    }
+
+    public getGUI() {
+        return this.gui;
     }
 }
