@@ -35,6 +35,48 @@ export default class History {
         this.redos = [];
     }
 
+    undo() {
+        if (this.historyDisabled) return;
+
+        let cmd: Command | null = null;
+
+        if (this.undos.length > 0) {
+            const newCommand = this.undos.pop();
+            if (newCommand) {
+                cmd = newCommand;
+            }
+        }
+
+        if (cmd !== null) {
+            cmd.undo();
+            this.redos.push(cmd);
+            this.editor.signals.historyChanged.dispatch(cmd);
+        }
+
+        return cmd;
+    }
+
+    redo() {
+        if (this.historyDisabled) return;
+
+        let cmd: Command | null = null;
+
+        if (this.redos.length > 0) {
+            const newCommand = this.redos.pop();
+            if (newCommand) {
+                cmd = newCommand;
+            }
+        }
+
+        if (cmd !== null) {
+            cmd.execute();
+            this.undos.push(cmd);
+            this.editor.signals.historyChanged.dispatch(cmd);
+        }
+
+        return cmd;
+    }
+
     clear() {
         this.undos = [];
         this.redos = [];
