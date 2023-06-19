@@ -601,4 +601,8 @@ export default class SejCore extends EventDispatcher {
     public getRenderer() {
         return this.renderer;
     }
+
+    public getGUI() {
+        return this.gui;
+    }
 }
