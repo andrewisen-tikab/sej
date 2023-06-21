@@ -60,6 +60,8 @@ export default class SejCore extends EventDispatcher {
      */
     private materials: { [key: string]: THREE.Material };
 
+    private cameraControls: CameraControls | null = null;
+
     /**
      * Generate {@link SejCore} singleton
      */
@@ -282,14 +284,14 @@ export default class SejCore extends EventDispatcher {
 
         this.container.appendChild(this.renderer.domElement);
 
-        const controls = new OrbitControls(this.perspectiveCamera, this.renderer.domElement);
         const y = 3;
         this.perspectiveCamera.position.x = -0.4;
         this.perspectiveCamera.position.y = y;
         this.perspectiveCamera.position.z = 2;
         this.perspectiveCamera.updateMatrix();
-        controls.target.set(0, y - 1, 0);
-        controls.update();
+
+        const cameraControls = new CameraControls(this.perspectiveCamera, this.renderer.domElement);
+        this.cameraControls = cameraControls;
 
         const light1 = new THREE.AmbientLight();
         this.perspectiveCamera.add(light1);
@@ -322,6 +324,7 @@ export default class SejCore extends EventDispatcher {
                 tilesRenderer.update();
             }
 
+            cameraControls.update(_clockDelta);
             this.renderer.render(this.scene, this.perspectiveCamera);
         };
 
@@ -614,5 +617,11 @@ export default class SejCore extends EventDispatcher {
 
     public getGUI() {
         return this.gui;
+    }
+
+    public getControls() {
+        return {
+            cameraControls: this.cameraControls,
+        };
     }
 }
