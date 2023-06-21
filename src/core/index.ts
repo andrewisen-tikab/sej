@@ -13,7 +13,7 @@ import { GoogleTilesRenderer, TilesRenderer } from '3d-tiles-renderer';
 import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
 import CameraControls from 'camera-controls';
 import { Listener } from 'camera-controls/dist/EventDispatcher';
-import { SejEvents, SejEventKeys } from '..';
+import Sej, { SejEvents, SejEventKeys } from '..';
 
 import { InitProps } from '../types';
 import ErrorManager from '../utils/ErrorManager';
@@ -68,6 +68,9 @@ export default class SejCore extends EventDispatcher {
         return this._instance || (this._instance = new this());
     }
 
+    /**
+     * {@link HTMLDivElement} element that contains the canvas.
+     */
     private container: HTMLDivElement | null = null;
 
     /**
@@ -107,6 +110,9 @@ export default class SejCore extends EventDispatcher {
      */
     private history: _History;
 
+    /**
+     * This object provides a simple info box that will help you monitor your code performance.
+     */
     private stats: Stats;
 
     /**
@@ -121,6 +127,9 @@ export default class SejCore extends EventDispatcher {
      */
     private tilesRenderers: TilesRenderer[] = [];
 
+    /**
+     * The WebGPU renderer displays your beautifully crafted scenes using WebGPU.
+     */
     private renderer: WebGPURenderer | null = null;
 
     /**
@@ -181,6 +190,9 @@ export default class SejCore extends EventDispatcher {
         redo: this.redo,
     };
 
+    /**
+     * Setup variables and event listeners.
+     */
     constructor() {
         super();
 
@@ -291,6 +303,8 @@ export default class SejCore extends EventDispatcher {
 
         const cameraControls = new CameraControls(this.perspectiveCamera, this.renderer.domElement);
         this.cameraControls = cameraControls;
+
+        window.addEventListener('resize', this.onWindowResize.bind(this), false);
 
         const light1 = new THREE.AmbientLight();
         this.perspectiveCamera.add(light1);
@@ -480,18 +494,28 @@ export default class SejCore extends EventDispatcher {
     }
 
     /**
+     * Resize the renderer and the camera.
+     */
+    private onWindowResize(): void {
+        this.perspectiveCamera.aspect = window.innerWidth / window.innerHeight;
+        this.perspectiveCamera.updateProjectionMatrix();
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    /**
      * Add a geometry to {@link Sej}..
      * @param geometry
      */
-    private addGeometry(geometry: THREE.BufferGeometry) {
+    private addGeometry(geometry: THREE.BufferGeometry): SejCore {
         this.geometries[geometry.uuid] = geometry;
+        return this;
     }
 
     /**
      * Add material(s) to {@link Sej}.
      * @param material
      */
-    private addMaterial(material: THREE.Material | THREE.Material[]) {
+    private addMaterial(material: THREE.Material | THREE.Material[]): SejCore {
         if (Array.isArray(material)) {
             for (let i = 0, l = material.length; i < l; i++) {
                 this.addMaterialToRefCounter(material[i]);
@@ -503,13 +527,14 @@ export default class SejCore extends EventDispatcher {
         this.dispatchEvent({
             type: SejEventKeys.materialAdded,
         });
+        return this;
     }
 
     /**
      * Add a single material to the `materialsRefCounter.`
      * @param material
      */
-    addMaterialToRefCounter(material: THREE.Material) {
+    private addMaterialToRefCounter(material: THREE.Material): SejCore {
         let materialsRefCounter = this.materialsRefCounter;
 
         let count = materialsRefCounter.get(material);
@@ -521,14 +546,15 @@ export default class SejCore extends EventDispatcher {
             count++;
             materialsRefCounter.set(material, count);
         }
+        return this;
     }
 
     /**
      * Remove  an object from the scene.
      * @param object
      */
-    private removeObject(object: THREE.Object3D) {
-        if (object.parent === null) return; // avoid deleting the camera or scene
+    private removeObject(object: THREE.Object3D): SejCore {
+        if (object.parent === null) return this; // avoid deleting the camera or scene
 
         object.traverse((child) => {
             const mesh = child as THREE.Mesh;
@@ -549,7 +575,7 @@ export default class SejCore extends EventDispatcher {
      * Remove material(s) from {@link Sej}.
      * @param material
      */
-    private removeMaterial(material: THREE.Material | THREE.Material[]) {
+    private removeMaterial(material: THREE.Material | THREE.Material[]): SejCore {
         if (Array.isArray(material)) {
             for (let i = 0, l = material.length; i < l; i++) {
                 this.removeMaterialFromRefCounter(material[i]);
@@ -557,13 +583,14 @@ export default class SejCore extends EventDispatcher {
         } else {
             this.removeMaterialFromRefCounter(material);
         }
+        return this;
     }
 
     /**
      * Remove a single material to the `materialsRefCounter.`
      * @param material
      */
-    private removeMaterialFromRefCounter(material: THREE.Material) {
+    private removeMaterialFromRefCounter(material: THREE.Material): SejCore {
         var materialsRefCounter = this.materialsRefCounter;
 
         let count = materialsRefCounter.get(material);
@@ -575,6 +602,7 @@ export default class SejCore extends EventDispatcher {
         } else {
             materialsRefCounter.set(material, count);
         }
+        return this;
     }
 
     /**
@@ -588,20 +616,37 @@ export default class SejCore extends EventDispatcher {
         };
     }
 
+    /**
+     * Execute a {@link Command}.
+     * @param command
+     * @param optionalName
+     * @returns
+     */
     private execute(command: Command, optionalName?: string): SejCore {
         this.history.execute(command, optionalName);
         this.state.commands = command.type;
         return this;
     }
 
-    undo() {
+    /**
+     * Undo the last executed {@link Command}.
+     */
+    undo(): SejCore {
         this.history.undo();
+        return this;
     }
 
-    redo() {
+    /**
+     * Redo the last executed {@link Command}.
+     */
+    redo(): SejCore {
         this.history.redo();
+        return this;
     }
 
+    /**
+     * Get loading mangers used by {@link Sej}.
+     */
     public getLoaders() {
         return {
             loadingManager: this.loadingManager,
@@ -610,23 +655,42 @@ export default class SejCore extends EventDispatcher {
         };
     }
 
+    /**
+     * Get a direct read-only references to the renderer.
+     */
     public getRenderer() {
-        return this.renderer;
+        return this.convertToReadOnly(this.renderer);
     }
 
+    /**
+     * Get a direct read-only references to the GUI.
+     */
     public getGUI() {
-        return this.gui;
+        return this.convertToReadOnly(this.gui);
     }
 
+    /**
+     * Get a direct read-only references to the scenes.
+     */
     public getControls() {
-        return {
+        return this.convertToReadOnly({
             cameraControls: this.cameraControls,
-        };
+        });
     }
 
+    /**
+     * Get a direct read-only references to the scenes.
+     */
     public getScenes() {
-        return {
+        return this.convertToReadOnly({
             scene: this.scene,
-        };
+        });
+    }
+
+    /**
+     * Convert get method to return readonly parameters
+     */
+    private convertToReadOnly<T>(object: T) {
+        return object as Readonly<T>;
     }
 }
