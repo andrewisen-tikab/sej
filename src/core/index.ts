@@ -292,6 +292,8 @@ export default class SejCore extends EventDispatcher {
         const cameraControls = new CameraControls(this.perspectiveCamera, this.renderer.domElement);
         this.cameraControls = cameraControls;
 
+        window.addEventListener('resize', this.onWindowResize.bind(this), false);
+
         const light1 = new THREE.AmbientLight();
         this.perspectiveCamera.add(light1);
         const light2 = new THREE.DirectionalLight();
@@ -477,6 +479,12 @@ export default class SejCore extends EventDispatcher {
             data: { object },
         });
         return this;
+    }
+
+    private onWindowResize() {
+        this.perspectiveCamera.aspect = window.innerWidth / window.innerHeight;
+        this.perspectiveCamera.updateProjectionMatrix();
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
     }
 
     /**
