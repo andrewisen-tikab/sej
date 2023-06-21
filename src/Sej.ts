@@ -1,5 +1,6 @@
 import { SejCore } from '.';
 import { AddObjectCommandParams } from './core/commands/AddObjectCommand';
+import ControlsManager from './managers/ControlsManager';
 import DEVManager from './managers/DEVManager';
 import LoadingManager from './managers/LoadingManger';
 import OrientationManager from './managers/OrientationManager';
@@ -27,6 +28,7 @@ export default class SejEngine {
         dev: new DEVManager(),
         orientation: new OrientationManager(),
         loading: new LoadingManager(),
+        controls: new ControlsManager(),
     };
 
     /**
