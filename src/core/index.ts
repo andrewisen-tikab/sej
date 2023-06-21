@@ -623,4 +623,10 @@ export default class SejCore extends EventDispatcher {
             cameraControls: this.cameraControls,
         };
     }
+
+    public getScenes() {
+        return {
+            scene: this.scene,
+        };
+    }
 }
