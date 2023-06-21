@@ -24,6 +24,9 @@ export default class SejEngine {
         return this._instance || (this._instance = new this());
     }
 
+    /**
+     * Mangers used by {@link SejEngine}.
+     */
     public readonly managers = {
         dev: new DEVManager(),
         orientation: new OrientationManager(),
@@ -64,9 +67,7 @@ export default class SejEngine {
     }
 
     /**
-     *
-     * @param url
-     * @param params
+     * @deprecated WIP
      */
     public loadTileset(url: string, params?: AddObjectCommandParams): void {
         SejCore.api.loadTileset(url, params);
