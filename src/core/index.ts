@@ -7,6 +7,7 @@ import Stats from 'three/addons/libs/stats.module.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
+import { TransformControls } from 'three/addons/controls/TransformControls.js';
 
 import { default as _History } from './history/History';
 import { GoogleTilesRenderer, TilesRenderer } from '3d-tiles-renderer';
@@ -22,6 +23,10 @@ import { AddObjectCommandParams } from './commands/AddObjectCommand';
 import AddTilesetCommand from './commands/AddTilesetCommand';
 import Command from './commands/Command';
 import { EventDispatcher } from './events/EventDispatcher';
+import Selector from './selector/Selector';
+import SetPositionCommand from './commands/SetPositionCommand';
+import SetRotationCommand from './commands/SetRotationCommand';
+import SetScaleCommand from './commands/SetScaleCommand';
 
 /**
  * The seconds passed since the time `.oldTime` was set and sets `.oldTime` to the current time.
@@ -29,6 +34,10 @@ import { EventDispatcher } from './events/EventDispatcher';
 let _clockDelta = /* @__PURE__ */ 0;
 let _i = /* @__PURE__ */ 0;
 let _animationMixer: /* @__PURE__ */ THREE.AnimationMixer;
+const _box = /* @__PURE__ */ new THREE.Box3();
+const objectPositionOnDown = /* @__PURE__ */ new THREE.Vector3();
+const objectRotationOnDown = /* @__PURE__ */ new THREE.Euler();
+const objectScaleOnDown = /* @__PURE__ */ new THREE.Vector3();
 
 /**
  * Sej [ˈsɛj] core.
@@ -60,6 +69,10 @@ export default class SejCore extends EventDispatcher {
     private materials: { [key: string]: THREE.Material };
 
     private cameraControls: CameraControls | null = null;
+
+    private selector: Selector;
+
+    private transformControls: TransformControls | null = null;
 
     /**
      * Generate {@link SejCore} singleton
@@ -167,6 +180,7 @@ export default class SejCore extends EventDispatcher {
         hasInstalled: false,
         playAnimation: false,
         commands: '',
+        selected: '',
     };
 
     /**
@@ -188,6 +202,9 @@ export default class SejCore extends EventDispatcher {
         toJSON: this.toJSON,
         undo: this.undo,
         redo: this.redo,
+        select: this.select,
+        deselect: this.deselect,
+        getObjectByUUID: this.getObjectByUUID,
     };
 
     /**
@@ -213,6 +230,7 @@ export default class SejCore extends EventDispatcher {
         this.animationMixers = [];
         this.loadingManager = new THREE.LoadingManager();
         this.history = new _History();
+        this.selector = new Selector();
         this.stats = new Stats();
 
         this.dracoLoader = new DRACOLoader();
@@ -226,6 +244,7 @@ export default class SejCore extends EventDispatcher {
 
         this.gui = new GUI();
         this.gui.add(this.state, 'commands').name('Latest command').listen();
+        this.gui.add(this.state, 'selected').name('Selected UUID').listen();
     }
 
     /**
@@ -234,7 +253,7 @@ export default class SejCore extends EventDispatcher {
      */
     public install(): SejCore {
         if (this.state.hasInstalled) return this;
-        THREE.Object3D.DEFAULT_MATRIX_AUTO_UPDATE = false;
+        // THREE.Object3D.DEFAULT_MATRIX_AUTO_UPDATE = false;
         CameraControls.install({ THREE });
         THREE.Cache.enabled = true;
         // @ts-ignore
@@ -305,6 +324,75 @@ export default class SejCore extends EventDispatcher {
         this.cameraControls = cameraControls;
 
         window.addEventListener('resize', this.onWindowResize.bind(this), false);
+
+        const transformControls = new TransformControls(this.perspectiveCamera, this.container);
+        this.transformControls = transformControls;
+
+        // TODO: Refactor to manager
+        transformControls.addEventListener('change', () => {
+            const { object } = transformControls;
+            if (object !== undefined) {
+                _box.setFromObject(object, true);
+            }
+        });
+
+        // TODO: Refactor to manager
+        transformControls.addEventListener('mouseDown', () => {
+            const { object } = transformControls;
+            if (object) {
+                const { position, rotation, scale } = object;
+                objectPositionOnDown.copy(position);
+                objectRotationOnDown.copy(rotation);
+                objectScaleOnDown.copy(scale);
+            }
+
+            cameraControls.enabled = false;
+        });
+        transformControls.addEventListener('mouseUp', () => {
+            const { object } = transformControls;
+
+            if (object !== undefined) {
+                switch (transformControls.getMode()) {
+                    case 'translate':
+                        if (!objectPositionOnDown.equals(object.position)) {
+                            this.execute(
+                                new SetPositionCommand(
+                                    object,
+                                    object.position,
+                                    objectPositionOnDown,
+                                ),
+                            );
+                        }
+
+                        break;
+
+                    case 'rotate':
+                        if (!objectRotationOnDown.equals(object.rotation)) {
+                            this.execute(
+                                new SetRotationCommand(
+                                    object,
+                                    object.rotation,
+                                    objectRotationOnDown,
+                                ),
+                            );
+                        }
+
+                        break;
+
+                    case 'scale':
+                        if (!objectScaleOnDown.equals(object.scale)) {
+                            this.execute(
+                                new SetScaleCommand(object, object.scale, objectScaleOnDown),
+                            );
+                        }
+
+                        break;
+                }
+            }
+
+            cameraControls.enabled = true;
+        });
+        this.scene.add(this.transformControls);
 
         const light1 = new THREE.AmbientLight();
         this.perspectiveCamera.add(light1);
@@ -616,6 +704,10 @@ export default class SejCore extends EventDispatcher {
         };
     }
 
+    private getObjectByUUID(uuid: string) {
+        return this.scene.getObjectByProperty('uuid', uuid);
+    }
+
     /**
      * Execute a {@link Command}.
      * @param command
@@ -692,5 +784,23 @@ export default class SejCore extends EventDispatcher {
      */
     private convertToReadOnly<T>(object: T) {
         return object as Readonly<T>;
+    }
+
+    private select(object: THREE.Object3D | null): SejCore {
+        if (this.selector.select(object) === false) return this;
+
+        this.state.selected = object?.uuid ?? '';
+        if (this.transformControls) this.transformControls.detach();
+        if (object && this.transformControls) this.transformControls.attach(object);
+        this.dispatchEvent({ type: SejEventKeys.select, data: { object } });
+        return this;
+    }
+
+    private deselect(): SejCore {
+        this.selector.deselect();
+        this.state.selected = '';
+        if (this.transformControls) this.transformControls.detach();
+        this.dispatchEvent({ type: SejEventKeys.deselect });
+        return this;
     }
 }

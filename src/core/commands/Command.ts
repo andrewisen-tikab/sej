@@ -14,8 +14,18 @@ export default class Command implements CommandBase {
     public id: number;
     public inMemory: boolean;
     public updatable: boolean;
+
+    /**
+     * The type of command.
+     */
     public type: string;
+    /**
+     * Human readable name of the command.
+     */
     public name: string;
+    /**
+     * The command as JSON.
+     */
     public json: CommandBase | undefined;
 
     /**
