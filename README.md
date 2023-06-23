@@ -16,6 +16,7 @@ Requires a browser with WebGPU support.
 -   [https://andrewisen-tikab.github.io/sej/examples/glb-copies/](https://andrewisen-tikab.github.io/sej/examples/glb-copies/)
 -   [https://andrewisen-tikab.github.io/sej/examples/memory-test/](https://andrewisen-tikab.github.io/sej/examples/memory-test/)
 -   [https://andrewisen-tikab.github.io/sej/examples/objects/](https://andrewisen-tikab.github.io/sej/examples/objects/)
+-   [https://andrewisen-tikab.github.io/sej/examples/transform/](https://andrewisen-tikab.github.io/sej/examples/transform/)
 
 ## WIP
 
