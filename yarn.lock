@@ -709,12 +709,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"camera-controls@npm:^2.3.5":
-  version: 2.3.5
-  resolution: "camera-controls@npm:2.3.5"
+"camera-controls@npm:^2.7.0":
+  version: 2.7.0
+  resolution: "camera-controls@npm:2.7.0"
   peerDependencies:
     three: ">=0.126.1"
-  checksum: 7b1c5c99f076031bc5fdfdfa5cdc081d0aa54b857d46022d5fd67a6e9c7898f2d17b964a7febfd39d48123a5440c115dc945ab16a82d26bfec8715d3df2c246a
+  checksum: 86caa08faf2e6b52a709758c133b2c987ca08082d2138cc2556970d11ec086228d50ccef6f42a6afe338aa1de60bbac602e434acce1359a7b34fd6e74859e55d
   languageName: node
   linkType: hard
 
@@ -1838,7 +1838,7 @@ __metadata:
   dependencies:
     3d-tiles-renderer: ^0.3.20
     "@types/three": ^0.152.1
-    camera-controls: ^2.3.5
+    camera-controls: ^2.7.0
     localforage: ^1.10.0
     three: ^0.154.0
     three-mesh-bvh: ^0.6.0
