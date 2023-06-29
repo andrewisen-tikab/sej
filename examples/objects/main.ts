@@ -33,12 +33,6 @@ const params = {
         );
         sej.api.loadModel(getRandomModel(), { position: randomPosition });
     },
-    undo: () => {
-        sej.api.undo();
-    },
-    redo: () => {
-        sej.api.redo();
-    },
 } as const;
 
 const exampleFolder = gui.addFolder('Example');

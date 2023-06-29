@@ -181,6 +181,12 @@ export default class SejCore extends EventDispatcher {
         playAnimation: false,
         commands: '',
         selected: '',
+        undo: () => {
+            this.api.undo();
+        },
+        redo: () => {
+            this.api.redo();
+        },
     };
 
     /**
@@ -243,8 +249,14 @@ export default class SejCore extends EventDispatcher {
         this.materialsRefCounter = new Map();
 
         this.gui = new GUI();
-        this.gui.add(this.state, 'commands').name('Latest command').listen();
-        this.gui.add(this.state, 'selected').name('Selected UUID').listen();
+
+        const selectionFolder = this.gui.addFolder('Selection');
+        selectionFolder.add(this.state, 'selected').name('Selected UUID').listen();
+
+        const commandsFolder = this.gui.addFolder('Commands');
+        commandsFolder.add(this.state, 'commands').name('Latest command').listen();
+        commandsFolder.add(this.state, 'undo').name('Undo');
+        commandsFolder.add(this.state, 'redo').name('Redo');
     }
 
     /**

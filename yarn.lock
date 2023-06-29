@@ -5,12 +5,12 @@ __metadata:
   version: 6
   cacheKey: 8
 
-"3d-tiles-renderer@npm:^0.3.19":
-  version: 0.3.19
-  resolution: "3d-tiles-renderer@npm:0.3.19"
+"3d-tiles-renderer@npm:^0.3.20":
+  version: 0.3.20
+  resolution: "3d-tiles-renderer@npm:0.3.20"
   peerDependencies:
     three: ">=0.123.0"
-  checksum: c1122f4aa9c6269f2819a546a821ee2b3930187877dd865f2dcfee0932167eee2fe2d104eec1a88b56373edd3719d5a919872495e3883f090940530525ba5501
+  checksum: 4fbc2cae87e0a24ed03f1367f30fcd6532053c030ae2ede284a8b678291279f429a62740efa85e4c5bac3ac8ba93f5c01922f93c2f7069c3f946b034a718db25
   languageName: node
   linkType: hard
 
@@ -709,12 +709,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"camera-controls@npm:^2.3.5":
-  version: 2.3.5
-  resolution: "camera-controls@npm:2.3.5"
+"camera-controls@npm:^2.7.0":
+  version: 2.7.0
+  resolution: "camera-controls@npm:2.7.0"
   peerDependencies:
     three: ">=0.126.1"
-  checksum: 7b1c5c99f076031bc5fdfdfa5cdc081d0aa54b857d46022d5fd67a6e9c7898f2d17b964a7febfd39d48123a5440c115dc945ab16a82d26bfec8715d3df2c246a
+  checksum: 86caa08faf2e6b52a709758c133b2c987ca08082d2138cc2556970d11ec086228d50ccef6f42a6afe338aa1de60bbac602e434acce1359a7b34fd6e74859e55d
   languageName: node
   linkType: hard
 
@@ -1836,11 +1836,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "sej@workspace:."
   dependencies:
-    3d-tiles-renderer: ^0.3.19
+    3d-tiles-renderer: ^0.3.20
     "@types/three": ^0.152.1
-    camera-controls: ^2.3.5
+    camera-controls: ^2.7.0
     localforage: ^1.10.0
-    three: ^0.153.0
+    three: ^0.154.0
     three-mesh-bvh: ^0.6.0
     typescript: ^5.0.2
     vite: ^4.3.9
@@ -2016,10 +2016,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three@npm:^0.153.0":
-  version: 0.153.0
-  resolution: "three@npm:0.153.0"
-  checksum: 68899ca90e048967a83866a1d54a9d28bba3532d228ede9e4c2a3b9bec347c31d8bb633eeaf7828397d2419cded8f57cf32f2a9c037a3587d45122e793ddc0c4
+"three@npm:^0.154.0":
+  version: 0.154.0
+  resolution: "three@npm:0.154.0"
+  checksum: 90ad3cafef8b866641366977ab7189d56f7352c6cdc014cbab946544e42782ec4ea7e56b959b43590433a0fcdc4bd8f8029b18a75074ba10005182c5a73bcc88
   languageName: node
   linkType: hard
 
