@@ -30,6 +30,7 @@
         "localforage": "^1.10.0",
         "three": "^0.154.0",
         "three-mesh-bvh": "^0.6.0",
+        "three-multi-select": "^0.0.21",
         "three-spatial-hash-grid": "^0.0.2"
     }
 }
