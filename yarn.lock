@@ -1842,6 +1842,8 @@ __metadata:
     localforage: ^1.10.0
     three: ^0.154.0
     three-mesh-bvh: ^0.6.0
+    three-multi-select: ^0.0.21
+    three-spatial-hash-grid: ^0.0.2
     typescript: ^5.0.2
     vite: ^4.3.9
     vite-plugin-dts: ^2.3.0
@@ -2013,6 +2015,25 @@ __metadata:
   peerDependencies:
     three: ">= 0.151.0"
   checksum: bafa9c912be4137ae5bb440584deff5953abd3196f7e4c38ecfb279ed16abc7a570d9e89a0d998d1e77dc0f532f8524f393b4bc0a0755e3debd1968ee05f97fe
+  languageName: node
+  linkType: hard
+
+"three-multi-select@npm:^0.0.21":
+  version: 0.0.21
+  resolution: "three-multi-select@npm:0.0.21"
+  peerDependencies:
+    three: ^0.150.1
+    three-mesh-bvh: ^0.5.23
+  checksum: a9f639872684331614c9afd931b34edd8327ea4274d84b908596d2304d41644636621372874b823413188b4493500637700258a0069074ce70b17585ddf423aa
+  languageName: node
+  linkType: hard
+
+"three-spatial-hash-grid@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "three-spatial-hash-grid@npm:0.0.2"
+  peerDependencies:
+    three: ">=0.123.0"
+  checksum: 7562444573b576fb60dcec2b9d351108f7dd08d5b3b1e1dbc542f2e0c7c9750f221d4201f932349730f892406a0cfbdc3ffca4c9097cf8c6165615416dbf716e
   languageName: node
   linkType: hard
 
