@@ -6,9 +6,7 @@
     },
     "version": "0.0.22",
     "type": "module",
-    "module": "src/index.ts",
     "main": "dist/sej.js",
-    "types:": "dist/Sej.d.ts",
     "author": "André Wisén",
     "license": "MIT",
     "scripts": {
