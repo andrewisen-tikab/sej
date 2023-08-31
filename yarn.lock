@@ -1679,6 +1679,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"polylabel@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "polylabel@npm:1.1.0"
+  dependencies:
+    tinyqueue: ^2.0.3
+  checksum: 637ab098034b95e41c88c5af3657c4c52ce16e7cb5fda25a4d00bfb848c3fb9c52b04e2d0718483e667febecc1413a5c9fa734df8263e4ad6e209b73d9d1f0fc
+  languageName: node
+  linkType: hard
+
 "postcss@npm:^8.4.23":
   version: 8.4.23
   resolution: "postcss@npm:8.4.23"
@@ -1851,6 +1860,7 @@ __metadata:
     three: ^0.154.0
     three-mesh-bvh: ^0.6.0
     three-multi-select: ^0.0.21
+    three-shape-3d: ^0.0.26
     three-spatial-hash-grid: ^0.0.2
     typescript: ^5.0.2
     vite: ^4.3.9
@@ -2036,6 +2046,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"three-shape-3d@npm:^0.0.26":
+  version: 0.0.26
+  resolution: "three-shape-3d@npm:0.0.26"
+  dependencies:
+    polylabel: ^1.1.0
+  peerDependencies:
+    three: ^0.155.0
+  checksum: 5517a20e90067fc5c5a4b5414c549c531aac0f4957074981c38d1238e086e41b474bd1790bdc9eaa44be5eb03c6d83dfc936841f532df3c27726ae8313d237a2
+  languageName: node
+  linkType: hard
+
 "three-spatial-hash-grid@npm:^0.0.2":
   version: 0.0.2
   resolution: "three-spatial-hash-grid@npm:0.0.2"
@@ -2049,6 +2070,13 @@ __metadata:
   version: 0.154.0
   resolution: "three@npm:0.154.0"
   checksum: 90ad3cafef8b866641366977ab7189d56f7352c6cdc014cbab946544e42782ec4ea7e56b959b43590433a0fcdc4bd8f8029b18a75074ba10005182c5a73bcc88
+  languageName: node
+  linkType: hard
+
+"tinyqueue@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "tinyqueue@npm:2.0.3"
+  checksum: 0b6bda46b680dca072f84aef1acd22a7085a2ff2aa8e222bb41045c61a056943805056d77d7f976587ed6a0597872beb5c416043f65f0314304432d6c178dd20
   languageName: node
   linkType: hard
 
