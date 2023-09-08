@@ -14,6 +14,9 @@ import { GoogleTilesRenderer, TilesRenderer } from '3d-tiles-renderer';
 import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
 import CameraControls from 'camera-controls';
 import { Listener } from 'camera-controls/dist/EventDispatcher';
+
+import { ErrorManager as _ErrorManager } from '@andrewisen/error-manager';
+
 import Sej, { SejEvents, SejEventKeys } from '..';
 
 import { InitProps } from '../types';
@@ -52,6 +55,9 @@ export default class SejCore extends EventDispatcher {
      * {@link SejCore} singleton
      */
     private static _instance: SejCore;
+
+    // @ts-ignore
+    private errorManager: _ErrorManager;
 
     /**
      * Tracks how often is a material used by a 3D object.
@@ -218,6 +224,8 @@ export default class SejCore extends EventDispatcher {
      */
     constructor() {
         super();
+
+        this.errorManager = _ErrorManager.Instance;
 
         Object.entries(this.api).forEach(([key, value]) => {
             // @ts-ignore
