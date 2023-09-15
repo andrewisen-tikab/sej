@@ -16,6 +16,7 @@ import CameraControls from 'camera-controls';
 import { Listener } from 'camera-controls/dist/EventDispatcher';
 
 import { ErrorManager as _ErrorManager } from '@andrewisen/error-manager';
+import * as TIMELINE from 'three-timeline';
 
 import Sej, { SejEvents, SejEventKeys } from '..';
 
@@ -281,6 +282,14 @@ export default class SejCore extends EventDispatcher {
         // @ts-ignore
         THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
         THREE.Mesh.prototype.raycast = acceleratedRaycast;
+
+        THREE.Object3D.prototype.initTimeline = TIMELINE.initTimeline;
+        THREE.Object3D.prototype.setTimelineDate = TIMELINE.setTimelineDate;
+        THREE.Object3D.prototype.updateTimeline = TIMELINE.updateTimeline;
+        // @ts-ignore
+        THREE.ObjectLoader.prototype.parse = TIMELINE.parse;
+        THREE.Object3D.prototype.toJSON = TIMELINE.toJSON;
+
         this.state.hasInstalled = true;
         return this;
     }
