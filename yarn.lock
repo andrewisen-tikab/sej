@@ -1962,6 +1962,7 @@ __metadata:
     three-multi-select: ^0.0.21
     three-shape-3d: ^0.0.26
     three-spatial-hash-grid: ^0.0.2
+    three-timeline: ^0.0.2
     typescript: ^5.0.2
     vite: ^4.3.9
     vite-plugin-dts: ^2.3.0
@@ -2226,10 +2227,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"three-timeline@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "three-timeline@npm:0.0.2"
+  dependencies:
+    three: ^0.156.1
+  checksum: 8b1187dc2b78a3d873e3c7a2fa632f79471e1329328c958d544d3b1d84b2742d06049f2c0025c6a45f10d1127878353e0dbeaa7b88fa34df67d72926e5db88f3
+  languageName: node
+  linkType: hard
+
 "three@npm:^0.154.0":
   version: 0.154.0
   resolution: "three@npm:0.154.0"
   checksum: 90ad3cafef8b866641366977ab7189d56f7352c6cdc014cbab946544e42782ec4ea7e56b959b43590433a0fcdc4bd8f8029b18a75074ba10005182c5a73bcc88
+  languageName: node
+  linkType: hard
+
+"three@npm:^0.156.1":
+  version: 0.156.1
+  resolution: "three@npm:0.156.1"
+  checksum: 18b3381efadb6a2bb10ca09f6de0cea8f6f5369acc7bd5531dfdc80f60c3d075e28151f56194dd19144352e646a50664a243111060985e1f428bff9484461d08
   languageName: node
   linkType: hard
 
