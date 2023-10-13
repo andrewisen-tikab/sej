@@ -5,12 +5,12 @@ __metadata:
   version: 6
   cacheKey: 8
 
-"3d-tiles-renderer@npm:^0.3.20":
-  version: 0.3.20
-  resolution: "3d-tiles-renderer@npm:0.3.20"
+"3d-tiles-renderer@npm:^0.3.21":
+  version: 0.3.21
+  resolution: "3d-tiles-renderer@npm:0.3.21"
   peerDependencies:
     three: ">=0.123.0"
-  checksum: 4fbc2cae87e0a24ed03f1367f30fcd6532053c030ae2ede284a8b678291279f429a62740efa85e4c5bac3ac8ba93f5c01922f93c2f7069c3f946b034a718db25
+  checksum: e81ab097cb659bb75851c77057313234b1d1a79ed3864e31e01faf3a2e46770439f9aaca673be2d49d0d675fd302bb5e7ee2821c0f0e9c3df822d586a95b10b4
   languageName: node
   linkType: hard
 
@@ -530,13 +530,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tweenjs/tween.js@npm:~18.6.4":
-  version: 18.6.4
-  resolution: "@tweenjs/tween.js@npm:18.6.4"
-  checksum: 47208db3f6c32cde80284a852d0fca016284f90c4798eb4ebb2ebfc2e379504007bf0c031c2c33044df8a0878fd1942ebc4e0b7f5b8bcccf812b532ea1ee73eb
-  languageName: node
-  linkType: hard
-
 "@types/argparse@npm:1.0.38":
   version: 1.0.38
   resolution: "@types/argparse@npm:1.0.38"
@@ -558,17 +551,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/three@npm:^0.154.0":
-  version: 0.154.0
-  resolution: "@types/three@npm:0.154.0"
+"@types/three@npm:^0.157.0":
+  version: 0.157.0
+  resolution: "@types/three@npm:0.157.0"
   dependencies:
-    "@tweenjs/tween.js": ~18.6.4
     "@types/stats.js": "*"
     "@types/webxr": "*"
-    fflate: ~0.6.9
-    lil-gui: ~0.17.0
+    fflate: ~0.6.10
     meshoptimizer: ~0.18.1
-  checksum: 623067f84e342afc2641b4e547a95d25882b01a108abd8987df6e3c9af5d83d710e13cc974174867c0298573c93b4e0f1b2233d9bab650a7c2ef3cbb73a5e842
+  checksum: 9eb4225b26a7789b5154862763cd16b6f5470631b196649d3d31ade1604a78140b7d64c55f1778c222e274e8bbb1778e8a05512c6b9edcf20f19abde36bb7eee
   languageName: node
   linkType: hard
 
@@ -729,12 +720,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"camera-controls@npm:^2.7.0":
-  version: 2.7.0
-  resolution: "camera-controls@npm:2.7.0"
+"camera-controls@npm:^2.7.2":
+  version: 2.7.2
+  resolution: "camera-controls@npm:2.7.2"
   peerDependencies:
     three: ">=0.126.1"
-  checksum: 86caa08faf2e6b52a709758c133b2c987ca08082d2138cc2556970d11ec086228d50ccef6f42a6afe338aa1de60bbac602e434acce1359a7b34fd6e74859e55d
+  checksum: ea7e9aede39fb64455f1e17a80b4d53d0c57f26ca132c776757a464653bce4b696b9757e0383523a130b98f5d8292683230e6fb43b80a3f1e17b223e934a80c7
   languageName: node
   linkType: hard
 
@@ -988,7 +979,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fflate@npm:~0.6.9":
+"fflate@npm:~0.6.10":
   version: 0.6.10
   resolution: "fflate@npm:0.6.10"
   checksum: 96384bc4090987fe565c0de8204e3830f538144ec950576fea50aee1b42adbe9fc3ed5e7905dfa7979faaa20979def330dbebce548f3dcafc3e118cc9838526d
@@ -1054,7 +1045,7 @@ __metadata:
 
 "fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
   dependencies:
     node-gyp: latest
   conditions: os=darwin
@@ -1381,13 +1372,6 @@ __metadata:
   dependencies:
     immediate: ~3.0.5
   checksum: 33102302cf19766f97919a6a98d481e01393288b17a6aa1f030a3542031df42736edde8dab29ffdbf90bebeffc48c761eb1d064dc77592ca3ba3556f9fe6d2a8
-  languageName: node
-  linkType: hard
-
-"lil-gui@npm:~0.17.0":
-  version: 0.17.0
-  resolution: "lil-gui@npm:0.17.0"
-  checksum: a6f33e90748ea98477f1f7af6d6cbdc4a1b38ce9da86d674d73f7b0bbdc7f3e947d81edee04c32f33fb28c69a108ba04c24270a8398064ffcc56ffeabc0a916e
   languageName: node
   linkType: hard
 
@@ -1858,7 +1842,7 @@ __metadata:
 
 "resolve@patch:resolve@~1.19.0#~builtin<compat/resolve>":
   version: 1.19.0
-  resolution: "resolve@patch:resolve@npm%3A1.19.0#~builtin<compat/resolve>::version=1.19.0&hash=c3c19d"
+  resolution: "resolve@patch:resolve@npm%3A1.19.0#~builtin<compat/resolve>::version=1.19.0&hash=07638b"
   dependencies:
     is-core-module: ^2.1.0
     path-parse: ^1.0.6
@@ -1868,7 +1852,7 @@ __metadata:
 
 "resolve@patch:resolve@~1.22.1#~builtin<compat/resolve>":
   version: 1.22.3
-  resolution: "resolve@patch:resolve@npm%3A1.22.3#~builtin<compat/resolve>::version=1.22.3&hash=c3c19d"
+  resolution: "resolve@patch:resolve@npm%3A1.22.3#~builtin<compat/resolve>::version=1.22.3&hash=07638b"
   dependencies:
     is-core-module: ^2.12.0
     path-parse: ^1.0.7
@@ -1952,16 +1936,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "sej@workspace:."
   dependencies:
-    3d-tiles-renderer: ^0.3.20
+    3d-tiles-renderer: ^0.3.21
     "@andrewisen/error-manager": ^0.0.4
-    "@types/three": ^0.154.0
-    camera-controls: ^2.7.0
+    "@types/three": ^0.157.0
+    camera-controls: ^2.7.2
     localforage: ^1.10.0
-    three: ^0.154.0
-    three-mesh-bvh: ^0.6.0
-    three-multi-select: ^0.0.21
+    three: ^0.157.0
+    three-mesh-bvh: ^0.6.8
+    three-multi-select: ^0.0.22
     three-shape-3d: ^0.0.26
-    three-spatial-hash-grid: ^0.0.2
+    three-spatial-hash-grid: ^0.0.4
     three-timeline: ^0.0.2
     typescript: ^5.0.2
     vite: ^4.3.9
@@ -2188,22 +2172,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three-mesh-bvh@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "three-mesh-bvh@npm:0.6.0"
+"three-mesh-bvh@npm:^0.6.8":
+  version: 0.6.8
+  resolution: "three-mesh-bvh@npm:0.6.8"
   peerDependencies:
     three: ">= 0.151.0"
-  checksum: bafa9c912be4137ae5bb440584deff5953abd3196f7e4c38ecfb279ed16abc7a570d9e89a0d998d1e77dc0f532f8524f393b4bc0a0755e3debd1968ee05f97fe
+  checksum: d72997807f24a0f87257a649d6465aee3617a6270d80cc0315af22ef8a3ab0eccc4d2197fa546e668ec72d39d2d3d13ac7215b3e9f69f56d96f6269080b1507b
   languageName: node
   linkType: hard
 
-"three-multi-select@npm:^0.0.21":
-  version: 0.0.21
-  resolution: "three-multi-select@npm:0.0.21"
+"three-multi-select@npm:^0.0.22":
+  version: 0.0.22
+  resolution: "three-multi-select@npm:0.0.22"
   peerDependencies:
     three: ^0.150.1
     three-mesh-bvh: ^0.5.23
-  checksum: a9f639872684331614c9afd931b34edd8327ea4274d84b908596d2304d41644636621372874b823413188b4493500637700258a0069074ce70b17585ddf423aa
+  checksum: 94b9a37c6e4f49daa873622df62ac984410734f23a56ba0cac9277f54834311a91f5bbcac8316910d497052c17d02efc4fa16002c4a1435209215d3b54943c92
   languageName: node
   linkType: hard
 
@@ -2218,12 +2202,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three-spatial-hash-grid@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "three-spatial-hash-grid@npm:0.0.2"
+"three-spatial-hash-grid@npm:^0.0.4":
+  version: 0.0.4
+  resolution: "three-spatial-hash-grid@npm:0.0.4"
   peerDependencies:
     three: ">=0.123.0"
-  checksum: 7562444573b576fb60dcec2b9d351108f7dd08d5b3b1e1dbc542f2e0c7c9750f221d4201f932349730f892406a0cfbdc3ffca4c9097cf8c6165615416dbf716e
+  checksum: 892d19b9b684045ef497aac451b5d1366d4cd2bd6da0ce728661b348b54dc2c23ca5c7e35df3b0dcb6fd707514817cb43e9e20131d292b594d7c913f1e467b85
   languageName: node
   linkType: hard
 
@@ -2236,17 +2220,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three@npm:^0.154.0":
-  version: 0.154.0
-  resolution: "three@npm:0.154.0"
-  checksum: 90ad3cafef8b866641366977ab7189d56f7352c6cdc014cbab946544e42782ec4ea7e56b959b43590433a0fcdc4bd8f8029b18a75074ba10005182c5a73bcc88
-  languageName: node
-  linkType: hard
-
 "three@npm:^0.156.1":
   version: 0.156.1
   resolution: "three@npm:0.156.1"
   checksum: 18b3381efadb6a2bb10ca09f6de0cea8f6f5369acc7bd5531dfdc80f60c3d075e28151f56194dd19144352e646a50664a243111060985e1f428bff9484461d08
+  languageName: node
+  linkType: hard
+
+"three@npm:^0.157.0":
+  version: 0.157.0
+  resolution: "three@npm:0.157.0"
+  checksum: 444797461c9db09d8a4cad886e494c2e6dd5754f09ac7ac4af75a3bf1143ae79641388db31999edcc76c5dba9677639f09da2df8d0128396a1dd59e41226c85c
   languageName: node
   linkType: hard
 
@@ -2305,21 +2289,21 @@ __metadata:
 
 "typescript@patch:typescript@^5.0.2#~builtin<compat/typescript>":
   version: 5.0.4
-  resolution: "typescript@patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"
+  resolution: "typescript@patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=bda367"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: d26b6ba97b6d163c55dbdffd9bbb4c211667ebebc743accfeb2c8c0154aace7afd097b51165a72a5bad2cf65a4612259344ff60f8e642362aa1695c760d303ac
+  checksum: 6a1fe9a77bb9c5176ead919cc4a1499ee63e46b4e05bf667079f11bf3a8f7887f135aa72460a4c3b016e6e6bb65a822cb8689a6d86cbfe92d22cc9f501f09213
   languageName: node
   linkType: hard
 
 "typescript@patch:typescript@~4.8.4#~builtin<compat/typescript>":
   version: 4.8.4
-  resolution: "typescript@patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=1a91c8"
+  resolution: "typescript@patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=bda367"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: c981e82b77a5acdcc4e69af9c56cdecf5b934a87a08e7b52120596701e389a878b8e3f860e73ffb287bf649cc47a8c741262ce058148f71de4cdd88bb9c75153
+  checksum: 563a0ef47abae6df27a9a3ab38f75fc681f633ccf1a3502b1108e252e187787893de689220f4544aaf95a371a4eb3141e4a337deb9895de5ac3c1ca76430e5f0
   languageName: node
   linkType: hard
 
