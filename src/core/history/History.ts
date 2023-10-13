@@ -50,7 +50,6 @@ export default class History {
         if (cmd !== null) {
             cmd.undo();
             this.redos.push(cmd);
-            this.editor.signals.historyChanged.dispatch(cmd);
         }
 
         return cmd;
@@ -71,7 +70,6 @@ export default class History {
         if (cmd !== null) {
             cmd.execute();
             this.undos.push(cmd);
-            this.editor.signals.historyChanged.dispatch(cmd);
         }
 
         return cmd;
