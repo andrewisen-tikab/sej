@@ -28,6 +28,9 @@ export class AbstractExample implements Example {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         window.sej = this.sej;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        window.example = this;
 
         // 6. Call the loaders
         this.addDummyScene();
@@ -35,6 +38,7 @@ export class AbstractExample implements Example {
 
         const { camera } = this.sej.editor;
         camera.position.set(0, 2, 5);
+        this.hasInit = true;
     }
 
     /**
@@ -98,6 +102,9 @@ export class AbstractExample implements Example {
             renderer: this.sej.renderer.test(),
             controls: this.sej.controls.test(),
         };
+
+        // eslint-disable-next-line no-console
+        console.log(status);
 
         const everythingPassed = Object.values(status).every((value) => value === true);
 

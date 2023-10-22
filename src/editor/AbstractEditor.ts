@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import * as signals from 'signals';
 import { HistoryObject } from '@andrewisen/error-manager';
 
+import { AddObjectCommand } from '../commands/AddObjectCommand';
 import type { Command } from '../commands/types';
 import { ErrorManager, Errors } from '../core/ErrorManager';
 import { Debugger } from '../debugger/types';
@@ -272,6 +273,7 @@ export class AbstractEditor implements Editor {
     test(): boolean {
         // Create a new object
         const object = new THREE.Object3D();
+        this.execute(new AddObjectCommand(this, object));
 
         // Expect the object to be in the scene
         const find = this.objectByUuid(object.uuid);
