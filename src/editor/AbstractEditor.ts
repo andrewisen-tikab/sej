@@ -46,7 +46,7 @@ export class AbstractEditor implements Editor {
 
     public debugger: Debugger | null;
 
-    public mobileUtils: MobileUtils;
+    public mobileUtils: typeof MobileUtils;
 
     constructor() {
         this.signals = {
