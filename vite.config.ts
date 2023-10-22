@@ -14,7 +14,7 @@ export default defineConfig({
         sourcemap: true,
         lib: {
             // Could also be a dictionary or array of multiple entry points
-            entry: resolve(__dirname, 'src/index.ts'),
+            entry: resolve(__dirname, 'src/Sej.ts'),
             name: 'sej',
             // the proper extensions will be added
             fileName: 'sej',

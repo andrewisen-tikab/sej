@@ -1,30 +1,58 @@
 # Sej Engine
 
-Sej \[ˈsɛj\].
+Sej \[ˈsɛj\]. (Pronounced like the word "say")
 
-`Sej Engine` or simply `sej` is an performance oriented 3D renderer. It is written in TypeScript and uses [three.js](https://threejs.org/). It is designed to be used as a starting-off point for 3D projects.
+`SejEngine` is an performance oriented 3D editor.
+It is written in TypeScript and rewrite [three.js](https://threejs.org/)'s editor.
 
-The goal of `Sej` is to be both powerful and flexible.
+`SejEngine` is:
 
-## Demo
-
-Requires a browser with WebGPU support.
-
--   [https://andrewisen-tikab.github.io/sej/examples/simple/](https://andrewisen-tikab.github.io/sej/examples/simple/)
--   [https://andrewisen-tikab.github.io/sej/examples/tileset/](https://andrewisen-tikab.github.io/sej/examples/tileset/)
--   [https://andrewisen-tikab.github.io/sej/examples/google-tileset/](https://andrewisen-tikab.github.io/sej/examples/google-tileset/)
--   [https://andrewisen-tikab.github.io/sej/examples/glb-copies/](https://andrewisen-tikab.github.io/sej/examples/glb-copies/)
--   [https://andrewisen-tikab.github.io/sej/examples/memory-test/](https://andrewisen-tikab.github.io/sej/examples/memory-test/)
--   [https://andrewisen-tikab.github.io/sej/examples/objects/](https://andrewisen-tikab.github.io/sej/examples/objects/)
--   [https://andrewisen-tikab.github.io/sej/examples/transform/](https://andrewisen-tikab.github.io/sej/examples/transform/)
-
-## WIP
-
-Sej is still a work in progress. It is not ready for production use.
+-   Performance oriented, but
+-   Heavily opinionated
 
 [![PR Checker](https://github.com/andrewisen-tikab/sej/actions/workflows/pr.yml/badge.svg)](https://github.com/andrewisen-tikab/sej/actions/workflows/pr.yml)
 
 [![Release](https://github.com/andrewisen-tikab/sej/actions/workflows/release.yml/badge.svg)](https://github.com/andrewisen-tikab/sej/actions/workflows/release.yml)
+
+## Getting started
+
+Begin by installing `sej`:
+
+```bash
+yarn add sej
+```
+
+Use the `SEJ` namespace to avoid conflicts with other libraries:
+
+```ts
+import * as SEJ from 'sej';
+```
+
+The `SejEngine` consists of multiple parts.
+You are free to pick and choose which parts you want to use.
+This will determine how your application will look and behave.
+
+To aid you with this, there are some factories that you can use to build your own `SejEngine`:
+
+```ts
+const factory = new AbstractExampleFactory();
+const sej = factory.build();
+```
+
+The variable `sej` will now contain a `SejEngine` that has all the bells and whistles that you need to create simple scene.
+
+## Demo
+
+A list of working examples can be found here:
+
+-   [https://andrewisen-tikab.github.io/sej/examples/](https://andrewisen-tikab.github.io/sej/examples/)
+
+## WIP
+
+The purpose of `Sej` is to be "the future of 3D editors".
+
+This means that `Sej` will drop support for WebGL in favor WebGPU.
+However, because of the state of WebGPU (and web in general - yes, I'm looking at you Safari), `sej` will not be production ready for a while.
 
 ## Models used
 
@@ -35,3 +63,15 @@ Sej is still a work in progress. It is not ready for production use.
 ["City 1" by ithappy](https://sketchfab.com/3d-models/city-1-55b5426840fd45f19f19efdb4293f986)
 
 ["Pringles Cans | 5 Different Flavours | GAMEREADY" by NKaap](https://sketchfab.com/3d-models/pringles-cans-5-different-flavours-gameready-ba9779250e314c16abe05e9a00f33a02)
+
+## Dependency Graph
+
+<img src="https://github.com/andrewisen-tikab/sej/blob/dev/resources/dependency-graph-01.svg?raw=true" width="100%" />
+
+<img src="https://github.com/andrewisen-tikab/sej/blob/dev/resources/dependency-graph-02.svg?raw=true" width="100%" />
+
+<img src="https://github.com/andrewisen-tikab/sej/blob/dev/resources/dependency-graph-02.svg?raw=true" width="100%" />
+
+## Tests
+
+Testing is done locally with `cypress`.
