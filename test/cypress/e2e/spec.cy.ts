@@ -14,7 +14,7 @@ describe('template spec', () => {
                 cy.log(`START test: ${example}`);
                 expect(
                     // @ts-ignore
-                    win.sej.test(),
+                    win.example.test(),
                 ).to.equal(true);
                 cy.log(`END test: ${example}`);
             });
