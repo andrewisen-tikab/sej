@@ -11,6 +11,7 @@ import { AbstractHistory } from '../history/AbstractHistory';
 import { AbstractLoaderManager } from '../loader/AbstractLoaderManager';
 import type { LoaderManager } from '../loader/types';
 import { AbstractSelector } from '../selector/AbstractSelector';
+import { MobileUtils } from '../utils/MobileUtils';
 import { Config } from './Config';
 import type { Editor, EditorJSON, EditorSignals, Object3D } from './types';
 
@@ -45,6 +46,8 @@ export class AbstractEditor implements Editor {
 
     public debugger: Debugger | null;
 
+    public mobileUtils: MobileUtils;
+
     constructor() {
         this.signals = {
             objectSelected: new Signal(),
@@ -69,6 +72,7 @@ export class AbstractEditor implements Editor {
         };
 
         this.debugger = null;
+        this.mobileUtils = MobileUtils;
 
         this.config = new Config();
 
