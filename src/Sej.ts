@@ -1,78 +1,71 @@
-import { SejCore } from '.';
-import { AddObjectCommandParams } from './core/commands/AddObjectCommand';
-import ControlsManager from './managers/ControlsManager';
-import DEVManager from './managers/DEVManager';
-import LoadingManager from './managers/LoadingManger';
-import OrientationManager from './managers/OrientationManager';
-import { InitProps } from './types';
-
 /**
- * Sej[ˈsɛj] Engine as singleton.
- * Use this instance as a starting off point.
- * Extend the functionality by adding your own managers.
+ *    _____      _
+ *   / ____|    (_)
+ *  | (___   ___ _
+ *   \___ \ / _ \ |
+ *   ____) |  __/ |
+ *  |_____/ \___| |
+ *             _/ |
+ *            |__/
  */
-export default class SejEngine {
-    /*
-     * {@link SejEngine} singleton
-     */
-    private static _instance: SejEngine;
 
-    /**
-     * Generate {@link SejEngine} singleton
-     */
-    public static get Instance() {
-        return this._instance || (this._instance = new this());
-    }
+// Commands
 
-    /**
-     * Mangers used by {@link SejEngine}.
-     */
-    public readonly managers = {
-        dev: new DEVManager(),
-        orientation: new OrientationManager(),
-        loading: new LoadingManager(),
-        controls: new ControlsManager(),
-    };
+export * from './commands/types';
+export { AbstractCommand } from './commands/AbstractCommand';
+export { AddObjectCommand } from './commands/AddObjectCommand';
 
-    /**
-     * Reference to the {@link SejCore} API.
-     */
-    public api = SejCore.api;
+// Controls
+export * from './controls/types';
+export { AbstractViewportControls } from './controls/AbstractViewportControls';
+export { SimpleViewportControls } from './controls/SimpleViewportControls';
+export { ViewportCameraControls } from './controls/ViewportCameraControls';
 
-    /**
-     * Reference to the {@link SejCore}.
-     */
-    public core = SejCore;
+// Core
 
-    /**
-     * Install dependencies and setup `three`.
-     * @returns Returns {@link SejEngine} singleton
-     */
-    public install(): SejEngine {
-        SejCore.install();
-        return this;
-    }
+export * from './core/types';
+export { ErrorManager } from './core/ErrorManager';
 
-    /**
-     * Initialize {@link SejEngine}.
-     */
-    public init(props: InitProps) {
-        SejCore.init(props);
+// Debugger
+export * from './debugger/types';
+export { AbstractDebugger } from './debugger/AbstractDebugger';
 
-        Object.values(this.managers).forEach((value) => {
-            value.init();
-        });
-        this.managers.loading.initLoadingManger(SejCore.getLoaders().loadingManager);
-        return this;
-    }
+// Editor
 
-    /**
-     * @deprecated WIP
-     */
-    public loadTileset(url: string, params?: AddObjectCommandParams): void {
-        SejCore.api.loadTileset(url, params);
-        const { tilesRenderer } = SejCore.getLoaders();
-        if (tilesRenderer[0]?.manager)
-            this.managers.loading.initLoadingManger(tilesRenderer[0].manager);
-    }
-}
+export * from './editor/types';
+export { AbstractEditor } from './editor/AbstractEditor';
+export { Config } from './editor/Config';
+
+// Factory
+export * from './factory/types';
+export { AbstractExampleFactory } from './factory/AbstractExampleFactory';
+export { ComplexExampleFactory } from './factory/ComplexExampleFactory';
+
+// History
+
+export * from './history/types';
+export { AbstractHistory } from './history/AbstractHistory';
+
+// Loader
+export * from './loader/types';
+export { AbstractLoaderManager } from './loader/AbstractLoaderManager';
+export { AbstractLoader } from './loader/AbstractLoader';
+export { LoaderUtils } from './loader/LoaderUtils';
+export { ModelLoader } from './loader/ModelLoader';
+
+// Optimizer
+export * from './optimizer/types';
+export { Optimization } from './optimizer/Optimization';
+export { Optimizer } from './optimizer/Optimizer';
+export { SimpleOptimization } from './optimizer/SimpleOptimization';
+
+// Renderer
+
+export * from './renderer/types';
+export { AbstractRenderer } from './renderer/AbstractRenderer';
+export { WebGLRenderer } from './renderer/WebGLRenderer';
+
+// Viewport
+
+export * from './viewport/types';
+export { AbstractViewport } from './viewport/AbstractViewport';

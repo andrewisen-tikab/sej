@@ -1,0 +1,4 @@
+{
+    "entryPoints": ["src/Sej.ts"],
+    "out": "dist/examples/docs"
+}

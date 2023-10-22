@@ -1,0 +1,53 @@
+{
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "airbnb",
+        "airbnb-typescript",
+        "prettier"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["react", "react-hooks", "@typescript-eslint", "prefer-arrow-functions"],
+    "parserOptions": {
+        "project": "./tsconfig.json",
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "rules": {
+        "prefer-arrow-functions/prefer-arrow-functions": "error",
+        // Force jsDoc.
+        "require-jsdoc": [
+            "error",
+            {
+                "require": {
+                    "FunctionDeclaration": true,
+                    "MethodDefinition": false,
+                    "ClassDeclaration": true,
+                    "ArrowFunctionExpression": true,
+                    "FunctionExpression": true
+                }
+            }
+        ],
+        "react/react-in-jsx-scope": "off",
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        // Force `destructuring`
+        "prefer-destructuring": ["error", { "object": true, "array": true }],
+        "no-constant-condition": ["error", { "checkLoops": false }],
+        "no-continue": "off",
+        "no-plusplus": "off",
+        // Esbuild resolver is smart. You don't need to be verbose.
+        "import/extensions": "off",
+        "@typescript-eslint/no-unused-expressions": ["error", { "allowTernary": true }],
+        "no-console": "error",
+        "@typescript-eslint/no-inferrable-types": "off",
+        "no-restricted-exports": "off",
+        "react/require-default-props": "off",
+        "import/prefer-default-export": "off",
+        "no-underscore-dangle": ["error", { "allowAfterThis": true }]
+    }
+}
