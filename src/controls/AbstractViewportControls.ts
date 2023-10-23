@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 
+import GUI from 'lil-gui';
+
 import { ViewportControls } from './types';
 
 /**
@@ -43,4 +45,7 @@ export class AbstractViewportControls extends THREE.EventDispatcher implements V
     public test(): boolean {
         return true;
     }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, class-methods-use-this
+    public addDebug(_gui: GUI): void {}
 }

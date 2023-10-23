@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 
 import type { Test } from '../core/types';
+import { AddDebug } from '../debugger/types';
 
 export type ViewportControls = {
     /**
@@ -41,4 +42,5 @@ export type ViewportControls = {
      */
     dispose: (delta: number) => void;
 } & THREE.EventDispatcher &
-    Test;
+    Test &
+    AddDebug;

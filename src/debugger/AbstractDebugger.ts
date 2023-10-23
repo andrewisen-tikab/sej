@@ -89,6 +89,7 @@ export class AbstractDebugger implements Debugger {
                 this.editor.setCamera(value);
             });
 
+        controls.addDebug(this.guiFolders.camera);
         this.enabled = this._enabled;
     }
 
