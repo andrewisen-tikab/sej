@@ -19,6 +19,11 @@ export type ViewportControls = {
      */
     domElement: HTMLCanvasElement;
     /**
+     * Set the camera to be used by this renderer.
+     * @param camera New camera to be used.
+     */
+    setCamera: (camera: THREE.Camera) => void;
+    /**
      * Focus the controls on the given target.
      * @param target Target to focus on.
      * @param args Additional arguments.

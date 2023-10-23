@@ -29,6 +29,7 @@ export class ComplexExampleFactory implements ExampleFactor {
         editor.loaderManager.loaders[loader.extension] = loader;
 
         const { scene, camera } = editor;
+
         const renderer = new WebGLRenderer(scene, camera);
         const controls = new ViewportCameraControls(
             camera as THREE.PerspectiveCamera,
@@ -42,7 +43,12 @@ export class ComplexExampleFactory implements ExampleFactor {
         });
 
         // eslint-disable-next-line no-underscore-dangle, @typescript-eslint/naming-convention
-        const _debugger = new AbstractDebugger({ domElement: container, renderer, controls });
+        const _debugger = new AbstractDebugger({
+            domElement: container,
+            renderer,
+            controls,
+            editor,
+        });
         editor.debugger = _debugger;
 
         const sej = new SejEngine({

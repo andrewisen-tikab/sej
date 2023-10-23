@@ -10,6 +10,11 @@ export type Renderer = {
     domElement: HTMLCanvasElement;
 
     /**
+     * Set the camera to be used by this renderer.
+     * @param camera New camera to be used.
+     */
+    setCamera(camera: THREE.Camera): void;
+    /**
      * Render a single frame.
      * Use this inside the `requestAnimationFrame`.
      */
