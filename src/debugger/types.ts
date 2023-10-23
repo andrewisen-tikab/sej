@@ -40,3 +40,7 @@ export type Debugger = {
      */
     update: (delta: number) => void;
 };
+
+export type AddDebug = {
+    addDebug(gui: GUI): void;
+};
