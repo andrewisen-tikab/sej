@@ -382,6 +382,17 @@ export class SimpleViewportControls extends AbstractViewportControls implements 
     // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
     public update(_delta: number) {}
 
+    public setCamera(_camera: THREE.Camera): void {
+        const orthographic = _camera as THREE.OrthographicCamera;
+        if (orthographic.isOrthographicCamera) {
+            // eslint-disable-next-line no-alert
+            alert("Can't use an orthographic camera.");
+            throw new Error("Can't use an orthographic camera.");
+        }
+
+        this.object = _camera;
+    }
+
     public test(): boolean {
         const dummy = new THREE.Vector3();
         this.focus(this.object, dummy);

@@ -71,9 +71,17 @@ export class AbstractViewport implements Viewport {
             this.resize();
         });
 
+        this.editor.signals.setCamera.add(() => {
+            this.resize();
+            this.renderer.setCamera(this.editor.camera);
+            this.controls.setCamera(this.editor.camera);
+        });
+
         window.addEventListener('resize', () => {
             this.editor.signals.windowResize.dispatch();
         });
+
+        this.resize();
     }
 
     public update(delta: number) {

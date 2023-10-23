@@ -2,11 +2,14 @@ import GUI from 'lil-gui';
 import Stats from 'three/addons/libs/stats.module.js';
 
 import type { ViewportControls } from '../controls/types';
+import type { SupportedCameras } from '../core/types';
+import type { Editor } from '../editor/types';
 import type { Renderer } from '../renderer/types';
 import { DebugFolders, type DebugParams, type Debugger, defaultDebugParams } from './types';
 
 export type AbstractDebuggerParams = {
     domElement?: HTMLElement;
+    editor: Editor;
     renderer: Renderer;
     controls: ViewportControls;
 };
@@ -16,6 +19,8 @@ export type AbstractDebuggerParams = {
  */
 export class AbstractDebugger implements Debugger {
     protected _enabled: boolean;
+
+    protected editor: Editor;
 
     set enabled(value: boolean) {
         this._enabled = value;
@@ -45,10 +50,16 @@ export class AbstractDebugger implements Debugger {
 
     controls: ViewportControls;
 
-    constructor({ domElement = document.body, renderer, controls }: AbstractDebuggerParams) {
+    constructor({
+        domElement = document.body,
+        renderer,
+        controls,
+        editor,
+    }: AbstractDebuggerParams) {
         this.domElement = domElement;
         this.renderer = renderer;
         this.controls = controls;
+        this.editor = editor;
 
         // Always enable debugger in dev mode
         this._enabled =
@@ -59,6 +70,7 @@ export class AbstractDebugger implements Debugger {
 
         this.guiFolders = {
             general: this.gui.addFolder('General').close(),
+            camera: this.gui.addFolder('Camera').close(),
         };
 
         this.params = { ...defaultDebugParams };
@@ -70,6 +82,12 @@ export class AbstractDebugger implements Debugger {
             // NB: Other way around!
             this.controls.enabled = !value;
         });
+
+        this.guiFolders.camera
+            .add(this.params, 'camera', ['perspective', 'orthographic'])
+            .onChange((value: SupportedCameras) => {
+                this.editor.setCamera(value);
+            });
 
         this.enabled = this._enabled;
     }

@@ -28,6 +28,9 @@ export class AbstractViewportControls extends THREE.EventDispatcher implements V
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, class-methods-use-this, @typescript-eslint/no-explicit-any
+    public setCamera(_camera: THREE.Camera): void {}
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, class-methods-use-this, @typescript-eslint/no-explicit-any
     public focus(_object: THREE.Object3D, ..._args: any[]) {}
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, class-methods-use-this

@@ -45,7 +45,12 @@ export class AbstractExampleFactory implements ExampleFactor {
         });
 
         // eslint-disable-next-line no-underscore-dangle, @typescript-eslint/naming-convention
-        const _debugger = new AbstractDebugger({ domElement: container, renderer, controls });
+        const _debugger = new AbstractDebugger({
+            domElement: container,
+            renderer,
+            controls,
+            editor,
+        });
         editor.debugger = _debugger;
 
         const sej = new SejEngine({

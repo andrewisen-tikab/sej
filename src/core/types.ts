@@ -38,3 +38,5 @@ export type Sej = {
     renderer: Renderer;
     controls: ViewportControls;
 };
+
+export type SupportedCameras = 'perspective' | 'orthographic';

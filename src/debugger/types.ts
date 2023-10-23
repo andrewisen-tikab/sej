@@ -1,6 +1,7 @@
 import GUI from 'lil-gui';
 import Stats from 'three/addons/libs/stats.module.js';
 
+import type { SupportedCameras } from '../core/types';
 import type { Renderer } from '../renderer/types';
 
 export type DebugParams = {
@@ -10,14 +11,17 @@ export type DebugParams = {
      * @default false
      */
     freeze: boolean;
+    camera: SupportedCameras;
 };
 
 export type DebugFolders = {
     general: GUI;
+    camera: GUI;
 };
 
 export const defaultDebugParams: DebugParams = {
     freeze: false,
+    camera: 'perspective',
 };
 
 export type Debugger = {

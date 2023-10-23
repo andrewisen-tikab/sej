@@ -7,6 +7,7 @@ import { HistoryObject } from '@andrewisen/error-manager';
 import { AddObjectCommand } from '../commands/AddObjectCommand';
 import type { Command } from '../commands/types';
 import { ErrorManager, Errors } from '../core/ErrorManager';
+import { SupportedCameras } from '../core/types';
 import { Debugger } from '../debugger/types';
 import { AbstractHistory } from '../history/AbstractHistory';
 import { AbstractLoaderManager } from '../loader/AbstractLoaderManager';
@@ -36,6 +37,10 @@ export class AbstractEditor implements Editor {
     public scene: THREE.Scene;
 
     public camera: THREE.Camera;
+
+    public perspectiveCamera: THREE.PerspectiveCamera;
+
+    public orthographicCamera: THREE.OrthographicCamera;
 
     public signals: EditorSignals;
 
@@ -67,6 +72,7 @@ export class AbstractEditor implements Editor {
             showHelpersChanged: new Signal(),
             refreshSidebarObject3D: new Signal(),
             cameraChanged: new Signal(),
+            setCamera: new Signal(),
             refreshSidebarEnvironment: new Signal(),
             historyChanged: new Signal(),
             intersectionsDetected: new Signal(),
@@ -80,16 +86,21 @@ export class AbstractEditor implements Editor {
         this.loaderManager = new AbstractLoaderManager();
 
         this.scene = new THREE.Scene();
-        this.camera = new THREE.PerspectiveCamera(
-            75,
-            window.innerWidth / window.innerHeight,
-            0.1,
-            1000,
-        );
+
+        this.perspectiveCamera = new THREE.PerspectiveCamera();
+
+        this.orthographicCamera = new THREE.OrthographicCamera();
+        this.orthographicCamera.position.set(0, 0, 100);
+
+        this.camera = this.perspectiveCamera;
+        // this.camera = this.orthographicCamera;
+
         this.history = new AbstractHistory(this);
 
         this.selector = new AbstractSelector(this);
         this.selected = null;
+
+        this.signals.windowResize.dispatch();
     }
 
     public setScene(scene: THREE.Scene): void {
@@ -293,5 +304,10 @@ export class AbstractEditor implements Editor {
         if (findAgain?.uuid !== object.uuid) return false;
 
         return true;
+    }
+
+    setCamera(camera: SupportedCameras): void {
+        this.camera = camera === 'perspective' ? this.perspectiveCamera : this.orthographicCamera;
+        this.signals.setCamera.dispatch(camera);
     }
 }

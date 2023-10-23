@@ -30,6 +30,10 @@ export class AbstractRenderer implements Renderer {
         this._checkAsync();
     }
 
+    setCamera(camera: THREE.Camera): void {
+        this._camera = camera;
+    }
+
     /**
      * Check if the provided arguments are valid.
      * Assume that they are not!

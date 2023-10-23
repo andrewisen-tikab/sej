@@ -2,7 +2,7 @@ import * as THREE from 'three';
 
 import * as signals from 'signals';
 
-import type { SerializableObject, Test } from '../core/types';
+import type { SerializableObject, SupportedCameras, Test } from '../core/types';
 import type { Debugger } from '../debugger/types';
 import type { History } from '../history/types';
 import type { LoaderManager } from '../loader/types';
@@ -34,6 +34,7 @@ export type EditorSignals = {
     showHelpersChanged: GenericSignalType;
     refreshSidebarObject3D: GenericSignalType;
     cameraChanged: GenericSignalType;
+    setCamera: signals.Signal<SupportedCameras>;
     refreshSidebarEnvironment: GenericSignalType;
     historyChanged: GenericSignalType;
 };
@@ -47,6 +48,10 @@ export type Editor = {
     scene: THREE.Scene;
 
     camera: THREE.Camera;
+
+    perspectiveCamera: THREE.PerspectiveCamera;
+
+    orthographicCamera: THREE.OrthographicCamera;
 
     signals: EditorSignals;
 
@@ -111,6 +116,12 @@ export type Editor = {
      * @param object
      */
     focus: (object: Object3D) => void;
+    /**
+     * Set the {@link SupportedCameras | Camera} to be used.
+     * This will switch the camera internally and dispatch a signal.
+     * @param camera {@link SupportedCameras | Camera} to be set
+     */
+    setCamera: (camera: SupportedCameras) => void;
 } & Pick<History, 'execute' | 'undo' | 'redo'> &
     Pick<Selector, 'select' | 'deselect'> &
     SerializableObject &
