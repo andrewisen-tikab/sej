@@ -87,7 +87,8 @@ export class AbstractEditor implements Editor {
 
         this.scene = new THREE.Scene();
 
-        this.perspectiveCamera = new THREE.PerspectiveCamera();
+        const { innerWidth: width, innerHeight: height } = window;
+        this.perspectiveCamera = new THREE.PerspectiveCamera(45, width / height, 1, 10_000);
 
         this.orthographicCamera = new THREE.OrthographicCamera();
         this.orthographicCamera.position.set(0, 0, 100);

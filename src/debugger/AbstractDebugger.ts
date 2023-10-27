@@ -98,4 +98,9 @@ export class AbstractDebugger implements Debugger {
         if (this.enabled === false) return;
         this.stats.update();
     }
+
+    dispose() {
+        this.gui.destroy();
+        this.stats.dom.remove();
+    }
 }
