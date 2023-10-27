@@ -5,6 +5,7 @@ import { SejEngine } from '../core/Sej';
 import type { Sej } from '../core/types';
 import { AbstractDebugger } from '../debugger/AbstractDebugger';
 import { AbstractEditor } from '../editor/AbstractEditor';
+import { NordicGISHelper } from '../gis/NordicGISHelper';
 import { ModelLoader } from '../loader/ModelLoader';
 import { WebGLRenderer } from '../renderer/WebGLRenderer';
 import { AbstractViewport } from '../viewport/AbstractViewport';
@@ -59,6 +60,8 @@ export class ComplexExampleFactory implements ExampleFactor {
             controls,
         });
 
+        const gis = new NordicGISHelper();
+        gis.dev(scene);
         return sej;
     }
 }

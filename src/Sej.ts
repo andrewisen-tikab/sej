@@ -41,6 +41,11 @@ export * from './factory/types';
 export { AbstractExampleFactory } from './factory/AbstractExampleFactory';
 export { ComplexExampleFactory } from './factory/ComplexExampleFactory';
 
+// GIS
+export * from './gis/types';
+export { AbstractGISHelper } from './gis/AbstractGISHelper';
+export { NordicGISHelper } from './gis/NordicGISHelper';
+
 // History
 
 export * from './history/types';
