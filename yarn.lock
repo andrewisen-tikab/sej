@@ -855,15 +855,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/three@npm:^0.157.0":
-  version: 0.157.0
-  resolution: "@types/three@npm:0.157.0"
+"@types/three@npm:^0.158.0":
+  version: 0.158.0
+  resolution: "@types/three@npm:0.158.0"
   dependencies:
     "@types/stats.js": "*"
     "@types/webxr": "*"
     fflate: ~0.6.10
     meshoptimizer: ~0.18.1
-  checksum: 9eb4225b26a7789b5154862763cd16b6f5470631b196649d3d31ade1604a78140b7d64c55f1778c222e274e8bbb1778e8a05512c6b9edcf20f19abde36bb7eee
+  checksum: 605f34c13d93060e65ae0b7755b6d202b97d62024b67f2253cf35f90ac7f8b66f8bab81d032c4901a34a43b035b8e3242f30564d54ebd221622344db2fd24007
   languageName: node
   linkType: hard
 
@@ -4491,7 +4491,7 @@ __metadata:
     "@trivago/prettier-plugin-sort-imports": ^4.2.0
     "@types/proj4": ^2.5.4
     "@types/signals": ^1.0.3
-    "@types/three": ^0.157.0
+    "@types/three": ^0.158.0
     "@typescript-eslint/eslint-plugin": ^6.4.0
     camera-controls: ^2.7.2
     dependency-cruiser: ^14.1.2
@@ -4512,7 +4512,7 @@ __metadata:
     prettier: ^3.0.3
     proj4: ^2.9.1
     signals: ^1.0.0
-    three: ^0.157.0
+    three: ^0.158.0
     three-mesh-bvh: ^0.6.8
     three-multi-select: ^0.0.22
     three-shape-3d: ^0.0.26
@@ -5024,10 +5024,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three@npm:^0.157.0":
-  version: 0.157.0
-  resolution: "three@npm:0.157.0"
-  checksum: 444797461c9db09d8a4cad886e494c2e6dd5754f09ac7ac4af75a3bf1143ae79641388db31999edcc76c5dba9677639f09da2df8d0128396a1dd59e41226c85c
+"three@npm:^0.158.0":
+  version: 0.158.0
+  resolution: "three@npm:0.158.0"
+  checksum: 30decfb78125732ffc287946208d11b3ba8b6d765d7e806c1e0149f6edc3671e69e2cc680082486858bcd123a1ba24f6dbc8222e88b6edb9e17d9487ae4ed821
   languageName: node
   linkType: hard
 
