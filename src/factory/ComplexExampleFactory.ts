@@ -8,6 +8,7 @@ import { AbstractEditor } from '../editor/AbstractEditor';
 import { NordicGISHelper } from '../gis/NordicGISHelper';
 import { ModelLoader } from '../loader/ModelLoader';
 import { WebGLRenderer } from '../renderer/WebGLRenderer';
+import { AbstractSpatialHashGrid } from '../spatial/AbstractSpatialHashGrid';
 import { AbstractViewport } from '../viewport/AbstractViewport';
 import { ExampleFactor } from './types';
 
@@ -62,6 +63,12 @@ export class ComplexExampleFactory implements ExampleFactor {
 
         const gis = new NordicGISHelper();
         gis.dev(scene);
+
+        const spatial = new AbstractSpatialHashGrid();
+        scene.add(spatial);
+
+        controls.setBoundary(spatial.getBox());
+
         return sej;
     }
 }
