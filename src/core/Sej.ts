@@ -1,7 +1,8 @@
-import { ViewportControls } from '../controls/types';
-import { Editor } from '../editor/types';
-import { Renderer } from '../renderer/types';
-import { Viewport } from '../viewport/types';
+import type { KeyboardControls, ViewportControls } from '../controls/types';
+import type { Editor } from '../editor/types';
+import type { Renderer } from '../renderer/types';
+import type { SpatialHashGrid } from '../spatial/types';
+import type { Viewport } from '../viewport/types';
 import type { Sej } from './types';
 
 export type SejParams = Sej;
@@ -27,13 +28,27 @@ export class SejEngine implements Sej {
 
     renderer: Renderer;
 
-    controls: ViewportControls;
+    viewportControls: ViewportControls;
 
-    constructor({ container, editor, viewport, renderer, controls }: SejParams) {
+    keyboardControls: KeyboardControls;
+
+    spatialHashGrid: SpatialHashGrid;
+
+    constructor({
+        container,
+        editor,
+        viewport,
+        renderer,
+        viewportControls,
+        keyboardControls,
+        spatialHashGrid,
+    }: SejParams) {
         this.container = container;
         this.editor = editor;
         this.viewport = viewport;
         this.renderer = renderer;
-        this.controls = controls;
+        this.viewportControls = viewportControls;
+        this.keyboardControls = keyboardControls;
+        this.spatialHashGrid = spatialHashGrid;
     }
 }

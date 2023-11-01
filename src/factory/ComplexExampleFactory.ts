@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 
+import { AbstractKeyboardControls } from '../controls/AbstractKeyboardControls';
 import { ViewportCameraControls } from '../controls/ViewportCameraControls';
 import { SejEngine } from '../core/Sej';
 import type { Sej } from '../core/types';
@@ -10,14 +11,18 @@ import { ModelLoader } from '../loader/ModelLoader';
 import { WebGLRenderer } from '../renderer/WebGLRenderer';
 import { AbstractSpatialHashGrid } from '../spatial/AbstractSpatialHashGrid';
 import { AbstractViewport } from '../viewport/AbstractViewport';
-import { ExampleFactor } from './types';
+import { ExampleFactor, ExampleFactorParams } from './types';
 
 /**
  * Abstract example factory.
  */
 export class ComplexExampleFactory implements ExampleFactor {
+    constructor(private _params?: Partial<ExampleFactorParams>) {}
+
     // eslint-disable-next-line class-methods-use-this
     build(): Sej {
+        const KeyboardControls = this._params?.keyboardControls || AbstractKeyboardControls;
+
         const container = document.getElementById('app') as HTMLDivElement | null;
         if (!container) throw new Error('Container not found');
 
@@ -33,7 +38,12 @@ export class ComplexExampleFactory implements ExampleFactor {
         const { scene, camera } = editor;
 
         const renderer = new WebGLRenderer(scene, camera);
-        const controls = new ViewportCameraControls(
+        const viewportControls = new ViewportCameraControls(
+            camera as THREE.PerspectiveCamera,
+            renderer.domElement,
+        );
+
+        const keyboardControls = new KeyboardControls(
             camera as THREE.PerspectiveCamera,
             renderer.domElement,
         );
@@ -41,33 +51,38 @@ export class ComplexExampleFactory implements ExampleFactor {
         const viewport = new AbstractViewport({
             editor,
             renderer,
-            controls,
+            viewportControls,
+            keyboardControls,
         });
 
         // eslint-disable-next-line no-underscore-dangle, @typescript-eslint/naming-convention
         const _debugger = new AbstractDebugger({
             domElement: container,
             renderer,
-            controls,
+            controls: viewportControls,
             editor,
         });
         editor.debugger = _debugger;
+
+        const spatialHashGrid = new AbstractSpatialHashGrid();
+        scene.add(spatialHashGrid);
 
         const sej = new SejEngine({
             container,
             editor,
             viewport,
             renderer,
-            controls,
+            viewportControls,
+            keyboardControls,
+            spatialHashGrid,
         });
 
         const gis = new NordicGISHelper();
         gis.dev(scene);
 
-        const spatial = new AbstractSpatialHashGrid();
-        scene.add(spatial);
-
-        controls.setBoundary(spatial.getBox());
+        viewportControls.setBoundary(spatialHashGrid.getBox());
+        const spatialHashGridFolder = _debugger.gui.addFolder('Spatial Hash Grid');
+        spatialHashGrid.addDebug(spatialHashGridFolder);
 
         return sej;
     }

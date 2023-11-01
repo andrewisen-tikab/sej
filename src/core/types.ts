@@ -1,6 +1,7 @@
-import type { ViewportControls } from '../controls/types';
+import type { KeyboardControls, ViewportControls } from '../controls/types';
 import type { Editor } from '../editor/types';
 import type { Renderer } from '../renderer/types';
+import type { SpatialHashGrid } from '../spatial/types';
 import type { Viewport } from '../viewport/types';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -36,7 +37,9 @@ export type Sej = {
     editor: Editor;
     viewport: Viewport;
     renderer: Renderer;
-    controls: ViewportControls;
+    viewportControls: ViewportControls;
+    keyboardControls: KeyboardControls;
+    spatialHashGrid: SpatialHashGrid;
 };
 
 export type SupportedCameras = 'perspective' | 'orthographic';

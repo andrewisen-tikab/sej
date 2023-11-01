@@ -59,7 +59,7 @@
         "three-mesh-bvh": "^0.6.8",
         "three-multi-select": "^0.0.22",
         "three-shape-3d": "^0.0.26",
-        "three-spatial-hash-grid": "^0.0.4",
+        "three-spatial-hash-grid": "^0.0.5",
         "three-timeline": "^0.0.2",
         "zod": "^3.22.4"
     }
