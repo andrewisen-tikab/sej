@@ -77,6 +77,9 @@ export type Debugger = {
     dispose: () => void;
 };
 
+/**
+ * Allows you to add your own debug options to the debugger.
+ */
 export type AddDebug = {
     /**
      * This allows all components to add their own debug options to the debugger.

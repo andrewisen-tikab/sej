@@ -33,12 +33,38 @@ export type SerializableObject = {
  * Useful if you want to create your own `SejEngine`.
  */
 export type Sej = {
+    /**
+     * The canvas where the renderer draws its output.
+     */
     container: HTMLDivElement;
+    /**
+     * The `Editor` is the meat of the application.
+     * It holds the scene, the camera, the signals, the loader manager, the selector, the debugger and the config.
+     */
     editor: Editor;
+    /**
+     * The `viewport` is class that handles the rendering of the scene.
+     * It's a high-level abstraction of the {@link Renderer}.
+     */
     viewport: Viewport;
+    /**
+     * The `renderer` is class that handles the rendering of the scene.
+     * This is a low-level class that features the actual rendering logic.
+     */
     renderer: Renderer;
+    /**
+     * The `ViewportControls` controls an object in the viewport.
+     * It's usually the camera.
+     */
     viewportControls: ViewportControls;
+    /**
+     * The `KeyboardControls` captures keyboard inputs.
+     * Any type of logic can be implemented on top of this.
+     */
     keyboardControls: KeyboardControls;
+    /**
+     * Keep track of X, Y and Zs.
+     */
     spatialHashGrid: SpatialHashGrid;
 };
 

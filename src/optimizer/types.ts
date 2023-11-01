@@ -1,3 +1,6 @@
+/**
+ * The options for the optimizer.
+ */
 export type OptimizerOptions = {
     /**
      * The target milliseconds to hit in the enclosed code block. This cannot be less than 16.66... because browser caps the framerate to 60 frames per second.
