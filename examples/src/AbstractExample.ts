@@ -22,7 +22,7 @@ export class AbstractExample implements Example {
         this.sej = null;
     }
 
-    public init(): void {
+    public init(loadDummyScene: boolean = true, loadDummyModel: boolean = true): void {
         this.sej = this.factory.build();
 
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -33,11 +33,16 @@ export class AbstractExample implements Example {
         window.example = this;
 
         // 6. Call the loaders
-        this.addDummyScene();
-        this.loadFileFromUrl(glb, 'spartan_armour_mkv_-_halo_reach.glb');
+        if (loadDummyScene) {
+            this.addDummyScene();
+        }
+        if (loadDummyModel) {
+            this.loadFileFromUrl(glb, 'spartan_armour_mkv_-_halo_reach.glb');
+        }
 
         const { camera } = this.sej.editor;
         camera.position.set(0, 2, 5);
+
         this.hasInit = true;
     }
 
@@ -100,7 +105,7 @@ export class AbstractExample implements Example {
             selector: this.sej.editor.selector.test(),
             viewport: this.sej.viewport.test(),
             renderer: this.sej.renderer.test(),
-            controls: this.sej.controls.test(),
+            controls: this.sej.viewportControls.test(),
         };
 
         // eslint-disable-next-line no-console

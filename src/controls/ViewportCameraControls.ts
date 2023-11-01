@@ -138,4 +138,12 @@ export class ViewportCameraControls extends AbstractViewportControls implements 
     public addDebug(gui: GUI): void {
         gui.add(this, 'limitOrographicCameraTo2D').name('Limit Orthographic Camera to 2D');
     }
+
+    /**
+     * Set the boundary box that encloses the target of the camera. box3 is in THREE.Box3
+     * @param box3 {@link THREE.Box3}
+     */
+    public setBoundary(box3?: THREE.Box3) {
+        this.cameraControls.setBoundary(box3);
+    }
 }

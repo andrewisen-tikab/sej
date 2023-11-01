@@ -44,3 +44,18 @@ export type ViewportControls = {
 } & THREE.EventDispatcher &
     Test &
     AddDebug;
+
+export type KeyboardControls = {
+    /**
+     * Whether the controls are enabled or not.
+     * @default true
+     */
+    enabled: boolean;
+    activate: () => void;
+    deactivate: () => void;
+    /**
+     * Call this on every frame to update the controls.
+     * @param delta
+     */
+    update: (delta: number) => void;
+};

@@ -1,7 +1,8 @@
 import * as THREE from 'three';
 
+import { AbstractKeyboardControls } from '../controls/AbstractKeyboardControls';
 import { SimpleViewportControls } from '../controls/SimpleViewportControls';
-import type { ViewportControls } from '../controls/types';
+import type { KeyboardControls, ViewportControls } from '../controls/types';
 import type { Editor } from '../editor/types';
 import { Optimizer } from '../optimizer/Optimizer';
 import { WebGLRenderer } from '../renderer/WebGLRenderer';
@@ -10,7 +11,8 @@ import type { Viewport } from './types';
 
 export type AbstractViewportParams = {
     editor: Editor;
-    controls?: ViewportControls;
+    viewportControls?: ViewportControls;
+    keyboardControls?: KeyboardControls;
     renderer?: Renderer;
     optimizer?: Optimizer;
 };
@@ -23,11 +25,19 @@ export class AbstractViewport implements Viewport {
 
     public renderer: Renderer;
 
-    public controls: ViewportControls;
+    public viewportControls: ViewportControls;
+
+    public keyboardControls: KeyboardControls;
 
     public optimizer: Optimizer;
 
-    constructor({ editor, controls, renderer, optimizer }: AbstractViewportParams) {
+    constructor({
+        editor,
+        viewportControls,
+        keyboardControls,
+        renderer,
+        optimizer,
+    }: AbstractViewportParams) {
         this.editor = editor;
 
         const { camera, scene, signals } = editor;
@@ -39,14 +49,18 @@ export class AbstractViewport implements Viewport {
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(this.renderer.domElement);
 
-        this.controls = controls ?? new SimpleViewportControls(camera, this.renderer.domElement);
-        this.controls.addEventListener('change', () => {
+        this.viewportControls =
+            viewportControls ?? new SimpleViewportControls(camera, this.renderer.domElement);
+
+        this.keyboardControls =
+            keyboardControls ?? new AbstractKeyboardControls(camera, this.renderer.domElement);
+        this.viewportControls.addEventListener('change', () => {
             signals.cameraChanged.dispatch(camera);
             signals.refreshSidebarObject3D.dispatch(camera);
         });
 
         signals.objectFocused.add((object) => {
-            this.controls.focus(object);
+            this.viewportControls.focus(object);
         });
 
         const clock = new THREE.Clock();
@@ -74,7 +88,7 @@ export class AbstractViewport implements Viewport {
         this.editor.signals.setCamera.add(() => {
             this.resize();
             this.renderer.setCamera(this.editor.camera);
-            this.controls.setCamera(this.editor.camera);
+            this.viewportControls.setCamera(this.editor.camera);
         });
 
         window.addEventListener('resize', () => {
@@ -85,7 +99,8 @@ export class AbstractViewport implements Viewport {
     }
 
     public update(delta: number) {
-        this.controls.update(delta);
+        this.viewportControls.update(delta);
+        this.keyboardControls.update(delta);
         this.editor.debugger?.update(delta);
     }
 

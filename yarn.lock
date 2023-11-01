@@ -4516,7 +4516,7 @@ __metadata:
     three-mesh-bvh: ^0.6.8
     three-multi-select: ^0.0.22
     three-shape-3d: ^0.0.26
-    three-spatial-hash-grid: ^0.0.4
+    three-spatial-hash-grid: ^0.0.5
     three-timeline: ^0.0.2
     typedoc: ^0.25.2
     typescript: "*"
@@ -4999,12 +4999,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three-spatial-hash-grid@npm:^0.0.4":
-  version: 0.0.4
-  resolution: "three-spatial-hash-grid@npm:0.0.4"
+"three-spatial-hash-grid@npm:^0.0.5":
+  version: 0.0.5
+  resolution: "three-spatial-hash-grid@npm:0.0.5"
   peerDependencies:
     three: ">=0.123.0"
-  checksum: 892d19b9b684045ef497aac451b5d1366d4cd2bd6da0ce728661b348b54dc2c23ca5c7e35df3b0dcb6fd707514817cb43e9e20131d292b594d7c913f1e467b85
+  checksum: 9cb7e602af4f69651838187ee6d4a1e7bcebbadd46d5c3e424b62c15255588c6100d095bfb99e5d67efc27cb209dccd74aa32dbc96480feeeccd13daa70a71a6
   languageName: node
   linkType: hard
 

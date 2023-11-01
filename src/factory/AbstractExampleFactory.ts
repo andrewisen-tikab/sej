@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 
+import { AbstractKeyboardControls } from '../controls/AbstractKeyboardControls';
 import { SimpleViewportControls } from '../controls/SimpleViewportControls';
 import { SejEngine } from '../core/Sej';
 import type { Sej } from '../core/types';
@@ -7,6 +8,7 @@ import { AbstractDebugger } from '../debugger/AbstractDebugger';
 import { AbstractEditor } from '../editor/AbstractEditor';
 import { ModelLoader } from '../loader/ModelLoader';
 import { WebGLRenderer } from '../renderer/WebGLRenderer';
+import { AbstractSpatialHashGrid } from '../spatial/AbstractSpatialHashGrid';
 import { AbstractViewport } from '../viewport/AbstractViewport';
 import { ExampleFactor } from './types';
 
@@ -35,30 +37,40 @@ export class AbstractExampleFactory implements ExampleFactor {
         const { scene, camera } = editor;
         const renderer = new WebGLRenderer(scene, camera);
 
-        const controls = new SimpleViewportControls(camera, renderer.domElement);
+        const viewportControls = new SimpleViewportControls(camera, renderer.domElement);
 
         // 5. Finally, create the viewport where the renderer will do its magic
         const viewport = new AbstractViewport({
             editor,
             renderer,
-            controls,
+            viewportControls,
         });
 
         // eslint-disable-next-line no-underscore-dangle, @typescript-eslint/naming-convention
         const _debugger = new AbstractDebugger({
             domElement: container,
             renderer,
-            controls,
+            controls: viewportControls,
             editor,
         });
         editor.debugger = _debugger;
+
+        const keyboardControls = new AbstractKeyboardControls(
+            camera as THREE.PerspectiveCamera,
+            renderer.domElement,
+        );
+
+        const spatialHashGrid = new AbstractSpatialHashGrid();
+        scene.add(spatialHashGrid);
 
         const sej = new SejEngine({
             container,
             editor,
             viewport,
             renderer,
-            controls,
+            viewportControls,
+            keyboardControls,
+            spatialHashGrid,
         });
 
         return sej;
