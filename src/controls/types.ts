@@ -3,6 +3,10 @@ import * as THREE from 'three';
 import type { Test } from '../core/types';
 import { AddDebug } from '../debugger/types';
 
+/**
+ * The `ViewportControls` controls an object in the viewport.
+ * It's usually the camera.
+ */
 export type ViewportControls = {
     /**
      * Whether the controls are enabled or not.
@@ -45,6 +49,10 @@ export type ViewportControls = {
     Test &
     AddDebug;
 
+/**
+ * The `KeyboardControls` captures keyboard inputs.
+ * Any type of logic can be implemented on top of this.
+ */
 export type KeyboardControls = {
     /**
      * Whether the controls are enabled or not.

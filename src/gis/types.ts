@@ -1,5 +1,8 @@
 import proj4 from 'proj4';
 
+/**
+ * Define a named projection.
+ */
 export type NamedProjections = {
     /**
      * E.g. `WGS84`
@@ -11,6 +14,9 @@ export type NamedProjections = {
     projection: string;
 };
 
+/**
+ * Helper functions for Geographic Information System (GIS).
+ */
 export type GISHelper = {
     enabled: boolean;
     namedProjections: NamedProjections[];
@@ -18,6 +24,9 @@ export type GISHelper = {
     addNamedProjection: (namedProjection: NamedProjections) => void;
 };
 
+/**
+ * lat/lon coordinate.
+ */
 export type Coordinate = {
     latitude: number;
     longitude: number;

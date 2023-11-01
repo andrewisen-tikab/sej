@@ -3,6 +3,9 @@ import * as THREE from 'three';
 import type { Test } from '../core/types';
 import type { EditorPointer } from '../editor/types';
 
+/**
+ * The `Selector` is responsible for selecting and deselecting objects.
+ */
 export type Selector = {
     /**
      * Select an {@link Object3D | object}.

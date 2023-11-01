@@ -1,5 +1,8 @@
 /* eslint-disable */
 
+/**
+ * Determines if the current device is a mobile device.
+ */
 export const MobileUtils = {
     /**
      * Determines if the current device is a mobile device

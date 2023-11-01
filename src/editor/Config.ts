@@ -1,7 +1,8 @@
-import type { ConfigStorage } from './types';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type { ConfigStorage, Editor } from './types';
 
 /**
- * Config class for {@link Viewer}
+ * Config class for {@link Editor}.
  */
 export class Config {
     /**

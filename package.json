@@ -17,6 +17,7 @@
         "lint": "eslint --ext .ts src",
         "docs": "typedoc",
         "test": "cd test && yarn run cypress run --browser chrome",
+        "cruise": "yarn cruise:1 && yarn cruise:2 && yarn cruise:3",
         "cruise:1": "npx depcruise src --include-only '^src' --config --collapse 2 --output-type dot | dot -T svg > ./resources/dependency-graph-01.svg",
         "cruise:2": "npx depcruise src --include-only '^src' --config --collapse 3 --output-type dot | dot -T svg > ./resources/dependency-graph-02.svg",
         "cruise:3": "npx depcruise src --include-only '^src' --config --collapse 4 --output-type dot | dot -T svg > ./resources/dependency-graph-03.svg"

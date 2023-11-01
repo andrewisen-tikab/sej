@@ -40,7 +40,8 @@ export type EditorSignals = {
 };
 
 /**
- * Editor interface.
+ * The `Editor` is the meat of the application.
+ * It holds the scene, the camera, the signals, the loader manager, the selector, the debugger and the config.
  */
 export type Editor = {
     config: Config;

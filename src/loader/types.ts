@@ -7,6 +7,9 @@ export type FileMap = { [key: string]: File };
 export type ItemMap = { [key: string]: Item };
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
+/**
+ * A loader instance.
+ */
 export type Loader = {
     extension: string;
     /**
@@ -20,6 +23,9 @@ export type Loader = {
     load: (reader: FileReader, file: File, filename: string, manager: THREE.LoadingManager) => void;
 };
 
+/**
+ * Supported loaders.
+ */
 export type Loaders = {
     [key: string]: Loader;
 };

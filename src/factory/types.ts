@@ -1,6 +1,9 @@
 import type { AbstractKeyboardControls } from '../controls/AbstractKeyboardControls';
 import type { Sej } from '../core/types';
 
+/**
+ * Parameters for the `ExampleFactor`.
+ */
 export type ExampleFactorParams = {
     keyboardControls: typeof AbstractKeyboardControls;
 };
