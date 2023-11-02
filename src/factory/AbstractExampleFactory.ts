@@ -10,12 +10,14 @@ import { ModelLoader } from '../loader/ModelLoader';
 import { WebGLRenderer } from '../renderer/WebGLRenderer';
 import { AbstractSpatialHashGrid } from '../spatial/AbstractSpatialHashGrid';
 import { AbstractViewport } from '../viewport/AbstractViewport';
-import { ExampleFactor } from './types';
+import { ExampleFactor, ExampleFactorParams } from './types';
 
 /**
  * Abstract example factory.
  */
 export class AbstractExampleFactory implements ExampleFactor {
+    constructor(protected _params?: Partial<ExampleFactorParams>) {}
+
     // eslint-disable-next-line class-methods-use-this
     build(): Sej {
         // 1. Begin by creating a container for the viewer.

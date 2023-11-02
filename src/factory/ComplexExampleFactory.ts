@@ -11,14 +11,13 @@ import { ModelLoader } from '../loader/ModelLoader';
 import { WebGLRenderer } from '../renderer/WebGLRenderer';
 import { AbstractSpatialHashGrid } from '../spatial/AbstractSpatialHashGrid';
 import { AbstractViewport } from '../viewport/AbstractViewport';
-import { ExampleFactor, ExampleFactorParams } from './types';
+import { AbstractExampleFactory } from './AbstractExampleFactory';
+import { ExampleFactor } from './types';
 
 /**
  * Abstract example factory.
  */
-export class ComplexExampleFactory implements ExampleFactor {
-    constructor(private _params?: Partial<ExampleFactorParams>) {}
-
+export class ComplexExampleFactory extends AbstractExampleFactory implements ExampleFactor {
     // eslint-disable-next-line class-methods-use-this
     build(): Sej {
         const KeyboardControls = this._params?.keyboardControls || AbstractKeyboardControls;
