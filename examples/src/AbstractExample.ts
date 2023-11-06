@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-import { AbstractExampleFactory, AddObjectCommand, Sej } from '../../src/Sej';
+import { AddObjectCommand, Sej } from '../../src/Sej';
 import glb from '../assets/glb/spartan_armour_mkv_-_halo_reach.glb?url';
 import { Example } from './types';
 
@@ -8,23 +8,18 @@ import { Example } from './types';
  * This will be the base class for all examples.
  * It will create a `SejEngine` instance and provide some helper methods.
  */
-export class AbstractExample implements Example {
+export class AbstractExample<T = Sej> implements Example {
     hasInit: boolean;
-
-    sej: Sej | null;
 
     /**
      * Create a new example.
      * @param factory The factory to use to build the `SejEngine` instance.
      */
-    constructor(public factory: AbstractExampleFactory = new AbstractExampleFactory()) {
+    constructor(protected sej: T & Sej) {
         this.hasInit = false;
-        this.sej = null;
     }
 
     public init(loadDummyScene: boolean = true, loadDummyModel: boolean = true): void {
-        this.sej = this.factory.build();
-
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         window.sej = this.sej;

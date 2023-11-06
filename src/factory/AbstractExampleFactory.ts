@@ -2,7 +2,6 @@ import * as THREE from 'three';
 
 import { AbstractKeyboardControls } from '../controls/AbstractKeyboardControls';
 import { SimpleViewportControls } from '../controls/SimpleViewportControls';
-import { SejEngine } from '../core/Sej';
 import type { Sej } from '../core/types';
 import { AbstractDebugger } from '../debugger/AbstractDebugger';
 import { AbstractEditor } from '../editor/AbstractEditor';
@@ -10,13 +9,19 @@ import { ModelLoader } from '../loader/ModelLoader';
 import { WebGLRenderer } from '../renderer/WebGLRenderer';
 import { AbstractSpatialHashGrid } from '../spatial/AbstractSpatialHashGrid';
 import { AbstractViewport } from '../viewport/AbstractViewport';
-import { ExampleFactor } from './types';
+import { ExampleFactor, ExampleFactorParams } from './types';
 
 /**
  * Abstract example factory.
  */
-export class AbstractExampleFactory implements ExampleFactor {
-    // eslint-disable-next-line class-methods-use-this
+export class AbstractExampleFactory<T extends ExampleFactorParams> implements ExampleFactor {
+    protected _params: T;
+
+    constructor(params: Partial<T> = {}) {
+        this._params = { KeyboardControls: AbstractKeyboardControls, ...params } as T;
+    }
+
+    // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-explicit-any
     build(): Sej {
         // 1. Begin by creating a container for the viewer.
         const container = document.getElementById('app') as HTMLDivElement | null;
@@ -63,7 +68,19 @@ export class AbstractExampleFactory implements ExampleFactor {
         const spatialHashGrid = new AbstractSpatialHashGrid();
         scene.add(spatialHashGrid);
 
-        const sej = new SejEngine({
+        /**
+         * Sej Engine.
+         *
+         * This is the main class of the library.
+         * It acts as a container for all the other parts of the library.
+         *
+         * All the parts of {@link Sej} are required.
+         * All parts know about each other, so you can (mostly) access them from any part.
+         *
+         * Use a factory to create your own `SejEngine` instance.
+         * See the `./factory` folder for more information.
+         */
+        const sejEngine = {
             container,
             editor,
             viewport,
@@ -71,8 +88,8 @@ export class AbstractExampleFactory implements ExampleFactor {
             viewportControls,
             keyboardControls,
             spatialHashGrid,
-        });
+        };
 
-        return sej;
+        return sejEngine;
     }
 }

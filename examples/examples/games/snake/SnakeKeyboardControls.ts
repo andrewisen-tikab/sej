@@ -20,6 +20,10 @@ const previousDirection = new THREE.Vector3().copy(direction);
  * Abstract class for all keyboard controls implementations.
  */
 export class SnakeKeyboardControls extends AbstractKeyboardControls implements KeyboardControls {
+    static isSnakeControls = true;
+
+    public iamSnake = true;
+
     private _group: THREE.Group;
 
     private _snake: Snake3D;

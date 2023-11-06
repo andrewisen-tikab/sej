@@ -1,11 +1,10 @@
 import type { AbstractKeyboardControls } from '../controls/AbstractKeyboardControls';
-import type { Sej } from '../core/types';
 
 /**
  * Parameters for the `ExampleFactor`.
  */
 export type ExampleFactorParams = {
-    keyboardControls: typeof AbstractKeyboardControls;
+    KeyboardControls: typeof AbstractKeyboardControls;
 };
 
 /**
@@ -14,5 +13,6 @@ export type ExampleFactorParams = {
  * Helps you create your own `SejEngine` instance.
  */
 export type ExampleFactor = {
-    build(params: Partial<ExampleFactorParams>): Sej;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    build(params: Partial<ExampleFactorParams>): any;
 };

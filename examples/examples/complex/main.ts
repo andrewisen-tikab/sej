@@ -3,5 +3,6 @@ import { ComplexExampleFactory } from '../../../src/factory/ComplexExampleFactor
 import '../../assets/css/styles.css';
 import { AbstractExample } from '../../src/AbstractExample';
 
-const example = new AbstractExample(new ComplexExampleFactory());
+const sejEngine = new ComplexExampleFactory().build();
+const example = new AbstractExample(sejEngine);
 example.init();

@@ -1,9 +1,6 @@
 import * as THREE from 'three';
 
-import { AbstractKeyboardControls } from '../controls/AbstractKeyboardControls';
 import { ViewportCameraControls } from '../controls/ViewportCameraControls';
-import { SejEngine } from '../core/Sej';
-import type { Sej } from '../core/types';
 import { AbstractDebugger } from '../debugger/AbstractDebugger';
 import { AbstractEditor } from '../editor/AbstractEditor';
 import { NordicGISHelper } from '../gis/NordicGISHelper';
@@ -11,17 +8,27 @@ import { ModelLoader } from '../loader/ModelLoader';
 import { WebGLRenderer } from '../renderer/WebGLRenderer';
 import { AbstractSpatialHashGrid } from '../spatial/AbstractSpatialHashGrid';
 import { AbstractViewport } from '../viewport/AbstractViewport';
-import { ExampleFactor, ExampleFactorParams } from './types';
+import { AbstractExampleFactory } from './AbstractExampleFactory';
+import type { ExampleFactorParams } from './types';
 
 /**
  * Abstract example factory.
  */
-export class ComplexExampleFactory implements ExampleFactor {
-    constructor(private _params?: Partial<ExampleFactorParams>) {}
+export class ComplexExampleFactory<
+    T extends ExampleFactorParams,
+> extends AbstractExampleFactory<T> {
+    // test1<S extends ExampleFactorParams>(params: S) {
+    //     const foo: InstanceType<S['KeyboardControls']> = new params.KeyboardControls();
+    //     return foo as InstanceType<S['KeyboardControls']>;
+    // }
 
-    // eslint-disable-next-line class-methods-use-this
-    build(): Sej {
-        const KeyboardControls = this._params?.keyboardControls || AbstractKeyboardControls;
+    /**
+     *
+     * @returns Walla
+     */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    public build() {
+        const { KeyboardControls } = this._params;
 
         const container = document.getElementById('app') as HTMLDivElement | null;
         if (!container) throw new Error('Container not found');
@@ -46,7 +53,13 @@ export class ComplexExampleFactory implements ExampleFactor {
         const keyboardControls = new KeyboardControls(
             camera as THREE.PerspectiveCamera,
             renderer.domElement,
-        );
+        ) as InstanceType<T['KeyboardControls']>;
+
+        // const keyboardControls = createInstance(
+        //     KeyboardControl,
+        //     camera as THREE.PerspectiveCamera,
+        //     renderer.domElement,
+        // );
 
         const viewport = new AbstractViewport({
             editor,
@@ -67,7 +80,7 @@ export class ComplexExampleFactory implements ExampleFactor {
         const spatialHashGrid = new AbstractSpatialHashGrid();
         scene.add(spatialHashGrid);
 
-        const sej = new SejEngine({
+        const sejEngine = {
             container,
             editor,
             viewport,
@@ -75,7 +88,7 @@ export class ComplexExampleFactory implements ExampleFactor {
             viewportControls,
             keyboardControls,
             spatialHashGrid,
-        });
+        };
 
         const gis = new NordicGISHelper();
         gis.dev(scene);
@@ -84,6 +97,6 @@ export class ComplexExampleFactory implements ExampleFactor {
         const spatialHashGridFolder = _debugger.gui.addFolder('Spatial Hash Grid');
         spatialHashGrid.addDebug(spatialHashGridFolder);
 
-        return sej;
+        return sejEngine;
     }
 }
