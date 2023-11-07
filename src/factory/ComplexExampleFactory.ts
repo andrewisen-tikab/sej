@@ -90,8 +90,9 @@ export class ComplexExampleFactory<
             spatialHashGrid,
         };
 
-        const gis = new NordicGISHelper();
-        gis.dev(scene);
+        const GISHelper = new NordicGISHelper();
+        // GISHelper.dev(scene);
+        editor.gisHelper = GISHelper;
 
         viewportControls.setBoundary(spatialHashGrid.getBox());
         const spatialHashGridFolder = _debugger.gui.addFolder('Spatial Hash Grid');
