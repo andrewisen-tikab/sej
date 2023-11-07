@@ -6,7 +6,6 @@ import { AbstractEditor } from '../editor/AbstractEditor';
 import { NordicGISHelper } from '../gis/NordicGISHelper';
 import { ModelLoader } from '../loader/ModelLoader';
 import { WebGLRenderer } from '../renderer/WebGLRenderer';
-import { AbstractSpatialHashGrid } from '../spatial/AbstractSpatialHashGrid';
 import { AbstractViewport } from '../viewport/AbstractViewport';
 import { AbstractExampleFactory } from './AbstractExampleFactory';
 import type { ExampleFactorParams } from './types';
@@ -42,7 +41,7 @@ export class ComplexExampleFactory<
         });
         editor.loaderManager.loaders[loader.extension] = loader;
 
-        const { scene, camera } = editor;
+        const { scene, camera, spatialHashGrid } = editor;
 
         const renderer = new WebGLRenderer(scene, camera);
         const viewportControls = new ViewportCameraControls(
@@ -54,12 +53,6 @@ export class ComplexExampleFactory<
             camera as THREE.PerspectiveCamera,
             renderer.domElement,
         ) as InstanceType<T['KeyboardControls']>;
-
-        // const keyboardControls = createInstance(
-        //     KeyboardControl,
-        //     camera as THREE.PerspectiveCamera,
-        //     renderer.domElement,
-        // );
 
         const viewport = new AbstractViewport({
             editor,
@@ -77,9 +70,6 @@ export class ComplexExampleFactory<
         });
         editor.debugger = _debugger;
 
-        const spatialHashGrid = new AbstractSpatialHashGrid();
-        scene.add(spatialHashGrid);
-
         const sejEngine = {
             container,
             editor,
@@ -87,7 +77,6 @@ export class ComplexExampleFactory<
             renderer,
             viewportControls,
             keyboardControls,
-            spatialHashGrid,
         };
 
         const GISHelper = new NordicGISHelper();

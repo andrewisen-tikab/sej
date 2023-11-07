@@ -13,4 +13,5 @@ export type MathOperation = 'round' | 'ceil' | 'floor';
 export type SpatialHashGrid = {
     isSpatialHashGrid: boolean;
     getCellNear(x: number, y: number, mathOperation?: MathOperation): [number, number];
+    getBox(): THREE.Box3;
 } & AddDebug;

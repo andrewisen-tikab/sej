@@ -7,7 +7,6 @@ import { AbstractDebugger } from '../debugger/AbstractDebugger';
 import { AbstractEditor } from '../editor/AbstractEditor';
 import { ModelLoader } from '../loader/ModelLoader';
 import { WebGLRenderer } from '../renderer/WebGLRenderer';
-import { AbstractSpatialHashGrid } from '../spatial/AbstractSpatialHashGrid';
 import { AbstractViewport } from '../viewport/AbstractViewport';
 import { ExampleFactor, ExampleFactorParams } from './types';
 
@@ -65,9 +64,6 @@ export class AbstractExampleFactory<T extends ExampleFactorParams> implements Ex
             renderer.domElement,
         );
 
-        const spatialHashGrid = new AbstractSpatialHashGrid();
-        scene.add(spatialHashGrid);
-
         /**
          * Sej Engine.
          *
@@ -87,7 +83,6 @@ export class AbstractExampleFactory<T extends ExampleFactorParams> implements Ex
             renderer,
             viewportControls,
             keyboardControls,
-            spatialHashGrid,
         };
 
         return sejEngine;

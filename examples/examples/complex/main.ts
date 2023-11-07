@@ -5,4 +5,5 @@ import { AbstractExample } from '../../src/AbstractExample';
 
 const sejEngine = new ComplexExampleFactory().build();
 const example = new AbstractExample(sejEngine);
-example.init();
+
+example.init(true);
