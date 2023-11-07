@@ -4,6 +4,7 @@ import * as signals from 'signals';
 
 import type { SerializableObject, SupportedCameras, Test } from '../core/types';
 import type { Debugger } from '../debugger/types';
+import type { GISHelper } from '../gis/types';
 import type { History } from '../history/types';
 import type { LoaderManager } from '../loader/types';
 import { Selector } from '../selector/types';
@@ -61,6 +62,8 @@ export type Editor = {
     selector: Selector;
 
     selected: Object3D | null;
+
+    gisHelper: GISHelper;
 
     debugger: Debugger | null;
 

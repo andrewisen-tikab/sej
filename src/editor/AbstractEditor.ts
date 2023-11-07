@@ -7,8 +7,10 @@ import { HistoryObject } from '@andrewisen/error-manager';
 import { AddObjectCommand } from '../commands/AddObjectCommand';
 import type { Command } from '../commands/types';
 import { ErrorManager, Errors } from '../core/ErrorManager';
-import { SupportedCameras } from '../core/types';
-import { Debugger } from '../debugger/types';
+import type { SupportedCameras } from '../core/types';
+import type { Debugger } from '../debugger/types';
+import { AbstractGISHelper } from '../gis/AbstractGISHelper';
+import type { GISHelper } from '../gis/types';
 import { AbstractHistory } from '../history/AbstractHistory';
 import { AbstractLoaderManager } from '../loader/AbstractLoaderManager';
 import type { LoaderManager } from '../loader/types';
@@ -47,6 +49,8 @@ export class AbstractEditor implements Editor {
     public selector: AbstractSelector;
 
     public selected: Object3D | null;
+
+    public gisHelper: GISHelper;
 
     public history: AbstractHistory;
 
@@ -100,6 +104,8 @@ export class AbstractEditor implements Editor {
 
         this.selector = new AbstractSelector(this);
         this.selected = null;
+
+        this.gisHelper = new AbstractGISHelper();
 
         this.signals.windowResize.dispatch();
     }
