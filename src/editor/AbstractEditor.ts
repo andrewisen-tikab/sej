@@ -15,6 +15,8 @@ import { AbstractHistory } from '../history/AbstractHistory';
 import { AbstractLoaderManager } from '../loader/AbstractLoaderManager';
 import type { LoaderManager } from '../loader/types';
 import { AbstractSelector } from '../selector/AbstractSelector';
+import { AbstractSpatialHashGrid } from '../spatial/AbstractSpatialHashGrid';
+import type { SpatialHashGrid } from '../spatial/types';
 import { MobileUtils } from '../utils/MobileUtils';
 import { Config } from './Config';
 import type { Editor, EditorJSON, EditorSignals, Object3D } from './types';
@@ -49,6 +51,8 @@ export class AbstractEditor implements Editor {
     public selector: AbstractSelector;
 
     public selected: Object3D | null;
+
+    public spatialHashGrid: SpatialHashGrid;
 
     public gisHelper: GISHelper;
 
@@ -104,6 +108,9 @@ export class AbstractEditor implements Editor {
 
         this.selector = new AbstractSelector(this);
         this.selected = null;
+
+        this.spatialHashGrid = new AbstractSpatialHashGrid();
+        this.scene.add(this.spatialHashGrid as AbstractSpatialHashGrid);
 
         this.gisHelper = new AbstractGISHelper();
 

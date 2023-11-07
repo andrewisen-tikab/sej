@@ -13,8 +13,7 @@ const example = new AbstractExample(sejEngine);
 example.init(true, false);
 
 const {
-    editor: { scene },
-    spatialHashGrid,
+    editor: { scene, spatialHashGrid },
     keyboardControls,
 } = sejEngine;
 
