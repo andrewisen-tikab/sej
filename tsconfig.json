@@ -22,5 +22,6 @@
         /* Vite */
         "types": ["vite/client"]
     },
-    "include": ["src", "examples"]
+    "include": ["src", "examples"],
+    "exclude": ["node_modules"]
 }
