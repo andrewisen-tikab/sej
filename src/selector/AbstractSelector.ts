@@ -1,5 +1,8 @@
 import * as THREE from 'three';
 
+import { HistoryObject } from '@andrewisen/error-manager';
+
+import { ErrorManager, Errors } from '../core/ErrorManager';
 import { Editor } from '../editor/types';
 import { Selector } from './types';
 
@@ -23,38 +26,53 @@ export class AbstractSelector implements Selector {
                     ? this.select(object.userData.object)
                     : this.select(object);
             } else {
-                this.select(null);
+                this.deselect();
             }
         });
     }
 
-    select(object: THREE.Object3D | null) {
-        if (this.editor.selected === object) return;
+    select(object: THREE.Object3D) {
+        // Check if the object is already this.editor.selected array
+        if (this.editor.selected.includes(object)) return;
 
-        let uuid: string | null = null;
-
-        if (object !== null) {
-            ({ uuid } = object);
-        }
-
-        this.editor.selected = object;
-        this.editor.config.setKey('selected', uuid);
+        this.editor.selected.push(object);
+        this.editor.config.setKey(
+            'selected',
+            this.editor.selected.map((o) => o.uuid),
+        );
 
         this.editor.signals.objectSelected.dispatch(object);
     }
 
-    deselect() {
-        this.select(null);
+    deselect(object?: THREE.Object3D) {
+        // If no object is passed, deselect all objects
+        if (object === undefined) {
+            this.editor.selected = [];
+        } else {
+            // Check if the object is in the this.editor.selected array
+            const index = this.editor.selected.indexOf(object);
+            if (index !== -1) {
+                this.editor.selected.splice(index, 1);
+            } else {
+                // If the object is not in the this.editor.selected array, throw an error
+                ErrorManager.addHistory(
+                    new HistoryObject(
+                        Errors.SELECTOR_OBJECT_NOT_FOUND.key,
+                        Errors.SELECTOR_OBJECT_NOT_FOUND.message(object.uuid),
+                    ),
+                );
+            }
+        }
     }
 
     test() {
         const object = new THREE.Object3D();
 
         this.select(object);
-        if (this.editor.selected !== object) return false;
+        if (this.editor.selected.includes(object) === false) return false;
 
         this.deselect();
-        if (this.editor.selected !== null) return false;
+        if (this.editor.selected.includes(object)) return false;
 
         return true;
     }

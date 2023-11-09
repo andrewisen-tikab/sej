@@ -36,4 +36,8 @@ export const Errors = {
         message: (extension: string): string =>
             `The loader for the extension ${extension} was not found.`,
     },
+    SELECTOR_OBJECT_NOT_FOUND: {
+        key: 'selector-object-not-found',
+        message: (uuid: string): string => `Object ${uuid} cannot be selected/deselected.`,
+    },
 } as const;

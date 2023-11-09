@@ -62,7 +62,7 @@ export type Editor = {
 
     selector: Selector;
 
-    selected: Object3D | null;
+    selected: Object3D[];
 
     spatialHashGrid: SpatialHashGrid;
 

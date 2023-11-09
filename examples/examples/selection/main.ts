@@ -17,6 +17,7 @@ const example = new AbstractExample(sejEngine);
 example.init(true, false);
 
 const {
+    editor,
     editor: { scene, camera },
     viewportControls,
     renderer,
@@ -61,12 +62,14 @@ multiSelect.addEventListener<'select', Mesh>('select', (event) => {
     object._material = object.material;
     // And then we change the material.
     object.material = selectMaterial;
+    editor.select(object);
 });
 
 multiSelect.addEventListener<'deselect', Mesh>('deselect', (event) => {
     const { object } = event;
     // eslint-disable-next-line no-underscore-dangle
     object.material = object._material;
+    editor.deselect(object);
 });
 
 scene.add(multiSelect.scene);
