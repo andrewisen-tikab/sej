@@ -50,7 +50,7 @@ export class AbstractEditor implements Editor {
 
     public selector: AbstractSelector;
 
-    public selected: Object3D | null;
+    public selected: Object3D[];
 
     public spatialHashGrid: SpatialHashGrid;
 
@@ -107,7 +107,7 @@ export class AbstractEditor implements Editor {
         this.history = new AbstractHistory(this);
 
         this.selector = new AbstractSelector(this);
-        this.selected = null;
+        this.selected = [];
 
         this.spatialHashGrid = new AbstractSpatialHashGrid();
         this.scene.add(this.spatialHashGrid as AbstractSpatialHashGrid);
@@ -202,7 +202,7 @@ export class AbstractEditor implements Editor {
         this.signals.sceneGraphChanged.dispatch();
     }
 
-    select(object: Object3D | null): void {
+    select(object: Object3D): void {
         this.selector.select(object);
     }
 
@@ -240,8 +240,8 @@ export class AbstractEditor implements Editor {
         traverse ? this.scene.traverse(callback) : this.scene.children.forEach(callback);
     }
 
-    deselect(): void {
-        this.selector.deselect();
+    deselect(object?: THREE.Object3D): void {
+        this.selector.deselect(object);
     }
 
     objectByUuid(uuid: string): Object3D | undefined {
