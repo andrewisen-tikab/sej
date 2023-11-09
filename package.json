@@ -58,7 +58,7 @@
         "signals": "^1.0.0",
         "three": "^0.158.0",
         "three-mesh-bvh": "^0.6.8",
-        "three-multi-select": "^0.0.22",
+        "three-multi-select": "^0.0.23",
         "three-shape-3d": "^0.0.26",
         "three-spatial-hash-grid": "^0.0.5",
         "three-timeline": "^0.0.2",

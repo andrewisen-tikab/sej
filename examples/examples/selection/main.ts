@@ -43,7 +43,7 @@ group.translateZ(5);
 
 scene.add(group);
 
-const multiSelect = new MultiSelect.ThreeMultiSelect(
+const multiSelect = new MultiSelect.MultiSelect(
     camera as THREE.PerspectiveCamera,
     renderer.domElement,
     group.children,
