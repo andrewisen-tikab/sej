@@ -4514,7 +4514,7 @@ __metadata:
     signals: ^1.0.0
     three: ^0.158.0
     three-mesh-bvh: ^0.6.8
-    three-multi-select: ^0.0.22
+    three-multi-select: ^0.0.23
     three-shape-3d: ^0.0.26
     three-spatial-hash-grid: ^0.0.5
     three-timeline: ^0.0.2
@@ -4978,13 +4978,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three-multi-select@npm:^0.0.22":
-  version: 0.0.22
-  resolution: "three-multi-select@npm:0.0.22"
+"three-multi-select@npm:^0.0.23":
+  version: 0.0.23
+  resolution: "three-multi-select@npm:0.0.23"
   peerDependencies:
     three: ^0.150.1
     three-mesh-bvh: ^0.5.23
-  checksum: 94b9a37c6e4f49daa873622df62ac984410734f23a56ba0cac9277f54834311a91f5bbcac8316910d497052c17d02efc4fa16002c4a1435209215d3b54943c92
+  checksum: 114bda3bdb772bf1e97d5f34de4cd7af940602aab17aa305e8a1b5ad57928ee11e64c50ff358e36d634d1e4c4cf566fc8edc447a009a7368ddb2e5c0b2a115fc
   languageName: node
   linkType: hard
 
