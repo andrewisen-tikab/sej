@@ -5,7 +5,9 @@ import '../../../assets/css/styles.css';
 import { AbstractExample } from '../../../src/AbstractExample';
 import { SnakeKeyboardControls } from './SnakeKeyboardControls';
 
-const params = { KeyboardControls: SnakeKeyboardControls } satisfies ExampleFactorParams;
+const params = {
+    KeyboardControls: SnakeKeyboardControls,
+} satisfies Partial<ExampleFactorParams>;
 
 const sejEngine = new ComplexExampleFactory(params).build();
 
@@ -16,5 +18,4 @@ const {
     editor: { scene, spatialHashGrid },
     keyboardControls,
 } = sejEngine;
-
 keyboardControls.init(scene, spatialHashGrid);

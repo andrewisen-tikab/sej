@@ -1,10 +1,12 @@
 import type { AbstractKeyboardControls } from '../controls/AbstractKeyboardControls';
+import type { WebGLRenderer } from '../renderer/WebGLRenderer';
 
 /**
  * Parameters for the `ExampleFactor`.
  */
 export type ExampleFactorParams = {
     KeyboardControls: typeof AbstractKeyboardControls;
+    Renderer: typeof WebGLRenderer;
 };
 
 /**

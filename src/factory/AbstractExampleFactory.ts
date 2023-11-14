@@ -13,11 +13,17 @@ import { ExampleFactor, ExampleFactorParams } from './types';
 /**
  * Abstract example factory.
  */
-export class AbstractExampleFactory<T extends ExampleFactorParams> implements ExampleFactor {
-    protected _params: T;
+export class AbstractExampleFactory<T> implements ExampleFactor {
+    protected _params: T | undefined;
 
-    constructor(params: Partial<T> = {}) {
-        this._params = { KeyboardControls: AbstractKeyboardControls, ...params } as T;
+    protected _defaultParams: ExampleFactorParams;
+
+    constructor(_params?: T) {
+        this._params = _params;
+        this._defaultParams = {
+            KeyboardControls: AbstractKeyboardControls,
+            Renderer: WebGLRenderer,
+        };
     }
 
     // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-explicit-any

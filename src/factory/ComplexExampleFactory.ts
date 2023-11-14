@@ -5,29 +5,25 @@ import { AbstractDebugger } from '../debugger/AbstractDebugger';
 import { AbstractEditor } from '../editor/AbstractEditor';
 import { NordicGISHelper } from '../gis/NordicGISHelper';
 import { ModelLoader } from '../loader/ModelLoader';
-import { WebGLRenderer } from '../renderer/WebGLRenderer';
 import { AbstractViewport } from '../viewport/AbstractViewport';
 import { AbstractExampleFactory } from './AbstractExampleFactory';
-import type { ExampleFactorParams } from './types';
+import { ExampleFactorParams } from './types';
 
 /**
  * Abstract example factory.
  */
-export class ComplexExampleFactory<
-    T extends ExampleFactorParams,
-> extends AbstractExampleFactory<T> {
-    // test1<S extends ExampleFactorParams>(params: S) {
-    //     const foo: InstanceType<S['KeyboardControls']> = new params.KeyboardControls();
-    //     return foo as InstanceType<S['KeyboardControls']>;
-    // }
-
+export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
     /**
-     *
-     * @returns Walla
+     * Build example.
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public build() {
-        const { KeyboardControls } = this._params;
+        // Setup class constructors and then use InstanceType to create the instance.
+        const params = this._params as Partial<ExampleFactorParams> & T;
+        const { _defaultParams: defaultParams } = this;
+
+        const Renderer = params.Renderer ?? defaultParams.Renderer;
+        const KeyboardControls = params.KeyboardControls ?? defaultParams.KeyboardControls;
 
         const container = document.getElementById('app') as HTMLDivElement | null;
         if (!container) throw new Error('Container not found');
@@ -43,7 +39,12 @@ export class ComplexExampleFactory<
 
         const { scene, camera, spatialHashGrid } = editor;
 
-        const renderer = new WebGLRenderer(scene, camera);
+        // Create a renderer that either from the params or the default renderer.
+        const renderer = new Renderer(scene, camera) as InstanceType<typeof Renderer> &
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            InstanceType<T['Renderer']>;
+
         const viewportControls = new ViewportCameraControls(
             camera as THREE.PerspectiveCamera,
             renderer.domElement,
@@ -52,7 +53,10 @@ export class ComplexExampleFactory<
         const keyboardControls = new KeyboardControls(
             camera as THREE.PerspectiveCamera,
             renderer.domElement,
-        ) as InstanceType<T['KeyboardControls']>;
+        ) as InstanceType<typeof KeyboardControls> &
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            InstanceType<T['KeyboardControls']>;
 
         const viewport = new AbstractViewport({
             editor,
