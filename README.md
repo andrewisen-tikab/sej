@@ -70,7 +70,7 @@ However, because of the state of WebGPU (and web in general - yes, I'm looking a
 
 <img src="https://github.com/andrewisen-tikab/sej/blob/dev/resources/dependency-graph-02.svg?raw=true" width="100%" />
 
-<img src="https://github.com/andrewisen-tikab/sej/blob/dev/resources/dependency-graph-02.svg?raw=true" width="100%" />
+<img src="https://github.com/andrewisen-tikab/sej/blob/dev/resources/dependency-graph-03.svg?raw=true" width="100%" />
 
 ## Tests
 

@@ -7,7 +7,7 @@ import type { Renderer } from './types';
  * The WebGL renderer displays your beautifully crafted scenes using [WebGL](https://en.wikipedia.org/wiki/WebGL).
  */
 export class WebGLRenderer extends AbstractRenderer implements Renderer {
-    private _renderer: THREE.WebGLRenderer;
+    protected _renderer: THREE.WebGLRenderer;
 
     /**
      * A Canvas where the renderer draws its output.
