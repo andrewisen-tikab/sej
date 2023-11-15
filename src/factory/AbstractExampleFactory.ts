@@ -23,6 +23,7 @@ export class AbstractExampleFactory<T> implements ExampleFactor {
         this._defaultParams = {
             KeyboardControls: AbstractKeyboardControls,
             Renderer: WebGLRenderer,
+            Editor: AbstractEditor,
         };
     }
 
