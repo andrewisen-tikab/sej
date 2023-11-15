@@ -1,4 +1,5 @@
 import type { AbstractKeyboardControls } from '../controls/AbstractKeyboardControls';
+import type { AbstractEditor } from '../editor/AbstractEditor';
 import type { AbstractRenderer } from '../renderer/AbstractRenderer';
 
 /**
@@ -7,6 +8,7 @@ import type { AbstractRenderer } from '../renderer/AbstractRenderer';
 export type ExampleFactorParams = {
     KeyboardControls: typeof AbstractKeyboardControls;
     Renderer: typeof AbstractRenderer;
+    Editor: typeof AbstractEditor;
 };
 
 /**

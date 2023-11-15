@@ -2,7 +2,6 @@ import * as THREE from 'three';
 
 import { ViewportCameraControls } from '../controls/ViewportCameraControls';
 import { AbstractDebugger } from '../debugger/AbstractDebugger';
-import { AbstractEditor } from '../editor/AbstractEditor';
 import { NordicGISHelper } from '../gis/NordicGISHelper';
 import { ModelLoader } from '../loader/ModelLoader';
 import { AbstractViewport } from '../viewport/AbstractViewport';
@@ -24,11 +23,16 @@ export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
 
         const Renderer = params.Renderer ?? defaultParams.Renderer;
         const KeyboardControls = params.KeyboardControls ?? defaultParams.KeyboardControls;
+        const Editor = params.Editor ?? defaultParams.Editor;
 
         const container = document.getElementById('app') as HTMLDivElement | null;
         if (!container) throw new Error('Container not found');
 
-        const editor = new AbstractEditor();
+        const editor = new Editor() as InstanceType<typeof Editor> &
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            InstanceType<T['Editor']>;
+
         editor.setScene(new THREE.Scene());
 
         const loader = new ModelLoader(editor, 'glb', {
