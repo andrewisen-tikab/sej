@@ -2,7 +2,6 @@ import * as THREE from 'three';
 
 import { ViewportCameraControls } from '../controls/ViewportCameraControls';
 import { AbstractDebugger } from '../debugger/AbstractDebugger';
-import { AbstractEditor } from '../editor/AbstractEditor';
 import { NordicGISHelper } from '../gis/NordicGISHelper';
 import { ModelLoader } from '../loader/ModelLoader';
 import { AbstractViewport } from '../viewport/AbstractViewport';
