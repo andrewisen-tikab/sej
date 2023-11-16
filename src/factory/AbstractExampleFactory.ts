@@ -24,6 +24,7 @@ export class AbstractExampleFactory<T> implements ExampleFactor {
             KeyboardControls: AbstractKeyboardControls,
             Renderer: WebGLRenderer,
             Editor: AbstractEditor,
+            ViewportControls: SimpleViewportControls,
         };
     }
 
