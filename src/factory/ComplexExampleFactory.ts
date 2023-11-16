@@ -23,7 +23,7 @@ export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
         // Override the default params.
         const defaultParams = {
             ...this._defaultParams,
-            // ViewportControls: ViewportCameraControls,
+            ViewportControls: ViewportCameraControls,
         } satisfies ExampleFactorParams;
 
         // These are the classes that will be used to create the instances:
