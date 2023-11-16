@@ -19,16 +19,24 @@ export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
     public build() {
         // Setup class constructors and then use InstanceType to create the instance.
         const params = this._params as Partial<ExampleFactorParams> & T;
-        const { _defaultParams: defaultParams } = this;
 
+        // Override the default params.
+        const defaultParams = {
+            ...this._defaultParams,
+            ViewportControls: ViewportCameraControls,
+        } satisfies ExampleFactorParams;
+
+        // These are the classes that will be used to create the instances:
         const Renderer = params.Renderer ?? defaultParams.Renderer;
         const KeyboardControls = params.KeyboardControls ?? defaultParams.KeyboardControls;
         const Editor = params.Editor ?? defaultParams.Editor;
+        const ViewportControls = params.ViewportControls ?? defaultParams.ViewportControls;
 
         const container = document.getElementById('app') as HTMLDivElement | null;
         if (!container) throw new Error('Container not found');
 
-        const editor = new Editor() as InstanceType<typeof Editor> &
+        // Type the editor as the default editor and the editor passed in the params.
+        const editor = new Editor() as InstanceType<typeof defaultParams.Editor> &
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             InstanceType<T['Editor']>;
@@ -49,15 +57,18 @@ export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
             // @ts-ignore
             InstanceType<T['Renderer']>;
 
-        const viewportControls = new ViewportCameraControls(
+        const viewportControls = new ViewportControls(
             camera as THREE.PerspectiveCamera,
             renderer.domElement,
-        );
+        ) as InstanceType<typeof defaultParams.ViewportControls> &
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            InstanceType<T['ViewportControls']>;
 
         const keyboardControls = new KeyboardControls(
             camera as THREE.PerspectiveCamera,
             renderer.domElement,
-        ) as InstanceType<typeof KeyboardControls> &
+        ) as InstanceType<typeof defaultParams.KeyboardControls> &
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             InstanceType<T['KeyboardControls']>;
