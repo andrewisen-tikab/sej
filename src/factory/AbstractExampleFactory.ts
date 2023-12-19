@@ -25,13 +25,14 @@ export class AbstractExampleFactory<T> implements ExampleFactor {
             Renderer: WebGLRenderer,
             Editor: AbstractEditor,
             ViewportControls: SimpleViewportControls,
+            container: null,
         };
     }
 
     // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-explicit-any
     build(): Sej {
         // 1. Begin by creating a container for the viewer.
-        const container = document.getElementById('app') as HTMLDivElement | null;
+        const container = document.getElementById('app') as HTMLElement | null;
         if (!container) throw new Error('Container not found');
 
         // 2. Then create the viewer itself
@@ -56,6 +57,7 @@ export class AbstractExampleFactory<T> implements ExampleFactor {
             editor,
             renderer,
             viewportControls,
+            container,
         });
 
         // eslint-disable-next-line no-underscore-dangle, @typescript-eslint/naming-convention

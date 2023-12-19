@@ -35,7 +35,6 @@ export class AddObjectCommand extends AbstractCommand {
 
     execute(): void {
         this.editor.addObject(this.object);
-        this.editor.focus(this.object);
     }
 
     undo(): void {

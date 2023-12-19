@@ -32,7 +32,8 @@ export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
         const Editor = params.Editor ?? defaultParams.Editor;
         const ViewportControls = params.ViewportControls ?? defaultParams.ViewportControls;
 
-        const container = document.getElementById('app') as HTMLDivElement | null;
+        const container =
+            params.container ?? (document.getElementById('app') as HTMLElement | null);
         if (!container) throw new Error('Container not found');
 
         // Type the editor as the default editor and the editor passed in the params.
@@ -74,6 +75,7 @@ export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
             InstanceType<T['KeyboardControls']>;
 
         const viewport = new AbstractViewport({
+            container,
             editor,
             renderer,
             viewportControls,
