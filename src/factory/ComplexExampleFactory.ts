@@ -33,7 +33,7 @@ export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
         const ViewportControls = params.ViewportControls ?? defaultParams.ViewportControls;
 
         const container =
-            params.container ?? (document.getElementById('app') as HTMLDivElement | null);
+            params.container ?? (document.getElementById('app') as HTMLElement | null);
         if (!container) throw new Error('Container not found');
 
         // Type the editor as the default editor and the editor passed in the params.

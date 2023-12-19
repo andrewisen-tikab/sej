@@ -10,7 +10,7 @@ import type { Renderer } from '../renderer/types';
 import type { Viewport } from './types';
 
 export type AbstractViewportParams = {
-    container: HTMLDivElement;
+    container: HTMLElement;
     editor: Editor;
     viewportControls?: ViewportControls;
     keyboardControls?: KeyboardControls;
