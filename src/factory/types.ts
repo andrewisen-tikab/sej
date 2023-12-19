@@ -28,6 +28,10 @@ export type ExampleFactorParams = {
      * See {@link AbstractViewportControls} for more information.
      */
     ViewportControls: typeof AbstractViewportControls;
+    /**
+     * The container where the `SejEngine` instance will be rendered.
+     */
+    container: HTMLElement | null;
 };
 
 /**

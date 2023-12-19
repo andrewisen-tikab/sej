@@ -10,6 +10,7 @@ import type { Renderer } from '../renderer/types';
 import type { Viewport } from './types';
 
 export type AbstractViewportParams = {
+    container: HTMLDivElement;
     editor: Editor;
     viewportControls?: ViewportControls;
     keyboardControls?: KeyboardControls;
@@ -32,6 +33,7 @@ export class AbstractViewport implements Viewport {
     public optimizer: Optimizer;
 
     constructor({
+        container,
         editor,
         viewportControls,
         keyboardControls,
@@ -47,7 +49,8 @@ export class AbstractViewport implements Viewport {
         this.renderer = renderer || new WebGLRenderer(scene, camera);
 
         this.renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(this.renderer.domElement);
+
+        container.appendChild(this.renderer.domElement);
 
         this.viewportControls =
             viewportControls ?? new SimpleViewportControls(camera, this.renderer.domElement);

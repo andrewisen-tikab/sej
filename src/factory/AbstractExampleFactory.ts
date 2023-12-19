@@ -25,6 +25,7 @@ export class AbstractExampleFactory<T> implements ExampleFactor {
             Renderer: WebGLRenderer,
             Editor: AbstractEditor,
             ViewportControls: SimpleViewportControls,
+            container: null,
         };
     }
 
