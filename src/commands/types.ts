@@ -29,6 +29,9 @@ export type Command = {
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     execute(...args: any[]): void;
+    /**
+     * Undo the command.
+     */
     undo(): void;
     json: CommandJSON | undefined;
 } & EditorPointer &
