@@ -16,13 +16,14 @@ export type AddObjectCommandJSON = CommandJSON & {
  * Add object command.
  */
 export class AddObjectCommand extends AbstractCommand {
-    object: THREE.Object3D;
+    object?: THREE.Object3D;
 
     /**
      * Add object command.
      * @param editor Pointer to {@link Editor}.
+     * @param object Object to add.
      */
-    constructor(editor: Editor, object: THREE.Object3D) {
+    constructor(editor: Editor, object?: THREE.Object3D) {
         super(editor);
 
         this.type = 'AddObjectCommand';
@@ -34,10 +35,12 @@ export class AddObjectCommand extends AbstractCommand {
     }
 
     execute(): void {
+        if (this.object == null) return;
         this.editor.addObject(this.object);
     }
 
     undo(): void {
+        if (this.object == null) return;
         this.editor.removeObject(this.object);
     }
 
@@ -46,7 +49,7 @@ export class AddObjectCommand extends AbstractCommand {
 
         const json: AddObjectCommandJSON = {
             ...commandOutput,
-            object: this.object.toJSON(),
+            object: this.object?.toJSON(),
         };
 
         return json;
@@ -67,7 +70,7 @@ export class AddObjectCommand extends AbstractCommand {
 
     test() {
         this.execute();
-        const result = this.editor.scene.children.includes(this.object);
+        const result = this.editor.scene.children.includes(this.object!);
         return result;
     }
 }
