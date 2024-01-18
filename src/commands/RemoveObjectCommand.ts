@@ -20,7 +20,7 @@ export type RemoveObjectCommandJSON = CommandJSON & {
 export class RemoveObjectCommand extends AbstractCommand {
     object: THREE.Object3D;
 
-    parent?: THREE.Object3D;
+    parent?: THREE.Object3D | null;
 
     index?: number;
 
@@ -34,8 +34,8 @@ export class RemoveObjectCommand extends AbstractCommand {
         this.type = 'RemoveObjectCommand';
 
         this.object = object;
-        this.parent = object !== undefined ? (object.parent as THREE.Object3D) : undefined;
-        if (this.parent !== undefined) {
+        this.parent = object !== undefined ? object.parent : undefined;
+        if (this.parent != null) {
             this.index = this.parent!.children.indexOf(this.object);
         }
     }
@@ -46,7 +46,7 @@ export class RemoveObjectCommand extends AbstractCommand {
     }
 
     undo(): void {
-        this.editor.addObject(this.object, this.parent, this.index);
+        this.editor.addObject(this.object, this.parent!, this.index);
         this.editor.select(this.object);
     }
 

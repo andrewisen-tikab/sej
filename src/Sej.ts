@@ -14,6 +14,7 @@
 export * from './commands/types';
 export { AbstractCommand } from './commands/AbstractCommand';
 export { AddObjectCommand } from './commands/AddObjectCommand';
+export { RemoveObjectCommand } from './commands/RemoveObjectCommand';
 
 // Controls
 
