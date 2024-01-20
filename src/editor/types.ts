@@ -16,7 +16,22 @@ type GenericSignalType = signals.Signal;
 export type Object3D = THREE.Object3D<THREE.Object3DEventMap>;
 
 export type EditorSignals = {
+    /**
+     * Signal dispatched when an {@link Object3D | object} is selected.
+     */
     objectSelected: GenericSignalType;
+    /**
+     * Signal dispatched when multiple {@link Object3D | objects} are selected.
+     */
+    objectsSelected: GenericSignalType;
+    /**
+     * Signal dispatched when an {@link Object3D | object} is deselected.
+     */
+    objectDeselected: GenericSignalType;
+    /**
+     * Signal dispatched when multiple {@link Object3D | objects} are deselected.
+     */
+    objectsDeselected: GenericSignalType;
     objectFocused: GenericSignalType;
 
     objectAdded: signals.Signal<THREE.Object3D>;
