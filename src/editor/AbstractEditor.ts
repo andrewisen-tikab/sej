@@ -65,6 +65,9 @@ export class AbstractEditor implements Editor {
     constructor() {
         this.signals = {
             objectSelected: new Signal(),
+            objectsSelected: new Signal(),
+            objectDeselected: new Signal(),
+            objectsDeselected: new Signal(),
             objectFocused: new Signal(),
             objectAdded: new Signal(),
             objectChanged: new Signal(),
@@ -202,7 +205,7 @@ export class AbstractEditor implements Editor {
         this.signals.sceneGraphChanged.dispatch();
     }
 
-    select(object: Object3D): void {
+    select(object: Object3D | Object3D[]): void {
         this.selector.select(object);
     }
 
