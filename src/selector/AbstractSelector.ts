@@ -73,8 +73,8 @@ export class AbstractSelector implements Selector {
             // Check if the object is in the this.editor.selected array
             const index = this.editor.selected.indexOf(object);
             if (index !== -1) {
-                this.editor.signals.objectDeselected.dispatch(object);
                 this.editor.selected.splice(index, 1);
+                this.editor.signals.objectDeselected.dispatch(object);
             } else {
                 // If the object is not in the this.editor.selected array, throw an error
                 ErrorManager.addHistory(
