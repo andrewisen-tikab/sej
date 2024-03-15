@@ -1,3 +1,5 @@
+import * as THREE from 'three';
+
 import type { AddDebug } from '../debugger/types';
 
 export type MathOperation = 'round' | 'ceil' | 'floor';
