@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import * as THREE from 'three';
+
 import { ErrorObject } from '@andrewisen/error-manager';
 
 import { ErrorManager, Errors } from '../core/ErrorManager';
