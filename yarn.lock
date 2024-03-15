@@ -799,6 +799,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tweenjs/tween.js@npm:~23.1.1":
+  version: 23.1.1
+  resolution: "@tweenjs/tween.js@npm:23.1.1"
+  checksum: 8833907d9d6adb584879fb743c3d1f6f37ea8a6a2750c06383040cba03cd284a8bbd9f173b50ee7636f56d242e1090b28335b29eb9c44ddf7ca0bb534c4b697e
+  languageName: node
+  linkType: hard
+
 "@types/argparse@npm:1.0.38":
   version: 1.0.38
   resolution: "@types/argparse@npm:1.0.38"
@@ -855,15 +862,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/three@npm:^0.159.0":
-  version: 0.159.0
-  resolution: "@types/three@npm:0.159.0"
+"@types/three@npm:^0.162.0":
+  version: 0.162.0
+  resolution: "@types/three@npm:0.162.0"
   dependencies:
+    "@tweenjs/tween.js": "npm:~23.1.1"
     "@types/stats.js": "npm:*"
     "@types/webxr": "npm:*"
     fflate: "npm:~0.6.10"
     meshoptimizer: "npm:~0.18.1"
-  checksum: a166eee8be977645812276200da18877594fde37793499cdc8d47612fb9c2574218cd0adc603f7104189e1aab74cc0308357ef07f67c2f74a1c0c85ddbe589b0
+  checksum: 02101a0631adee750e7be3efc0c76cb805565353d200a9cfc3f5b741bc5564129e2e9eb37c57544d9cb7e27608196972b755c6f7829b163155bec530641a0595
   languageName: node
   linkType: hard
 
@@ -4491,7 +4499,7 @@ __metadata:
     "@trivago/prettier-plugin-sort-imports": "npm:^4.2.0"
     "@types/proj4": "npm:^2.5.4"
     "@types/signals": "npm:^1.0.3"
-    "@types/three": "npm:^0.159.0"
+    "@types/three": "npm:^0.162.0"
     "@typescript-eslint/eslint-plugin": "npm:^6.4.0"
     camera-controls: "npm:^2.7.2"
     dependency-cruiser: "npm:^14.1.2"
@@ -4512,7 +4520,7 @@ __metadata:
     prettier: "npm:^3.0.3"
     proj4: "npm:^2.9.1"
     signals: "npm:^1.0.0"
-    three: "npm:^0.159.0"
+    three: "npm:^0.162.0"
     three-mesh-bvh: "npm:^0.6.8"
     three-multi-select: "npm:^0.0.23"
     three-shape-3d: "npm:^0.0.26"
@@ -5024,10 +5032,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three@npm:^0.159.0":
-  version: 0.159.0
-  resolution: "three@npm:0.159.0"
-  checksum: ef1d94f8c1b66d35fa4e3836f40cbd85d23a598e40d9e9e2af2f31c7ad790422dd843ff7a9baab28df0494cbb7bc46e6016499ce2de2665c49099c7753412c34
+"three@npm:^0.162.0":
+  version: 0.162.0
+  resolution: "three@npm:0.162.0"
+  checksum: 08b1925583ab84f45c2358a0935e0c63b94e7ff4c3a9d759c993c12ef63124ab813c37e1df884f70ef8f44b1d2a2c0b8e515d56e0944d8d7df4fcdf01aec116f
   languageName: node
   linkType: hard
 
