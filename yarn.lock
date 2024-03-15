@@ -1519,12 +1519,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"camera-controls@npm:^2.7.2":
-  version: 2.7.2
-  resolution: "camera-controls@npm:2.7.2"
+"camera-controls@npm:^2.8.3":
+  version: 2.8.3
+  resolution: "camera-controls@npm:2.8.3"
   peerDependencies:
     three: ">=0.126.1"
-  checksum: ea4df4ae07606fc5da79c0bea0f50772a92b65140dbf032413b66206bacd9b74bfaa08f45a93dc000be935d9b370972b4533a67de55bdc6d7ed554cc0001fd46
+  checksum: 7e016bcb7b28078e145f41814ec6c626ed531a079a5a5cf050436fbccc034343ec822dc391e763a3260ae0511284fc124bb42705637fdcc4c1f631c85095036b
   languageName: node
   linkType: hard
 
@@ -4501,7 +4501,7 @@ __metadata:
     "@types/signals": "npm:^1.0.3"
     "@types/three": "npm:^0.162.0"
     "@typescript-eslint/eslint-plugin": "npm:^6.4.0"
-    camera-controls: "npm:^2.7.2"
+    camera-controls: "npm:^2.8.3"
     dependency-cruiser: "npm:^14.1.2"
     eslint: "npm:^8.0.1"
     eslint-config-airbnb: "npm:^19.0.4"
