@@ -988,16 +988,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/three@npm:^0.162.0":
-  version: 0.162.0
-  resolution: "@types/three@npm:0.162.0"
+"@types/three@npm:^0.163.0":
+  version: 0.163.0
+  resolution: "@types/three@npm:0.163.0"
   dependencies:
     "@tweenjs/tween.js": "npm:~23.1.1"
     "@types/stats.js": "npm:*"
     "@types/webxr": "npm:*"
-    fflate: "npm:~0.6.10"
+    fflate: "npm:~0.8.2"
     meshoptimizer: "npm:~0.18.1"
-  checksum: 02101a0631adee750e7be3efc0c76cb805565353d200a9cfc3f5b741bc5564129e2e9eb37c57544d9cb7e27608196972b755c6f7829b163155bec530641a0595
+  checksum: 81320c03aa89b67601cdc7d0a0dca93cf1d59ff564214859f0f87d0314062e3b7cb02f6d15c245cdae6755d1febc54d23432c25df16ff4aac9c65ba2efd9973d
   languageName: node
   linkType: hard
 
@@ -2617,10 +2617,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fflate@npm:~0.6.10":
-  version: 0.6.10
-  resolution: "fflate@npm:0.6.10"
-  checksum: 9f2fd7224bccdb28102adc7c55c262b584571426eb9e0b91b13088884f45700232b51e034e300b74abf64e5449596d5c37d0a802673e25edb17c6742e4a4a0bd
+"fflate@npm:~0.8.2":
+  version: 0.8.2
+  resolution: "fflate@npm:0.8.2"
+  checksum: 2bd26ba6d235d428de793c6a0cd1aaa96a06269ebd4e21b46c8fd1bd136abc631acf27e188d47c3936db090bf3e1ede11d15ce9eae9bffdc4bfe1b9dc66ca9cb
   languageName: node
   linkType: hard
 
@@ -4696,7 +4696,7 @@ __metadata:
     "@trivago/prettier-plugin-sort-imports": "npm:^4.2.0"
     "@types/proj4": "npm:^2.5.4"
     "@types/signals": "npm:^1.0.3"
-    "@types/three": "npm:^0.162.0"
+    "@types/three": "npm:^0.163.0"
     "@typescript-eslint/eslint-plugin": "npm:^6.4.0"
     camera-controls: "npm:^2.8.3"
     dependency-cruiser: "npm:^14.1.2"
@@ -4717,7 +4717,7 @@ __metadata:
     prettier: "npm:^3.0.3"
     proj4: "npm:^2.9.1"
     signals: "npm:^1.0.0"
-    three: "npm:^0.162.0"
+    three: "npm:^0.163.0"
     three-mesh-bvh: "npm:^0.7.3"
     three-multi-select: "npm:^0.0.23"
     three-shape-3d: "npm:^0.0.26"
@@ -5236,10 +5236,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three@npm:^0.162.0":
-  version: 0.162.0
-  resolution: "three@npm:0.162.0"
-  checksum: 08b1925583ab84f45c2358a0935e0c63b94e7ff4c3a9d759c993c12ef63124ab813c37e1df884f70ef8f44b1d2a2c0b8e515d56e0944d8d7df4fcdf01aec116f
+"three@npm:^0.163.0":
+  version: 0.163.0
+  resolution: "three@npm:0.163.0"
+  checksum: caf4b681b62b4367242b88e89299f8f5e728636a38af51ccb56c5814ff9d2a59a8116df3d6851238804b23435b4410ba68ae9e70f7d26791345945c094abf011
   languageName: node
   linkType: hard
 
