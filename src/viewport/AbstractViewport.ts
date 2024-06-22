@@ -32,6 +32,10 @@ export class AbstractViewport implements Viewport {
 
     public optimizer: Optimizer;
 
+    private _container: HTMLElement;
+
+    private _resizeObserver: ResizeObserver;
+
     constructor({
         container,
         editor,
@@ -41,14 +45,13 @@ export class AbstractViewport implements Viewport {
         optimizer,
     }: AbstractViewportParams) {
         this.editor = editor;
+        this._container = container;
 
         const { camera, scene, signals } = editor;
 
         this.optimizer = optimizer ?? new Optimizer();
 
         this.renderer = renderer || new WebGLRenderer(scene, camera);
-
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
 
         container.appendChild(this.renderer.domElement);
 
@@ -98,6 +101,9 @@ export class AbstractViewport implements Viewport {
             this.editor.signals.windowResize.dispatch();
         });
 
+        this._resizeObserver = new ResizeObserver(this.resize.bind(this));
+        this._resizeObserver.observe(this._container);
+
         this.resize();
     }
 
@@ -113,20 +119,29 @@ export class AbstractViewport implements Viewport {
             ? this._resizePerspectiveCamera(perspectiveCamera)
             : this._resizeOrthographicCamera(this.editor.camera as THREE.OrthographicCamera);
 
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.setSize();
+    }
+
+    protected setSize() {
+        const { clientWidth, clientHeight } = this._container;
+        this.renderer.setSize(clientWidth, clientHeight);
     }
 
     // eslint-disable-next-line class-methods-use-this
     protected _resizePerspectiveCamera(perspectiveCamera: THREE.PerspectiveCamera) {
+        const { clientWidth, clientHeight } = this._container;
+
         /* eslint-disable no-param-reassign */
-        perspectiveCamera.aspect = window.innerWidth / window.innerHeight;
+        perspectiveCamera.aspect = clientWidth / clientHeight;
         /* eslint-enable no-param-reassign */
         perspectiveCamera.updateProjectionMatrix();
     }
 
     // eslint-disable-next-line class-methods-use-this
     protected _resizeOrthographicCamera(orthographicCamera: THREE.OrthographicCamera) {
-        const aspect = window.innerWidth / window.innerHeight;
+        const { clientWidth, clientHeight } = this._container;
+
+        const aspect = clientWidth / clientHeight;
 
         const halfHeight = orthographicCamera.top;
         const halfWidth = halfHeight * aspect;

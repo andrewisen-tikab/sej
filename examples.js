@@ -6,4 +6,4 @@
  * - Day / Night cycle
  * - Proj4
  */
-export const EXAMPLES = ['simple', 'complex', 'selection', 'games/snake'];
+export const EXAMPLES = ['simple', 'viewport', 'complex', 'selection', 'games/snake'];
