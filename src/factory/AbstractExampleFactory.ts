@@ -32,7 +32,9 @@ export class AbstractExampleFactory<T> implements ExampleFactor {
     // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-explicit-any
     build(): Sej {
         // 1. Begin by creating a container for the viewer.
-        const container = document.getElementById('app') as HTMLElement | null;
+        const exampleParmas = this._params as Partial<ExampleFactorParams>;
+        const container =
+            exampleParmas?.container ?? (document.getElementById('app') as HTMLElement | null);
         if (!container) throw new Error('Container not found');
 
         // 2. Then create the viewer itself
