@@ -34,6 +34,8 @@ export class AbstractViewport implements Viewport {
 
     private _container: HTMLElement;
 
+    private _resizeObserver: ResizeObserver;
+
     constructor({
         container,
         editor,
@@ -99,7 +101,8 @@ export class AbstractViewport implements Viewport {
             this.editor.signals.windowResize.dispatch();
         });
 
-        new ResizeObserver(this.resize.bind(this)).observe(this._container);
+        this._resizeObserver = new ResizeObserver(this.resize.bind(this));
+        this._resizeObserver.observe(this._container);
 
         this.resize();
     }
