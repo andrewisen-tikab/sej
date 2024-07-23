@@ -4,7 +4,7 @@ import CameraControls from 'camera-controls';
 import GUI from 'lil-gui';
 
 import { AbstractViewportControls } from './AbstractViewportControls';
-import type { ViewportControls } from './types';
+import { type ViewportControls, isOrthographicCamera, isPerspectiveCamera } from './types';
 
 const ACTION = {
     NONE: 0,
@@ -116,21 +116,29 @@ export class ViewportCameraControls extends AbstractViewportControls implements 
     }
 
     public setCamera(camera: THREE.Camera): void {
-        this.cameraControls.saveState();
-        const perspectiveCamera = camera as THREE.PerspectiveCamera;
-        this.cameraControls.camera = perspectiveCamera; // Cast as THREE.PerspectiveCamera to satisfy the library
-
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        this.cameraControls.mouseButtons.wheel = perspectiveCamera.isPerspectiveCamera
+        // eslint-disable-next-line no-nested-ternary
+        this.cameraControls.mouseButtons.wheel = isPerspectiveCamera(camera)
             ? ACTION.DOLLY
-            : ACTION.ZOOM;
+            : isOrthographicCamera(camera)
+              ? ACTION.ZOOM
+              : ACTION.NONE;
 
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        this.cameraControls.touches.two = perspectiveCamera.isPerspectiveCamera
+        // eslint-disable-next-line no-nested-ternary
+        this.cameraControls.touches.two = isPerspectiveCamera(camera)
             ? ACTION.TOUCH_DOLLY_TRUCK
-            : ACTION.TOUCH_ZOOM_TRUCK;
+            : isOrthographicCamera(camera)
+              ? ACTION.TOUCH_ZOOM_TRUCK
+              : ACTION.NONE;
+
+        if (isPerspectiveCamera(camera)) {
+            this.cameraControls.zoomTo(camera.zoom, true);
+        }
+
+        this.cameraControls.camera = camera as THREE.PerspectiveCamera | THREE.OrthographicCamera;
 
         this.limitOrographicCameraTo2D = this._limitOrographicCameraTo2D;
     }
