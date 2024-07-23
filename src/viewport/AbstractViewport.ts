@@ -92,9 +92,9 @@ export class AbstractViewport implements Viewport {
         });
 
         this.editor.signals.setCamera.add(() => {
-            this.resize();
             this.renderer.setCamera(this.editor.camera);
             this.viewportControls.setCamera(this.editor.camera);
+            this.resize();
         });
 
         window.addEventListener('resize', () => {
