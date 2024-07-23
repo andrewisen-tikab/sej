@@ -63,5 +63,6 @@
         "three-spatial-hash-grid": "^0.0.5",
         "three-timeline": "^0.0.2",
         "zod": "^3.22.4"
-    }
+    },
+    "packageManager": "yarn@4.3.1"
 }
