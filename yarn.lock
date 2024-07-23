@@ -5,12 +5,12 @@ __metadata:
   version: 8
   cacheKey: 10
 
-"3d-tiles-renderer@npm:^0.3.30":
-  version: 0.3.30
-  resolution: "3d-tiles-renderer@npm:0.3.30"
+"3d-tiles-renderer@npm:^0.3.35":
+  version: 0.3.35
+  resolution: "3d-tiles-renderer@npm:0.3.35"
   peerDependencies:
     three: ">=0.123.0"
-  checksum: 10/77c5ddb8b5c01fcf7cfe22772c0a06759ef7e1d11ef1d69f4ce129eeb140c875c1d12f9c58b40db1c512dbe3dfde1e5d3e1ea82d5bc3a12b85fba9c604e1512a
+  checksum: 10/50d275efac977af3c3fb42a74af7261aa752d6b05987a77b2f7f4813e34f60bf3d65256ecbe7e6f6e1ce12c1b0c85482e31c274f7d48cd44093e761a32bb3118
   languageName: node
   linkType: hard
 
@@ -4494,7 +4494,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "sej@workspace:."
   dependencies:
-    3d-tiles-renderer: "npm:^0.3.30"
+    3d-tiles-renderer: "npm:^0.3.35"
     "@andrewisen/error-manager": "npm:^0.0.4"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.2.0"
     "@types/proj4": "npm:^2.5.4"
