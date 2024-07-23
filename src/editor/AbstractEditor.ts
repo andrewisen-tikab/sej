@@ -100,9 +100,20 @@ export class AbstractEditor implements Editor {
 
         const { innerWidth: width, innerHeight: height } = window;
         this.perspectiveCamera = new THREE.PerspectiveCamera(45, width / height, 1, 10_000);
+        this.perspectiveCamera.position.set(0, 0, 10);
 
-        this.orthographicCamera = new THREE.OrthographicCamera();
-        this.orthographicCamera.position.set(0, 0, 100);
+        const aspect = window.innerWidth / window.innerHeight;
+        const frustumSize = 10;
+
+        this.orthographicCamera = new THREE.OrthographicCamera(
+            (frustumSize * aspect) / -2,
+            (frustumSize * aspect) / 2,
+            frustumSize / 2,
+            frustumSize / -2,
+            0.1,
+            1000,
+        );
+        this.orthographicCamera.position.set(0, 0, 10);
 
         this.camera = this.perspectiveCamera;
         // this.camera = this.orthographicCamera;
