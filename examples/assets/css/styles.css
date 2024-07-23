@@ -1,6 +1,22 @@
 body {
     margin: 0;
 }
+#app {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: red;
+}
+
+#viewport {
+    height: 50vh;
+    width: 50vh;
+    /* background-color: red; */
+    resize: both;
+    overflow: auto;
+}
 
 /* .loading {
     position: fixed;
