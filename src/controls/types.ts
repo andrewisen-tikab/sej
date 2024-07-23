@@ -67,3 +67,11 @@ export type KeyboardControls = {
      */
     update: (delta: number) => void;
 };
+
+// eslint-disable-next-line require-jsdoc
+export const isPerspectiveCamera = (camera: THREE.Camera): camera is THREE.PerspectiveCamera =>
+    (camera as THREE.PerspectiveCamera).isPerspectiveCamera;
+
+// eslint-disable-next-line require-jsdoc
+export const isOrthographicCamera = (camera: THREE.Camera): camera is THREE.OrthographicCamera =>
+    (camera as THREE.OrthographicCamera).isOrthographicCamera;
