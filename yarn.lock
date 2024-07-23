@@ -4521,7 +4521,7 @@ __metadata:
     proj4: "npm:^2.9.1"
     signals: "npm:^1.0.0"
     three: "npm:^0.166.1"
-    three-mesh-bvh: "npm:^0.7.3"
+    three-mesh-bvh: "npm:^0.7.6"
     three-multi-select: "npm:^0.0.23"
     three-shape-3d: "npm:^0.0.26"
     three-spatial-hash-grid: "npm:^0.0.5"
@@ -4984,12 +4984,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three-mesh-bvh@npm:^0.7.3":
-  version: 0.7.3
-  resolution: "three-mesh-bvh@npm:0.7.3"
+"three-mesh-bvh@npm:^0.7.6":
+  version: 0.7.6
+  resolution: "three-mesh-bvh@npm:0.7.6"
   peerDependencies:
     three: ">= 0.151.0"
-  checksum: 10/0f8f1b6960e57e9f7971a9b499c5ac8647eb7042dc98ed3c753328c658f1f542504b7f57571fb34b0c124e4f291ce9f999bdd2a2e06de507b8e8715a5dcecccc
+  checksum: 10/d2e0f904d3123ee728e9ee89fc95f95f7bb32e3df99a95ce808ca4140dae7371a31dcab889204278517b54566bbd1605c1be639a0e4531f530ffb61551d14fc4
   languageName: node
   linkType: hard
 
