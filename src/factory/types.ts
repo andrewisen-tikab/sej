@@ -2,6 +2,7 @@ import type { AbstractKeyboardControls } from '../controls/AbstractKeyboardContr
 import type { AbstractViewportControls } from '../controls/AbstractViewportControls';
 import type { AbstractEditor } from '../editor/AbstractEditor';
 import type { AbstractRenderer } from '../renderer/AbstractRenderer';
+import { AbstractViewport } from '../viewport/AbstractViewport';
 
 /**
  * Parameters for the `ExampleFactor`.
@@ -23,6 +24,11 @@ export type ExampleFactorParams = {
      * See {@link AbstractEditor} for more information.
      */
     Editor: typeof AbstractEditor;
+    /**
+     * Custom viewport.
+     * See {@link AbstractViewport} for more information.
+     */
+    Viewport: typeof AbstractViewport;
     /**
      * Custom viewport controls.
      * See {@link AbstractViewportControls} for more information.
