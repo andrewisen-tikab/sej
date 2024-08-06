@@ -4,7 +4,6 @@ import { ViewportCameraControls } from '../controls/ViewportCameraControls';
 import { AbstractDebugger } from '../debugger/AbstractDebugger';
 import { NordicGISHelper } from '../gis/NordicGISHelper';
 import { ModelLoader } from '../loader/ModelLoader';
-import { AbstractViewport } from '../viewport/AbstractViewport';
 import { AbstractExampleFactory } from './AbstractExampleFactory';
 import { ExampleFactorParams } from './types';
 
@@ -31,6 +30,7 @@ export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
         const KeyboardControls = params.KeyboardControls ?? defaultParams.KeyboardControls;
         const Editor = params.Editor ?? defaultParams.Editor;
         const ViewportControls = params.ViewportControls ?? defaultParams.ViewportControls;
+        const Viewport = params.Viewport ?? defaultParams.Viewport;
 
         const container =
             params.container ?? (document.getElementById('app') as HTMLElement | null);
@@ -74,13 +74,16 @@ export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
             // @ts-ignore
             InstanceType<T['KeyboardControls']>;
 
-        const viewport = new AbstractViewport({
+        const viewport = new Viewport({
             container,
             editor,
             renderer,
             viewportControls,
             keyboardControls,
-        });
+        }) as InstanceType<typeof defaultParams.Viewport> &
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            InstanceType<T['Viewport']>;
 
         // eslint-disable-next-line no-underscore-dangle, @typescript-eslint/naming-convention
         const _debugger = new AbstractDebugger({
@@ -101,7 +104,7 @@ export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
         };
 
         const GISHelper = new NordicGISHelper();
-        // GISHelper.dev(scene);
+        GISHelper.dev(scene);
         editor.gisHelper = GISHelper;
 
         viewportControls.setBoundary(spatialHashGrid.getBox());
