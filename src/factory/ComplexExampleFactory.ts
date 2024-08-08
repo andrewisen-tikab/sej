@@ -104,7 +104,7 @@ export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
         };
 
         const GISHelper = new NordicGISHelper();
-        GISHelper.dev(scene);
+        // GISHelper.dev(scene);
         editor.gisHelper = GISHelper;
 
         viewportControls.setBoundary(spatialHashGrid.getBox());
