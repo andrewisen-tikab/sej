@@ -22,12 +22,19 @@ export class AbstractHistory implements History {
 
     config: Config;
 
+    /**
+     * The time difference limit between two commands to be considered as a single command.
+     * @default 500
+     */
+    public timeDifferenceLimit: number;
+
     constructor(editor: Editor) {
         this.editor = editor;
         this.undos = [];
         this.redos = [];
         this.lastCmdTime = Date.now();
         this.idCounter = 0;
+        this.timeDifferenceLimit = 500;
 
         this.historyDisabled = false;
         this.config = editor.config;
@@ -49,7 +56,7 @@ export class AbstractHistory implements History {
             lastCmd.script === _cmd.script &&
             lastCmd.attributeName === _cmd.attributeName;
 
-        if (isUpdatableCmd && timeDifference < 500) {
+        if (isUpdatableCmd && timeDifference < this.timeDifferenceLimit) {
             lastCmd.update(cmd);
             // eslint-disable-next-line no-param-reassign
             cmd = lastCmd; // Warning: Mutation!
