@@ -60,6 +60,7 @@ export class AbstractViewport implements Viewport {
 
         this.keyboardControls =
             keyboardControls ?? new AbstractKeyboardControls(camera, this.renderer.domElement);
+
         this.viewportControls.addEventListener('change', () => {
             signals.cameraChanged.dispatch(camera);
             signals.refreshSidebarObject3D.dispatch(camera);
