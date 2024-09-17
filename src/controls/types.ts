@@ -45,7 +45,7 @@ export type ViewportControls = {
      * @param delta
      */
     dispose: (delta: number) => void;
-} & THREE.EventDispatcher &
+} & THREE.EventDispatcher<{ change: never }> &
     Test &
     AddDebug;
 
