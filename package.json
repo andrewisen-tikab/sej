@@ -4,7 +4,7 @@
         "type": "git",
         "url": "git+https://github.com/andrewisen-tikab/sej"
     },
-    "version": "0.0.53",
+    "version": "0.0.54",
     "type": "module",
     "main": "dist/sej.js",
     "author": "André Wisén",
