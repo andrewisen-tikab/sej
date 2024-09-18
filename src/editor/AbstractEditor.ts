@@ -24,6 +24,42 @@ import type { Editor, EditorJSON, EditorSignals, Object3D } from './types';
 // eslint-disable-next-line prefer-destructuring
 const Signal = signals.Signal;
 
+export const defaultSignals = {
+    objectSelected: new Signal(),
+    objectsSelected: new Signal(),
+    objectDeselected: new Signal(),
+    objectsDeselected: new Signal(),
+    objectFocused: new Signal(),
+    objectAdded: new Signal(),
+    objectChanged: new Signal(),
+    objectRemoved: new Signal(),
+    cameraAdded: new Signal(),
+    cameraRemoved: new Signal(),
+    cameraResetted: new Signal(),
+    helperAdded: new Signal(),
+    helperRemoved: new Signal(),
+    windowResize: new Signal(),
+    sceneGraphChanged: new Signal(),
+    showGridChanged: new Signal(),
+    showHelpersChanged: new Signal(),
+    refreshSidebarObject3D: new Signal(),
+    cameraChanged: new Signal(),
+    setCamera: new Signal(),
+    refreshSidebarEnvironment: new Signal(),
+    historyChanged: new Signal(),
+    intersectionsDetected: new Signal(),
+} as EditorSignals;
+
+export type EditorParams = {
+    /**
+     * Custom signals for the editor.
+     * Signals can be overridden or extended.
+     *
+     * See {@link EditorSignals} for more details.
+     */
+    signals?: Record<string, signals.Signal>;
+};
+
 /**
  * Abstract class for all viewers.
  *
@@ -62,33 +98,9 @@ export class AbstractEditor implements Editor {
 
     public mobileUtils: typeof MobileUtils;
 
-    constructor() {
-        this.signals = {
-            objectSelected: new Signal(),
-            objectsSelected: new Signal(),
-            objectDeselected: new Signal(),
-            objectsDeselected: new Signal(),
-            objectFocused: new Signal(),
-            objectAdded: new Signal(),
-            objectChanged: new Signal(),
-            objectRemoved: new Signal(),
-            cameraAdded: new Signal(),
-            cameraRemoved: new Signal(),
-            cameraResetted: new Signal(),
-            helperAdded: new Signal(),
-            helperRemoved: new Signal(),
-            windowResize: new Signal(),
-            sceneGraphChanged: new Signal(),
-            showGridChanged: new Signal(),
-            showHelpersChanged: new Signal(),
-            refreshSidebarObject3D: new Signal(),
-            cameraChanged: new Signal(),
-            setCamera: new Signal(),
-            refreshSidebarEnvironment: new Signal(),
-            historyChanged: new Signal(),
-            intersectionsDetected: new Signal(),
-        };
-
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    constructor({ signals }: EditorParams = { signals: {} }) {
+        this.signals = { ...defaultSignals, ...signals };
         this.debugger = null;
         this.mobileUtils = MobileUtils;
 
