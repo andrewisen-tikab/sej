@@ -119,7 +119,7 @@ export class AbstractEditor implements Editor {
 
     constructor(
         // eslint-disable-next-line @typescript-eslint/no-shadow
-        { signals, storage, history }: EditorParams,
+        { signals, storage, history }: EditorParams = {},
     ) {
         this.signals = { ...defaultSignals, ...(signals ?? {}) };
         this.debugger = null;
