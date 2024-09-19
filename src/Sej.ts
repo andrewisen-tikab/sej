@@ -42,6 +42,7 @@ export { AbstractDebugger } from './debugger/AbstractDebugger';
 export * from './editor/types';
 export { AbstractEditor } from './editor/AbstractEditor';
 export { Config } from './editor/Config';
+export { AbstractStorage } from './editor/Storage';
 
 // Factory
 

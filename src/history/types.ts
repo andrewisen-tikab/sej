@@ -22,6 +22,8 @@ export type History = {
      * @param id State id to go to
      */
     goToState(id: number): void;
+    fromJSON(json: HistoryJSON): void;
+    toJSON(): HistoryJSON;
 } & EditorPointer &
     Test;
 

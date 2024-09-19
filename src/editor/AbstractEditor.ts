@@ -12,6 +12,7 @@ import type { Debugger } from '../debugger/types';
 import { AbstractGISHelper } from '../gis/AbstractGISHelper';
 import type { GISHelper } from '../gis/types';
 import { AbstractHistory } from '../history/AbstractHistory';
+import type { History } from '../history/types';
 import { AbstractLoaderManager } from '../loader/AbstractLoaderManager';
 import type { LoaderManager } from '../loader/types';
 import { AbstractSelector } from '../selector/AbstractSelector';
@@ -19,7 +20,8 @@ import { AbstractSpatialHashGrid } from '../spatial/AbstractSpatialHashGrid';
 import type { SpatialHashGrid } from '../spatial/types';
 import { MobileUtils } from '../utils/MobileUtils';
 import { Config } from './Config';
-import type { Editor, EditorJSON, EditorSignals, Object3D } from './types';
+import { AbstractStorage } from './Storage';
+import type { Editor, EditorJSON, EditorSignals, Object3D, Storage } from './types';
 
 // eslint-disable-next-line prefer-destructuring
 const Signal = signals.Signal;
@@ -56,8 +58,23 @@ export type EditorParams = {
      * Signals can be overridden or extended.
      *
      * See {@link EditorSignals} for more details.
+     * See {@link defaultSignals} for the default signals.
      */
     signals?: Record<string, signals.Signal>;
+    /**
+     * Custom storage for the editor.
+     *
+     * See {@link Storage} for more details.
+     * See {@link AbstractStorage} for the default storage.
+     */
+    storage?: Storage;
+    /**
+     * Custom History for the editor.
+     *
+     * See {@link History} for more details.
+     * See {@link AbstractHistory} for the default history.
+     */
+    history?: History;
 };
 
 /**
@@ -71,6 +88,8 @@ export type EditorParams = {
  */
 export class AbstractEditor implements Editor {
     public config: Config;
+
+    public storage: Storage;
 
     public loaderManager: LoaderManager;
 
@@ -92,19 +111,22 @@ export class AbstractEditor implements Editor {
 
     public gisHelper: GISHelper;
 
-    public history: AbstractHistory;
+    public history: History;
 
     public debugger: Debugger | null;
 
     public mobileUtils: typeof MobileUtils;
 
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    constructor({ signals }: EditorParams = { signals: {} }) {
-        this.signals = { ...defaultSignals, ...signals };
+    constructor(
+        // eslint-disable-next-line @typescript-eslint/no-shadow
+        { signals, storage, history }: EditorParams = {},
+    ) {
+        this.signals = { ...defaultSignals, ...(signals ?? {}) };
         this.debugger = null;
         this.mobileUtils = MobileUtils;
 
         this.config = new Config();
+        this.storage = storage ?? new AbstractStorage();
 
         this.loaderManager = new AbstractLoaderManager();
 
@@ -130,7 +152,7 @@ export class AbstractEditor implements Editor {
         this.camera = this.perspectiveCamera;
         // this.camera = this.orthographicCamera;
 
-        this.history = new AbstractHistory(this);
+        this.history = history ?? new AbstractHistory(this);
 
         this.selector = new AbstractSelector(this);
         this.selected = [];
