@@ -19,7 +19,8 @@ import { AbstractSpatialHashGrid } from '../spatial/AbstractSpatialHashGrid';
 import type { SpatialHashGrid } from '../spatial/types';
 import { MobileUtils } from '../utils/MobileUtils';
 import { Config } from './Config';
-import type { Editor, EditorJSON, EditorSignals, Object3D } from './types';
+import { AbstractStorage } from './Storage';
+import type { Editor, EditorJSON, EditorSignals, Object3D, Storage } from './types';
 
 // eslint-disable-next-line prefer-destructuring
 const Signal = signals.Signal;
@@ -58,6 +59,12 @@ export type EditorParams = {
      * See {@link EditorSignals} for more details.
      */
     signals?: Record<string, signals.Signal>;
+    /**
+     * Custom storage for the editor.
+     *
+     * See {@link Storage} for more details.
+     */
+    storage?: Storage;
 };
 
 /**
@@ -71,6 +78,8 @@ export type EditorParams = {
  */
 export class AbstractEditor implements Editor {
     public config: Config;
+
+    public storage: Storage;
 
     public loaderManager: LoaderManager;
 
@@ -98,13 +107,16 @@ export class AbstractEditor implements Editor {
 
     public mobileUtils: typeof MobileUtils;
 
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    constructor({ signals }: EditorParams = { signals: {} }) {
-        this.signals = { ...defaultSignals, ...signals };
+    constructor(
+        // eslint-disable-next-line @typescript-eslint/no-shadow
+        { signals, storage }: EditorParams,
+    ) {
+        this.signals = { ...defaultSignals, ...(signals ?? {}) };
         this.debugger = null;
         this.mobileUtils = MobileUtils;
 
         this.config = new Config();
+        this.storage = storage ?? new AbstractStorage();
 
         this.loaderManager = new AbstractLoaderManager();
 
