@@ -191,6 +191,35 @@ export class AbstractHistory implements History {
         this.editor.signals.historyChanged.dispatch(cmd);
     }
 
+    public enableSerialization(id: number): void {
+        /**
+         * because there might be commands in this.undos and this.redos
+         * which have not been serialized with .toJSON() we go back
+         * to the oldest command and redo one command after the other
+         * while also calling .toJSON() on them.
+         */
+
+        this.goToState(-1);
+
+        this.editor.signals.sceneGraphChanged.active = false;
+        this.editor.signals.historyChanged.active = false;
+
+        let cmd = this.redo();
+        while (cmd !== undefined) {
+            // eslint-disable-next-line no-prototype-builtins
+            if (!cmd.hasOwnProperty('json')) {
+                cmd.json = cmd.toJSON();
+            }
+
+            cmd = this.redo();
+        }
+
+        this.editor.signals.sceneGraphChanged.active = true;
+        this.editor.signals.historyChanged.active = true;
+
+        this.goToState(id);
+    }
+
     // eslint-disable-next-line class-methods-use-this
     test(): boolean {
         const { editor } = this;
