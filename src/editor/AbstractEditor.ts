@@ -12,6 +12,7 @@ import type { Debugger } from '../debugger/types';
 import { AbstractGISHelper } from '../gis/AbstractGISHelper';
 import type { GISHelper } from '../gis/types';
 import { AbstractHistory } from '../history/AbstractHistory';
+import type { History } from '../history/types';
 import { AbstractLoaderManager } from '../loader/AbstractLoaderManager';
 import type { LoaderManager } from '../loader/types';
 import { AbstractSelector } from '../selector/AbstractSelector';
@@ -57,14 +58,23 @@ export type EditorParams = {
      * Signals can be overridden or extended.
      *
      * See {@link EditorSignals} for more details.
+     * See {@link defaultSignals} for the default signals.
      */
     signals?: Record<string, signals.Signal>;
     /**
      * Custom storage for the editor.
      *
      * See {@link Storage} for more details.
+     * See {@link AbstractStorage} for the default storage.
      */
     storage?: Storage;
+    /**
+     * Custom History for the editor.
+     *
+     * See {@link History} for more details.
+     * See {@link AbstractHistory} for the default history.
+     */
+    history?: History;
 };
 
 /**
@@ -101,7 +111,7 @@ export class AbstractEditor implements Editor {
 
     public gisHelper: GISHelper;
 
-    public history: AbstractHistory;
+    public history: History;
 
     public debugger: Debugger | null;
 
@@ -109,7 +119,7 @@ export class AbstractEditor implements Editor {
 
     constructor(
         // eslint-disable-next-line @typescript-eslint/no-shadow
-        { signals, storage }: EditorParams,
+        { signals, storage, history }: EditorParams,
     ) {
         this.signals = { ...defaultSignals, ...(signals ?? {}) };
         this.debugger = null;
@@ -142,7 +152,7 @@ export class AbstractEditor implements Editor {
         this.camera = this.perspectiveCamera;
         // this.camera = this.orthographicCamera;
 
-        this.history = new AbstractHistory(this);
+        this.history = history ?? new AbstractHistory(this);
 
         this.selector = new AbstractSelector(this);
         this.selected = [];
