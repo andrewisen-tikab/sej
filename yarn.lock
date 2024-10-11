@@ -6,11 +6,11 @@ __metadata:
   cacheKey: 10
 
 "3d-tiles-renderer@npm:^0.3.35":
-  version: 0.3.35
-  resolution: "3d-tiles-renderer@npm:0.3.35"
+  version: 0.3.38
+  resolution: "3d-tiles-renderer@npm:0.3.38"
   peerDependencies:
     three: ">=0.123.0"
-  checksum: 10/50d275efac977af3c3fb42a74af7261aa752d6b05987a77b2f7f4813e34f60bf3d65256ecbe7e6f6e1ce12c1b0c85482e31c274f7d48cd44093e761a32bb3118
+  checksum: 10/d6c254f31189b8349f84a538d4f52b9b55d64498501015f866cc39b85c946cff53bc43490077aeff46eebf1b37eb8c855470d164b94ca785071a6fa91576ae90
   languageName: node
   linkType: hard
 
@@ -862,9 +862,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/three@npm:^0.168.0":
-  version: 0.168.0
-  resolution: "@types/three@npm:0.168.0"
+"@types/three@npm:^0.169.0":
+  version: 0.169.0
+  resolution: "@types/three@npm:0.169.0"
   dependencies:
     "@tweenjs/tween.js": "npm:~23.1.3"
     "@types/stats.js": "npm:*"
@@ -872,7 +872,7 @@ __metadata:
     "@webgpu/types": "npm:*"
     fflate: "npm:~0.8.2"
     meshoptimizer: "npm:~0.18.1"
-  checksum: 10/05ea8236196143501b6002f0934b41a4f48f022cbbc28abb3d8defa32f5e0912d4153a62b8a8f7133addcc36a55b65c9f70596d1602f90ee4c0259ae57280509
+  checksum: 10/cb863c8b247eedbdc04301b4e8f17ccd33f1fbd517e8dcc8cfff4f60300cb3be40ef5ffa130c1d0263c4da38a257a1f35fc1d9390d5529fd72b91c2d1ec08a7e
   languageName: node
   linkType: hard
 
@@ -1109,9 +1109,9 @@ __metadata:
   linkType: hard
 
 "@zip.js/zip.js@npm:^2.7.27":
-  version: 2.7.29
-  resolution: "@zip.js/zip.js@npm:2.7.29"
-  checksum: 10/07e3ff5470ee94a8b17d75b7b0adc0e7e3b720993c1846774e607388487c319cdc51a9a24d3175fb846cafc631b8e7da95cffa448d5b5e3d9b885eaa3561efc4
+  version: 2.7.52
+  resolution: "@zip.js/zip.js@npm:2.7.52"
+  checksum: 10/43fa9ef7435c01b470f8c9b420d176471c059ddea0573622b183a0c52f9774f1282bba1020cfde69964fd1bc3418fd835aafc40f5ab74d5cfae0b15eb051f970
   languageName: node
   linkType: hard
 
@@ -1528,11 +1528,11 @@ __metadata:
   linkType: hard
 
 "camera-controls@npm:^2.8.5":
-  version: 2.8.5
-  resolution: "camera-controls@npm:2.8.5"
+  version: 2.9.0
+  resolution: "camera-controls@npm:2.9.0"
   peerDependencies:
     three: ">=0.126.1"
-  checksum: 10/ae3df376e4ad94717dacd9ce778c7efc3e0a37e79e9e7cf76131d406ef1e4d045ec4d9e7b43c09f89cb7966bd017f38cbf2306edef4ae29f4933c50df655078d
+  checksum: 10/f121d626f3c85210573a58de4d6c20082f8dce31623c9e6f3b72c7fbc2352b12f324e36c1098aafe3c6e3d4f848f5cce5895ffaae4629986b4dd2b6ae014332e
   languageName: node
   linkType: hard
 
@@ -4134,12 +4134,12 @@ __metadata:
   linkType: hard
 
 "proj4@npm:^2.9.1":
-  version: 2.9.1
-  resolution: "proj4@npm:2.9.1"
+  version: 2.12.1
+  resolution: "proj4@npm:2.12.1"
   dependencies:
     mgrs: "npm:1.0.0"
     wkt-parser: "npm:^1.3.3"
-  checksum: 10/5ff1b4e14fd7027470abbc8edf9bf3349fa750dd9f7e0261d5fc0e90d0125783d9333d8bb84b7de0c9efa040ac2041399c34b738c10cde38a94f1eecf50512d3
+  checksum: 10/636b8afaab8a8ea3673da01e9a8cf1b3ed214b6dd7393404429a56c0d429e2af62d7619b85bc9500cd09e3344bf9e06a8f03bb9aa819022466c16134190f0ecc
   languageName: node
   linkType: hard
 
@@ -4507,7 +4507,7 @@ __metadata:
     "@trivago/prettier-plugin-sort-imports": "npm:^4.2.0"
     "@types/proj4": "npm:^2.5.4"
     "@types/signals": "npm:^1.0.3"
-    "@types/three": "npm:^0.168.0"
+    "@types/three": "npm:^0.169.0"
     "@typescript-eslint/eslint-plugin": "npm:^6.4.0"
     camera-controls: "npm:^2.8.5"
     dependency-cruiser: "npm:^14.1.2"
@@ -4528,7 +4528,7 @@ __metadata:
     prettier: "npm:^3.0.3"
     proj4: "npm:^2.9.1"
     signals: "npm:^1.0.0"
-    three: "npm:^0.168.0"
+    three: "npm:^0.169.0"
     three-mesh-bvh: "npm:^0.7.6"
     three-multi-select: "npm:^0.0.23"
     three-shape-3d: "npm:^0.0.26"
@@ -4540,6 +4540,8 @@ __metadata:
     vite-plugin-dts: "npm:^3.6.0"
     vite-plugin-top-level-await: "npm:^1.3.1"
     zod: "npm:^3.23.8"
+  peerDependencies:
+    three: ^0.169.0
   languageName: unknown
   linkType: soft
 
@@ -5047,10 +5049,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three@npm:^0.168.0":
-  version: 0.168.0
-  resolution: "three@npm:0.168.0"
-  checksum: 10/36598e544701960b060c232b676e4535a0dafb16ca5c37b451e47d55637b907195285a6c2441e38279a7b1d2802885cc37c499cced8dbeb811c4fc3a74f4de43
+"three@npm:^0.169.0":
+  version: 0.169.0
+  resolution: "three@npm:0.169.0"
+  checksum: 10/5d0a5a4c8aeff37877132c4cb633989dba0749891fd1bf6414c551b16ef46ddb3529954901cbcbe4b493698d93c915c1cff9145157adcaa69f122c1fc2d1538f
   languageName: node
   linkType: hard
 
