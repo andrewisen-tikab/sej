@@ -27,6 +27,7 @@ export class AbstractDebugger implements Debugger {
         this._enabled = value;
         this.enabled ? this.gui.show() : this.gui.hide();
         this.gameStats.dom.style.display = this.enabled ? 'block' : 'none';
+        this.statsGL.dom.style.display = this.enabled ? 'block' : 'none';
 
         this._previouslyEnabled = this.enabled;
     }
