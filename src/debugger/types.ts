@@ -1,5 +1,5 @@
+import Stats from 'gamestats.js';
 import GUI from 'lil-gui';
-import Stats from 'three/addons/libs/stats.module.js';
 
 import type { SupportedCameras } from '../core/types';
 import type { Renderer } from '../renderer/types';

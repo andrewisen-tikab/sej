@@ -77,13 +77,14 @@ export class AbstractViewport implements Viewport {
          */
         const animate = () => {
             requestAnimationFrame(animate);
-
+            this.editor.debugger?.stats.begin();
             const delta = clock.getDelta();
             if (this.renderer.freeze) return;
 
             this.optimizer.update();
             this.update(delta);
             this.renderer.render();
+            this.editor.debugger?.stats.end();
         };
 
         animate();

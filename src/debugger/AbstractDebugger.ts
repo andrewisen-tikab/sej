@@ -1,5 +1,5 @@
+import Stats from 'gamestats.js';
 import GUI from 'lil-gui';
-import Stats from 'three/addons/libs/stats.module.js';
 
 import type { ViewportControls } from '../controls/types';
 import type { SupportedCameras } from '../core/types';
@@ -93,11 +93,8 @@ export class AbstractDebugger implements Debugger {
         this.enabled = this._enabled;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    update(_delta: number) {
-        if (this.enabled === false) return;
-        this.stats.update();
-    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, class-methods-use-this
+    update(_delta: number) {}
 
     dispose() {
         this.gui.destroy();
