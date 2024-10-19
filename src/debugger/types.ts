@@ -1,5 +1,6 @@
+import GameStats from 'gamestats.js';
 import GUI from 'lil-gui';
-import Stats from 'three/addons/libs/stats.module.js';
+import Stats from 'stats-gl';
 
 import type { SupportedCameras } from '../core/types';
 import type { Renderer } from '../renderer/types';
@@ -68,7 +69,8 @@ export type Debugger = {
     /**
      * The stats instance.
      */
-    stats: Stats;
+    gameStats: GameStats;
+    statsGL: Stats;
     /**
      * Call this on every frame to update the debugger.
      * @param delta
