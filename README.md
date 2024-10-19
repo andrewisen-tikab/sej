@@ -47,6 +47,12 @@ A list of working examples can be found here:
 
 -   [https://andrewisen-tikab.github.io/sej/examples/](https://andrewisen-tikab.github.io/sej/examples/)
 
+## Documentation
+
+Auto-generated documentation can be found here:
+
+-   [https://andrewisen-tikab.github.io/sej/docs/](https://andrewisen-tikab.github.io/sej/docs/)
+
 ## WIP
 
 The purpose of `Sej` is to be "the future of 3D editors".
