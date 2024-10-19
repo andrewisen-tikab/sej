@@ -1,5 +1,6 @@
-import Stats from 'gamestats.js';
+import GameStats from 'gamestats.js';
 import GUI from 'lil-gui';
+import Stats from 'stats-gl';
 
 import type { ViewportControls } from '../controls/types';
 import type { SupportedCameras } from '../core/types';
@@ -25,7 +26,7 @@ export class AbstractDebugger implements Debugger {
     set enabled(value: boolean) {
         this._enabled = value;
         this.enabled ? this.gui.show() : this.gui.hide();
-        this.stats.dom.style.display = this.enabled ? 'block' : 'none';
+        this.gameStats.dom.style.display = this.enabled ? 'block' : 'none';
 
         this._previouslyEnabled = this.enabled;
     }
@@ -42,7 +43,9 @@ export class AbstractDebugger implements Debugger {
 
     params: DebugParams;
 
-    stats: Stats;
+    gameStats: GameStats;
+
+    statsGL: Stats;
 
     domElement: HTMLElement;
 
@@ -74,8 +77,14 @@ export class AbstractDebugger implements Debugger {
         };
 
         this.params = { ...defaultDebugParams };
-        this.stats = new Stats();
-        this.domElement.appendChild(this.stats.dom);
+        this.gameStats = new GameStats();
+        this.domElement.appendChild(this.gameStats.dom);
+
+        this.statsGL = new Stats();
+        this.statsGL.init(renderer.domElement);
+        this.domElement.appendChild(this.statsGL.dom);
+
+        this.statsGL.dom.style.left = '100px';
 
         this.guiFolders.general.add(this.params, 'freeze').onChange((value: boolean) => {
             this.renderer.freeze = value;
@@ -94,10 +103,12 @@ export class AbstractDebugger implements Debugger {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, class-methods-use-this
-    update(_delta: number) {}
+    update(_delta: number) {
+        this.statsGL.update();
+    }
 
     dispose() {
         this.gui.destroy();
-        this.stats.dom.remove();
+        this.gameStats.dom.remove();
     }
 }

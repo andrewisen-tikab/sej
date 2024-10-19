@@ -1007,7 +1007,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tweenjs/tween.js@npm:~23.1.3":
+"@tweenjs/tween.js@npm:~23.1.1, @tweenjs/tween.js@npm:~23.1.3":
   version: 23.1.3
   resolution: "@tweenjs/tween.js@npm:23.1.3"
   checksum: 10/10ecaf311c975162459bd016ef7eb1f3118a257050c4886de9737dee823fc829100a0887f3fc298f7a5577140eac054f9609b823eb0748ca7b653ec85ffba75e
@@ -1092,6 +1092,19 @@ __metadata:
   version: 0.17.0
   resolution: "@types/stats.js@npm:0.17.0"
   checksum: 10/8195e71218584b456705c19aa365fcf513eb23bb6ab95f28eb06fb665c897bfb496264741131a680de3553aea14d10d1effae6587f21b0dcaa4dc8d4d33d0924
+  languageName: node
+  linkType: hard
+
+"@types/three@npm:^0.163.0":
+  version: 0.163.0
+  resolution: "@types/three@npm:0.163.0"
+  dependencies:
+    "@tweenjs/tween.js": "npm:~23.1.1"
+    "@types/stats.js": "npm:*"
+    "@types/webxr": "npm:*"
+    fflate: "npm:~0.8.2"
+    meshoptimizer: "npm:~0.18.1"
+  checksum: 10/81320c03aa89b67601cdc7d0a0dca93cf1d59ff564214859f0f87d0314062e3b7cb02f6d15c245cdae6755d1febc54d23432c25df16ff4aac9c65ba2efd9973d
   languageName: node
   linkType: hard
 
@@ -4983,6 +4996,7 @@ __metadata:
     prettier: "npm:^3.0.3"
     proj4: "npm:^2.9.1"
     signals: "npm:^1.0.0"
+    stats-gl: "npm:^2.2.8"
     three: "npm:^0.169.0"
     three-mesh-bvh: "npm:^0.7.6"
     three-multi-select: "npm:^0.0.23"
@@ -5264,6 +5278,15 @@ __metadata:
     stack-generator: "npm:^2.0.5"
     stacktrace-gps: "npm:^3.0.4"
   checksum: 10/e5f60a09852687e4a9206927fe1078e24d63e00a71a2dcddd67940e9504a54931a3454439d5b4e3e0e62aeb979be810573e8d3332fbef0dbfa335a8781b4b57c
+  languageName: node
+  linkType: hard
+
+"stats-gl@npm:^2.2.8":
+  version: 2.2.8
+  resolution: "stats-gl@npm:2.2.8"
+  dependencies:
+    "@types/three": "npm:^0.163.0"
+  checksum: 10/182f87f8856833e0c38c0b29c43fb3d4892e35bcfc974a04124e884f3f7fa645d3092460e806a67285dcd2eed58c38a96a314640eac11adb7cde65ce518ca684
   languageName: node
   linkType: hard
 
