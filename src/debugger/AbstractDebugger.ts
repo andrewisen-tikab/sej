@@ -6,7 +6,13 @@ import type { ViewportControls } from '../controls/types';
 import type { SupportedCameras } from '../core/types';
 import type { Editor } from '../editor/types';
 import type { Renderer } from '../renderer/types';
-import { DebugFolders, type DebugParams, type Debugger, defaultDebugParams } from './types';
+import {
+    DEBUG_ID,
+    DebugFolders,
+    type DebugParams,
+    type Debugger,
+    defaultDebugParams,
+} from './types';
 
 export type AbstractDebuggerParams = {
     domElement?: HTMLElement;
@@ -80,10 +86,12 @@ export class AbstractDebugger implements Debugger {
         this.params = { ...defaultDebugParams };
         this.gameStats = new GameStats();
         this.domElement.appendChild(this.gameStats.dom);
+        this.gameStats.dom.id = DEBUG_ID.gameStats;
 
         this.statsGL = new Stats();
         this.statsGL.init(renderer.domElement);
         this.domElement.appendChild(this.statsGL.dom);
+        this.statsGL.dom.id = DEBUG_ID.statsGL;
 
         this.statsGL.dom.style.left = '100px';
 

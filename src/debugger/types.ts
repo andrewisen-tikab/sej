@@ -93,3 +93,8 @@ export type AddDebug = {
      */
     addDebug(gui: GUI): void;
 };
+
+export const DEBUG_ID = {
+    gameStats: 'game-stats',
+    statsGL: 'stats-gl',
+} as const;
