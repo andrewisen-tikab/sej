@@ -161,6 +161,11 @@ export class AbstractHistory implements History {
         this.editor.signals.historyChanged.dispatch();
     }
 
+    clearRedos() {
+        this.redos = [];
+        this.editor.signals.historyChanged.dispatch();
+    }
+
     goToState(id: number) {
         if (this.historyDisabled) return;
 
