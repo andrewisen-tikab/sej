@@ -93,3 +93,26 @@ export type AddDebug = {
      */
     addDebug(gui: GUI): void;
 };
+
+/**
+ * An object containing constant identifiers for debugging purposes.
+ * Useful for custom CSS.
+ */
+export const DEBUG_ID = {
+    /**
+     * Identifier for game statistics debugging.
+     *
+     * ```
+     * game-stats
+     * ```
+     */
+    gameStats: 'game-stats',
+    /**
+     * Identifier for GL statistics debugging.
+     *
+     * ```
+     * stats-gl
+     * ```
+     */
+    statsGL: 'stats-gl',
+} as const;
