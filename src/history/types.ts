@@ -31,6 +31,19 @@ export type History = {
      */
     goToState(id: number): void;
     /**
+     * Clears the history by resetting the undo and redo stacks and the ID counter.
+     * Also dispatches a signal indicating that the history has changed.
+     */
+    clear: () => void;
+    /**
+     * Clears the redo stack and dispatches a history changed signal.
+     *
+     * @remarks
+     * This method resets the `redos` array to an empty state and notifies
+     * the editor that the history has changed by dispatching the `historyChanged` signal.
+     */
+    clearRedos: () => void;
+    /**
      * Enables serialization of commands in the history stack.
      *
      * This method ensures that all commands in the undo and redo stacks
