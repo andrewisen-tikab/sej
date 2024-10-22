@@ -2,12 +2,14 @@ import { AbstractCommand } from '../commands/AbstractCommand';
 import type { Command } from '../commands/types';
 import type { Config } from '../editor/Config';
 import type { Editor } from '../editor/types';
-import { History, HistoryJSON } from './types';
+import type { History, HistoryJSON } from './types';
 
 /**
  * Abstract class for all history implementations.
  */
 export class AbstractHistory implements History {
+    private _commands: Record<string, typeof AbstractCommand> = {};
+
     public editor: Editor;
 
     public undos: Command[];
@@ -146,8 +148,42 @@ export class AbstractHistory implements History {
         return history;
     }
 
+    addSerializableCommand(command: typeof AbstractCommand): void {
+        this._commands[new AbstractCommand(this.editor).type] = command;
+    }
+
     fromJSON(json: HistoryJSON) {
         if (json === undefined) return;
+
+        for (let i = 0; i < json.undos.length; i++) {
+            const cmdJSON = json.undos[i];
+            const cmd = new this._commands[cmdJSON.type](this.editor); // creates a new object of type "json.type"
+            if (cmd == null) {
+                // eslint-disable-next-line no-console
+                console.error("Can't create command from JSON", cmdJSON);
+                continue;
+            }
+            cmd.json = cmdJSON;
+            cmd.id = cmdJSON.id;
+            cmd.name = cmdJSON.name;
+            this.undos.push(cmd);
+            this.idCounter = cmdJSON.id > this.idCounter ? cmdJSON.id : this.idCounter; // set last used idCounter
+        }
+
+        for (let i = 0; i < json.redos.length; i++) {
+            const cmdJSON = json.redos[i];
+            const cmd = new this._commands[cmdJSON.type](this.editor); // creates a new object of type "json.type"
+            if (cmd == null) {
+                // eslint-disable-next-line no-console
+                console.error("Can't create command from JSON", cmdJSON);
+                continue;
+            }
+            cmd.json = cmdJSON;
+            cmd.id = cmdJSON.id;
+            cmd.name = cmdJSON.name;
+            this.redos.push(cmd);
+            this.idCounter = cmdJSON.id > this.idCounter ? cmdJSON.id : this.idCounter; // set last used idCounter
+        }
 
         // Select the last executed undo-command
         this.editor.signals.historyChanged.dispatch(this.undos[this.undos.length - 1]);
