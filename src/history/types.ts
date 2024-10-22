@@ -1,3 +1,4 @@
+import type { AbstractCommand } from '../Sej';
 import type { Command, CommandJSON } from '../commands/types';
 import type { Test } from '../core/types';
 import { EditorPointer } from '../editor/types';
@@ -11,6 +12,10 @@ export type History = {
      * Array of {@link Command | commands} that have been undone.
      */
     redos: Command[];
+    /**
+     * Add a {@link Command} that `fromJSON` can use.
+     */
+    addSerializableCommand: (command: typeof AbstractCommand) => void;
     /**
      * Execute a {@link Command}.
      * @param command {@link Command} to be executed
@@ -54,7 +59,27 @@ export type History = {
      * @param id - The state ID to which the history should be restored after serialization.
      */
     enableSerialization(id: number): void;
+
+    /**
+     * Populates the history state from a JSON object.
+     *
+     * @param json - The JSON object containing the history data.
+     *
+     * The method processes the `undos` and `redos` arrays from the JSON object,
+     * creating command instances and populating the respective history stacks.
+     * It also updates the `idCounter` to the highest command ID found in the JSON data.
+     *
+     * If a command cannot be created from the JSON data, an error is logged to the console.
+     *
+     * Finally, it dispatches a `historyChanged` signal with the last executed undo-command.
+     */
     fromJSON(json: HistoryJSON): void;
+    /**
+     * Converts the current history state to a JSON object.
+     *
+     * @returns {HistoryJSON} The JSON representation of the history, including undos and redos.
+     *                        If the 'settings/history' configuration key is not set, returns an empty history.
+     */
     toJSON(): HistoryJSON;
 } & EditorPointer &
     Test;
