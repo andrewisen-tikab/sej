@@ -5,6 +5,11 @@ import * as signals from 'signals';
 import { HistoryObject } from '@andrewisen/error-manager';
 
 import { AddObjectCommand } from '../commands/AddObjectCommand';
+import { MultiCommandsCommand } from '../commands/MultiCommandsCommand';
+import { RemoveObjectCommand } from '../commands/RemoveObjectCommand';
+import { SetPositionCommand } from '../commands/SetPositionCommand';
+import { SetRotationCommand } from '../commands/SetRotationCommand';
+import { SetScaleCommand } from '../commands/SetScaleCommand';
 import type { Command } from '../commands/types';
 import { ErrorManager, Errors } from '../core/ErrorManager';
 import type { SupportedCameras } from '../core/types';
@@ -153,6 +158,14 @@ export class AbstractEditor implements Editor {
         // this.camera = this.orthographicCamera;
 
         this.history = history ?? new AbstractHistory(this);
+
+        this.history.addSerializableCommand(AddObjectCommand);
+        this.history.addSerializableCommand(RemoveObjectCommand);
+        this.history.addSerializableCommand(RemoveObjectCommand);
+        this.history.addSerializableCommand(SetPositionCommand);
+        this.history.addSerializableCommand(SetRotationCommand);
+        this.history.addSerializableCommand(SetScaleCommand);
+        this.history.addSerializableCommand(MultiCommandsCommand);
 
         this.selector = new AbstractSelector(this);
         this.selected = [];
