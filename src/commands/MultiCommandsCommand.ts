@@ -33,23 +33,27 @@ export class MultiCommandsCommand extends AbstractCommand {
     execute(): void {
         this.editor.signals.sceneGraphChanged.active = false;
 
-        for (let i = 0; i < this.commands.length; i++) {
-            this.commands[i].execute();
+        try {
+            for (let i = 0; i < this.commands.length; i++) {
+                this.commands[i].execute();
+            }
+        } finally {
+            this.editor.signals.sceneGraphChanged.active = true;
+            this.editor.signals.sceneGraphChanged.dispatch();
         }
-
-        this.editor.signals.sceneGraphChanged.active = true;
-        this.editor.signals.sceneGraphChanged.dispatch();
     }
 
     undo(): void {
         this.editor.signals.sceneGraphChanged.active = false;
 
-        for (let i = this.commands.length - 1; i >= 0; i--) {
-            this.commands[i].undo();
+        try {
+            for (let i = this.commands.length - 1; i >= 0; i--) {
+                this.commands[i].undo();
+            }
+        } finally {
+            this.editor.signals.sceneGraphChanged.active = true;
+            this.editor.signals.sceneGraphChanged.dispatch();
         }
-
-        this.editor.signals.sceneGraphChanged.active = true;
-        this.editor.signals.sceneGraphChanged.dispatch();
     }
 
     toJSON(): MultiCommandsCommandJSON {
