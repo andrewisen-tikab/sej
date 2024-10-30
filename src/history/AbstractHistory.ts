@@ -97,9 +97,12 @@ export class AbstractHistory implements History {
         }
 
         if (cmd !== undefined) {
-            cmd.undo();
-            this.redos.push(cmd);
-            this.editor.signals.historyChanged.dispatch(cmd);
+            try {
+                cmd.undo();
+            } finally {
+                this.redos.push(cmd);
+                this.editor.signals.historyChanged.dispatch(cmd);
+            }
         }
 
         return cmd;
@@ -117,9 +120,12 @@ export class AbstractHistory implements History {
         }
 
         if (cmd !== undefined) {
-            cmd.execute();
-            this.undos.push(cmd);
-            this.editor.signals.historyChanged.dispatch(cmd);
+            try {
+                cmd.execute();
+            } finally {
+                this.undos.push(cmd);
+                this.editor.signals.historyChanged.dispatch(cmd);
+            }
         }
 
         return cmd;
