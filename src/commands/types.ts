@@ -25,14 +25,16 @@ export type Command = {
      */
     name: string;
     /**
-     * Execute the command
+     * Execute the command, if possible.
+     * @returns If the command is executed successfully, return `void`. Otherwise, throw an error.
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    execute(...args: any[]): void;
+    execute(...args: any[]): void | never;
     /**
      * Undo the command.
+     * @returns If the command is executed successfully, return `void`. Otherwise, throw an error.
      */
-    undo(): void;
+    undo(): void | never;
     json: CommandJSON | undefined;
 } & EditorPointer &
     SerializableObject &
