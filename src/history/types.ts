@@ -23,11 +23,13 @@ export type History = {
      */
     execute: (command: Command, optionalName?: string) => void;
     /**
-     * Undo the last executed {@link Command | command}
+     * Undo the last executed {@link Command | command}.
+     * Will fail if something goes wrong with the {@link Command | command}.
      */
     undo: () => Command | undefined;
     /**
      * Redo the last executed {@link Command | command}
+     * Will fail if something goes wrong with the {@link Command | command}.
      */
     redo: () => void;
     /**
