@@ -81,3 +81,18 @@ However, because of the state of WebGPU (and web in general - yes, I'm looking a
 ## Tests
 
 Testing is done locally with `cypress`.
+
+## Development
+
+To start the development server, run:
+
+```bash
+yarn install
+```
+
+```bash
+yarn dev
+```
+
+Navigate to [http://localhost:5173/examples/](http://localhost:5173/examples/).
+Select one of the examples to see the `SejEngine` in action.
