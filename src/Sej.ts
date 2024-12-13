@@ -14,6 +14,7 @@
 export * from './commands/types';
 export { AbstractCommand } from './commands/AbstractCommand';
 export { AddObjectCommand } from './commands/AddObjectCommand';
+export { EmptyCommand } from './commands/EmptyCommand';
 export { RemoveObjectCommand } from './commands/RemoveObjectCommand';
 export { SetPositionCommand } from './commands/SetPositionCommand';
 export { SetRotationCommand } from './commands/SetRotationCommand';
@@ -95,6 +96,7 @@ export { AbstractSpatialHashGrid } from './spatial/AbstractSpatialHashGrid';
 // Utils
 
 export * from './utils/MobileUtils';
+export * from './utils/matrix';
 
 // Viewport
 

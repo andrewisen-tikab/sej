@@ -1,5 +1,5 @@
 import type { Editor } from '../editor/types';
-import { AbstractCommand } from './AbstractCommand';
+import { EmptyCommand } from './EmptyCommand';
 import type { CommandJSON } from './types';
 import { availableCommands } from './utils';
 
@@ -10,18 +10,18 @@ export type MultiCommandsCommandJSON = CommandJSON & {
 /**
  * Multi Commands command.
  */
-export class MultiCommandsCommand extends AbstractCommand {
+export class MultiCommandsCommand extends EmptyCommand {
     /**
      * Commands to execute.
      */
-    public commands: AbstractCommand[];
+    public commands: EmptyCommand[];
 
     /**
      * Execute commands.
      * @param editor Pointer to {@link Editor}.
      * @param commands Commands to execute.
      */
-    constructor(editor: Editor, commands: AbstractCommand[] = []) {
+    constructor(editor: Editor, commands: EmptyCommand[] = []) {
         super(editor);
 
         this.type = 'MultiCommandsCommand';

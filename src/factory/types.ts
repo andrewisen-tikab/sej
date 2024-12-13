@@ -47,5 +47,5 @@ export type ExampleFactorParams = {
  */
 export type ExampleFactor = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    build(params: Partial<ExampleFactorParams>): any;
+    build(): any;
 };
