@@ -1943,7 +1943,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"camera-controls@npm:^2.8.5":
+"camera-controls@npm:^2.9.0":
   version: 2.9.0
   resolution: "camera-controls@npm:2.9.0"
   peerDependencies:
@@ -5172,7 +5172,7 @@ __metadata:
     "@types/signals": "npm:^1.0.3"
     "@types/three": "npm:^0.170.0"
     "@typescript-eslint/eslint-plugin": "npm:^6.4.0"
-    camera-controls: "npm:^2.8.5"
+    camera-controls: "npm:^2.9.0"
     dependency-cruiser: "npm:^14.1.2"
     eslint: "npm:^8.0.1"
     eslint-config-airbnb: "npm:^19.0.4"
