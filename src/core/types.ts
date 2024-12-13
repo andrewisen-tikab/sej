@@ -1,3 +1,5 @@
+import * as z from 'zod';
+
 import type { KeyboardControls, ViewportControls } from '../controls/types';
 import type { Editor } from '../editor/types';
 import type { Renderer } from '../renderer/types';
@@ -5,15 +7,38 @@ import type { Viewport } from '../viewport/types';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export type Test = {
+/**
+ * Schema for validating test methods.
+ *
+ * @example
+ * const isValid = TestSchema.parse({
+ *   test: () => true
+ * });
+ *
+ * @throws {ZodError} If the provided test method is not a function or does not return a boolean.
+ */
+const TestSchema = z.object({
     /**
      * E2E test method.
      *
      * This method should return `true` if the test passes, and `false` if it fails.
      * Check the method itself for more information.
      */
-    test(): boolean;
-};
+    test: z.custom<(this: void, ...args: never[]) => boolean>(
+        (value) => typeof value === 'function',
+        {
+            message: 'test must be a function returning a boolean.',
+        },
+    ),
+});
+
+/**
+ * Represents the inferred type from the `TestSchema` using Zod.
+ *
+ * This type is automatically generated based on the structure of `TestSchema`.
+ * It ensures that the type definition stays in sync with the schema.
+ */
+export type Test = z.infer<typeof TestSchema>;
 
 export type SerializableObject = {
     /**
