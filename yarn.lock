@@ -4063,10 +4063,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lil-gui@npm:^0.18.2":
-  version: 0.18.2
-  resolution: "lil-gui@npm:0.18.2"
-  checksum: 10/55c83f28870a42f999d153ac018cab5310f5873df6b826e3858619b658698ad89f8cddcaeb2c673be0746bb07c8b2d25c687a8b97672d556bb92ab2c855eba23
+"lil-gui@npm:^0.20.0":
+  version: 0.20.0
+  resolution: "lil-gui@npm:0.20.0"
+  checksum: 10/918c558763e59079421113051e52bbde6fe2d50209e73d0bb17814710bd7e327cdaa00fcb15ef81425617ba113921033b6b0e91dde119228bf50ee08dbe2b759
   languageName: node
   linkType: hard
 
@@ -5187,7 +5187,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.33.2"
     eslint-plugin-react-hooks: "npm:^4.6.0"
     gamestats.js: "npm:^1.0.7"
-    lil-gui: "npm:^0.18.2"
+    lil-gui: "npm:^0.20.0"
     localforage: "npm:^1.10.0"
     prettier: "npm:^3.0.3"
     proj4: "npm:^2.9.1"
