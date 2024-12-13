@@ -17,17 +17,27 @@ import type { Viewport } from '../viewport/types';
  *
  * @throws {ZodError} If the provided test method is not a function or does not return a boolean.
  */
-const TestSchema = z.object({
+export const TestSchema = z.object({
     /**
      * E2E test method.
      *
      * This method should return `true` if the test passes, and `false` if it fails.
      * Check the method itself for more information.
+     * @param args Any
      */
-    test: z.custom<(this: void, ...args: never[]) => boolean>(
-        (value) => typeof value === 'function',
+    test: z.custom<(...args: any[]) => boolean>(
+        (value) => {
+            if (typeof value !== 'function') return false;
+
+            try {
+                const returnValue = value();
+                return typeof returnValue === 'boolean';
+            } catch {
+                return false; // If the function throws, it's invalid
+            }
+        },
         {
-            message: 'test must be a function returning a boolean.',
+            message: 'test must be a function that returns a boolean.',
         },
     ),
 });
@@ -44,7 +54,7 @@ export type Test = z.infer<typeof TestSchema>;
  * Schema for a serializable object that includes methods for converting
  * to and from JSON.
  */
-const SerializableObjectSchema = z.object({
+export const SerializableObjectSchema = z.object({
     /**
      * Creates a new instance of this class based on the given JSON.
      * @param args Any
