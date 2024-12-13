@@ -13,7 +13,7 @@ import { ExampleFactor, ExampleFactorParams } from './types';
 /**
  * Abstract example factory.
  */
-export class AbstractExampleFactory<T> implements ExampleFactor {
+export abstract class AbstractExampleFactory<T> implements ExampleFactor {
     protected _params: T | undefined;
 
     protected _defaultParams: ExampleFactorParams;
