@@ -55,7 +55,7 @@
         "gamestats.js": "^1.0.7",
         "lil-gui": "^0.20.0",
         "localforage": "^1.10.0",
-        "proj4": "^2.9.1",
+        "proj4": "^2.15.0",
         "signals": "^1.0.0",
         "stats-gl": "^2.2.8",
         "three": "^0.171.0",
