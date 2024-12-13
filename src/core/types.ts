@@ -40,17 +40,36 @@ const TestSchema = z.object({
  */
 export type Test = z.infer<typeof TestSchema>;
 
-export type SerializableObject = {
+/**
+ * Schema for a serializable object that includes methods for converting
+ * to and from JSON.
+ */
+const SerializableObjectSchema = z.object({
     /**
      * Creates a new instance of this class based on the given JSON.
      * @param args Any
      */
-    fromJSON(...args: any[]): any;
+    fromJSON: z.custom<(this: void, ...args: any[]) => any>(
+        (value) => typeof value === 'function',
+        {
+            message: 'fromJSON must be a function.',
+        },
+    ),
     /**
      * Returns a JSON representation of this class.
      */
-    toJSON(): any;
-};
+    toJSON: z.custom<(this: void) => any>((value) => typeof value === 'function', {
+        message: 'toJSON must be a function.',
+    }),
+});
+
+/**
+ * Represents an object that can be serialized.
+ *
+ * This type is inferred from the `SerializableObjectSchema` using Zod's `infer` method.
+ * It ensures that the object adheres to the structure defined by the schema.
+ */
+export type SerializableObject = z.infer<typeof SerializableObjectSchema>;
 
 /**
  * Base type for all parts of the library.
