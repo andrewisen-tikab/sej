@@ -95,6 +95,7 @@ export { AbstractSpatialHashGrid } from './spatial/AbstractSpatialHashGrid';
 // Utils
 
 export * from './utils/MobileUtils';
+export * from './utils/matrix';
 
 // Viewport
 
