@@ -1,4 +1,4 @@
-import type { AbstractCommand } from '../Sej';
+import type { EmptyCommand } from '../Sej';
 import type { Command, CommandJSON } from '../commands/types';
 import type { Test } from '../core/types';
 import { EditorPointer } from '../editor/types';
@@ -15,7 +15,7 @@ export type History = {
     /**
      * Add a {@link Command} that `fromJSON` can use.
      */
-    addSerializableCommand: (command: typeof AbstractCommand) => void;
+    addSerializableCommand: (command: typeof EmptyCommand) => void;
     /**
      * Execute a {@link Command}.
      * @param command {@link Command} to be executed

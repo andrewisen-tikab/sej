@@ -4,7 +4,7 @@ import type { Command, CommandJSON } from './types';
 /**
  * Abstract class for all commands.
  */
-export class AbstractCommand implements Command {
+export abstract class AbstractCommand implements Command {
     public editor: Editor;
 
     public id: number;

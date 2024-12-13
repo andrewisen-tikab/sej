@@ -1,4 +1,4 @@
-import { AbstractCommand } from '../commands/AbstractCommand';
+import { EmptyCommand } from '../commands/EmptyCommand';
 import type { Command } from '../commands/types';
 import type { Config } from '../editor/Config';
 import type { Editor } from '../editor/types';
@@ -8,7 +8,7 @@ import type { History, HistoryJSON } from './types';
  * Abstract class for all history implementations.
  */
 export class AbstractHistory implements History {
-    private _commands: Record<string, typeof AbstractCommand> = {};
+    private _commands: Record<string, typeof EmptyCommand> = {};
 
     public editor: Editor;
 
@@ -154,8 +154,8 @@ export class AbstractHistory implements History {
         return history;
     }
 
-    addSerializableCommand(command: typeof AbstractCommand): void {
-        this._commands[new AbstractCommand(this.editor).type] = command;
+    addSerializableCommand(command: typeof EmptyCommand): void {
+        this._commands[new EmptyCommand(this.editor).type] = command;
     }
 
     fromJSON(json: HistoryJSON) {
@@ -271,7 +271,7 @@ export class AbstractHistory implements History {
     test(): boolean {
         const { editor } = this;
         const history = new AbstractHistory(editor);
-        const command = new AbstractCommand(editor);
+        const command = new EmptyCommand(editor);
 
         history.execute(command);
         if (history.undos.length !== 1) return false;

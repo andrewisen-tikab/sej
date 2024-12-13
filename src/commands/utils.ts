@@ -1,6 +1,7 @@
-import { AbstractCommand } from './AbstractCommand';
+import { EmptyCommand } from './EmptyCommand';
 
-type Command = typeof AbstractCommand;
+type Command = typeof EmptyCommand;
+
 /**
  * Available commands.
  */
@@ -15,11 +16,11 @@ class AvailableCommands {
         this.commands[command.name] = command;
     }
 
-    // /**
-    //  * Get command by type.
-    //  * @param type Command type.
-    //  * @returns Command.
-    //  */
+    /**
+     * Get command by type.
+     * @param type Command type.
+     * @returns Command.
+     */
     get(type: string): Command | undefined {
         return this.commands[type];
     }
