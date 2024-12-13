@@ -12,11 +12,13 @@ import * as THREE from 'three';
  */
 export const updateMatrixWorld = (object: THREE.Object3D): void => {
     object.updateMatrix();
-    const matrixWorldAutoUpdate = object.matrixWorldAutoUpdate;
+    const { matrixWorldAutoUpdate } = object;
 
     // Bypass
+    // eslint-disable-next-line no-param-reassign
     if (matrixWorldAutoUpdate === false) object.matrixWorldAutoUpdate = true;
     object.updateMatrixWorld(true);
 
+    // eslint-disable-next-line no-param-reassign
     object.matrixWorldAutoUpdate = matrixWorldAutoUpdate;
 };
