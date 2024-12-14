@@ -22,7 +22,7 @@ export class AbstractHistory implements History {
 
     public historyDisabled: boolean;
 
-    config: Config;
+    config?: Config;
 
     /**
      * The time difference limit between two commands to be considered as a single command.
@@ -39,7 +39,7 @@ export class AbstractHistory implements History {
         this.timeDifferenceLimit = 500;
 
         this.historyDisabled = false;
-        this.config = editor.config;
+        if (editor.config) this.config = editor.config;
     }
 
     execute(cmd: Command, optionalName?: string) {
@@ -77,7 +77,7 @@ export class AbstractHistory implements History {
         cmd.inMemory = true; // Warning: Mutation!
 
         // eslint-disable-next-line no-param-reassign
-        if (this.config.getKey('settings/history')) cmd.json = cmd.toJSON(); // serialize the cmd immediately after execution and append the json to the cmd
+        if (this.config?.getKey('settings/history')) cmd.json = cmd.toJSON(); // serialize the cmd immediately after execution and append the json to the cmd
 
         this.lastCmdTime = Date.now();
 
@@ -137,7 +137,7 @@ export class AbstractHistory implements History {
             redos: [],
         };
 
-        if (!this.config.getKey('settings/history')) {
+        if (!this.config?.getKey('settings/history')) {
             return history;
         }
 

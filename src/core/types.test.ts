@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 import { SerializableObjectSchema, TestSchema } from './types';
 
-describe('TestSchema', () => {
+describe('core/TestSchema', () => {
     it('should validate a correct test method', () => {
         const validTest = { test: () => true };
         expect(() => TestSchema.parse(validTest)).not.toThrow();
@@ -20,7 +20,7 @@ describe('TestSchema', () => {
     });
 });
 
-describe('SerializableObjectSchema', () => {
+describe('core/SerializableObjectSchema', () => {
     it('should validate a correct serializable object', () => {
         const validObject = {
             fromJSON: () => ({}),

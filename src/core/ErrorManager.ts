@@ -1,6 +1,6 @@
 import { ErrorManager as E } from '@andrewisen/error-manager';
 
-export const ErrorManager = E.Instance;
+export const ErrorManager = new E(false);
 
 /**
  * Errors that can be thrown by the library.

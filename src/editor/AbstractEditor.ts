@@ -2,16 +2,9 @@
 import * as THREE from 'three';
 
 import * as signals from 'signals';
-import { HistoryObject } from '@andrewisen/error-manager';
 
 import { AddObjectCommand } from '../commands/AddObjectCommand';
-import { MultiCommandsCommand } from '../commands/MultiCommandsCommand';
-import { RemoveObjectCommand } from '../commands/RemoveObjectCommand';
-import { SetPositionCommand } from '../commands/SetPositionCommand';
-import { SetRotationCommand } from '../commands/SetRotationCommand';
-import { SetScaleCommand } from '../commands/SetScaleCommand';
 import type { Command } from '../commands/types';
-import { ErrorManager, Errors } from '../core/ErrorManager';
 import type { SupportedCameras } from '../core/types';
 import type { Debugger } from '../debugger/types';
 import { AbstractGISHelper } from '../gis/AbstractGISHelper';
@@ -25,7 +18,6 @@ import { AbstractSpatialHashGrid } from '../spatial/AbstractSpatialHashGrid';
 import type { SpatialHashGrid } from '../spatial/types';
 import { MobileUtils } from '../utils/MobileUtils';
 import { Config } from './Config';
-import { AbstractStorage } from './Storage';
 import type { Editor, EditorJSON, EditorSignals, Object3D, Storage } from './types';
 
 // eslint-disable-next-line prefer-destructuring
@@ -91,11 +83,7 @@ export type EditorParams = {
  * Finally, when everything is ok - a signal is dispatched.
  * Check the methods' implementations for more details.
  */
-export class AbstractEditor implements Editor {
-    public config: Config;
-
-    public storage: Storage;
-
+export abstract class AbstractEditor implements Editor {
     public loaderManager: LoaderManager;
 
     public scene: THREE.Scene;
@@ -120,52 +108,33 @@ export class AbstractEditor implements Editor {
 
     public debugger: Debugger | null;
 
-    public mobileUtils: typeof MobileUtils;
+    public config?: Config;
+
+    public storage?: Storage;
+
+    public mobileUtils?: typeof MobileUtils;
 
     constructor(
         // eslint-disable-next-line @typescript-eslint/no-shadow
-        { signals, storage, history }: EditorParams = {},
+        { signals, history }: EditorParams = {},
     ) {
         this.signals = { ...defaultSignals, ...(signals ?? {}) };
         this.debugger = null;
-        this.mobileUtils = MobileUtils;
-
-        this.config = new Config();
-        this.storage = storage ?? new AbstractStorage();
 
         this.loaderManager = new AbstractLoaderManager();
 
         this.scene = new THREE.Scene();
 
-        const { innerWidth: width, innerHeight: height } = window;
-        this.perspectiveCamera = new THREE.PerspectiveCamera(45, width / height, 1, 10_000);
+        this.perspectiveCamera = new THREE.PerspectiveCamera();
         this.perspectiveCamera.position.set(0, 0, 10);
 
-        const aspect = window.innerWidth / window.innerHeight;
-        const frustumSize = 10;
-
-        this.orthographicCamera = new THREE.OrthographicCamera(
-            (frustumSize * aspect) / -2,
-            (frustumSize * aspect) / 2,
-            frustumSize / 2,
-            frustumSize / -2,
-            0.1,
-            1000,
-        );
+        this.orthographicCamera = new THREE.OrthographicCamera();
         this.orthographicCamera.position.set(0, 0, 10);
 
         this.camera = this.perspectiveCamera;
         // this.camera = this.orthographicCamera;
 
         this.history = history ?? new AbstractHistory(this);
-
-        this.history.addSerializableCommand(AddObjectCommand);
-        this.history.addSerializableCommand(RemoveObjectCommand);
-        this.history.addSerializableCommand(RemoveObjectCommand);
-        this.history.addSerializableCommand(SetPositionCommand);
-        this.history.addSerializableCommand(SetRotationCommand);
-        this.history.addSerializableCommand(SetScaleCommand);
-        this.history.addSerializableCommand(MultiCommandsCommand);
 
         this.selector = new AbstractSelector(this);
         this.selected = [];
@@ -277,12 +246,6 @@ export class AbstractEditor implements Editor {
 
         // eslint-disable-next-line no-console
         if (object === undefined) {
-            ErrorManager.addHistory(
-                new HistoryObject(
-                    Errors.EDITOR_SELECT_OBJECT_BY_ID_NOT_FOUND.key,
-                    Errors.EDITOR_SELECT_OBJECT_BY_ID_NOT_FOUND.message(id),
-                ),
-            );
             return;
         }
 

@@ -4,7 +4,7 @@ import { AbstractKeyboardControls } from '../controls/AbstractKeyboardControls';
 import { SimpleViewportControls } from '../controls/SimpleViewportControls';
 import type { Sej } from '../core/types';
 import { AbstractDebugger } from '../debugger/AbstractDebugger';
-import { AbstractEditor } from '../editor/AbstractEditor';
+import { BasicEditor } from '../editor/BasicEditor';
 import { ModelLoader } from '../loader/ModelLoader';
 import { WebGLRenderer } from '../renderer/WebGLRenderer';
 import { AbstractViewport } from '../viewport/AbstractViewport';
@@ -23,7 +23,7 @@ export abstract class AbstractExampleFactory<T> implements ExampleFactor {
         this._defaultParams = {
             KeyboardControls: AbstractKeyboardControls,
             Renderer: WebGLRenderer,
-            Editor: AbstractEditor,
+            Editor: BasicEditor,
             ViewportControls: SimpleViewportControls,
             Viewport: AbstractViewport,
             container: null,
@@ -39,7 +39,7 @@ export abstract class AbstractExampleFactory<T> implements ExampleFactor {
         if (!container) throw new Error('Container not found');
 
         // 2. Then create the viewer itself
-        const editor = new AbstractEditor();
+        const editor = new BasicEditor();
         editor.setScene(new THREE.Scene());
 
         // 3. Setup loaders

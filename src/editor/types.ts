@@ -61,7 +61,7 @@ export type EditorSignals = {
  * It holds the scene, the camera, the signals, the loader manager, the selector, the debugger and the config.
  */
 export type Editor = {
-    config: Config;
+    config?: Config;
 
     scene: THREE.Scene;
 

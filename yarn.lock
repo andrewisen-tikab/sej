@@ -32,15 +32,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@andrewisen/error-manager@npm:^0.0.4":
-  version: 0.0.4
-  resolution: "@andrewisen/error-manager@npm:0.0.4"
+"@andrewisen/error-manager@npm:^0.0.5":
+  version: 0.0.5
+  resolution: "@andrewisen/error-manager@npm:0.0.5"
   dependencies:
     "@zip.js/zip.js": "npm:^2.7.27"
     jszip: "npm:^3.10.1"
     localforage: "npm:^1.10.0"
     stacktrace-js: "npm:^2.0.2"
-  checksum: 10/454799021a85a3be1a2053ce81a8b080b468668a9c6f6c541870efebb2b6a0d3a58c3a066e7698ef398f917686c2683f649a3256fb77c8824ef3f4ca7f4e3f2c
+  checksum: 10/b184f83c69d27836a3cb6f26853f594eeb84f643ad51edb923f0d722a7002346764aa56e3e497302de5c0861f6a928917c258adecbb537e7c340b1b7d69808e4
   languageName: node
   linkType: hard
 
@@ -5836,7 +5836,7 @@ __metadata:
   resolution: "sej@workspace:."
   dependencies:
     3d-tiles-renderer: "npm:^0.3.45"
-    "@andrewisen/error-manager": "npm:^0.0.4"
+    "@andrewisen/error-manager": "npm:^0.0.5"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.2.0"
     "@types/proj4": "npm:^2.5.4"
     "@types/signals": "npm:^1.0.3"

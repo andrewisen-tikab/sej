@@ -1,6 +1,6 @@
 import type { AbstractKeyboardControls } from '../controls/AbstractKeyboardControls';
 import type { AbstractViewportControls } from '../controls/AbstractViewportControls';
-import type { AbstractEditor } from '../editor/AbstractEditor';
+import type { BasicEditor } from '../editor/BasicEditor';
 import type { AbstractRenderer } from '../renderer/AbstractRenderer';
 import { AbstractViewport } from '../viewport/AbstractViewport';
 
@@ -23,7 +23,7 @@ export type ExampleFactorParams = {
      * Custom editor.
      * See {@link AbstractEditor} for more information.
      */
-    Editor: typeof AbstractEditor;
+    Editor: typeof BasicEditor;
     /**
      * Custom viewport.
      * See {@link AbstractViewport} for more information.
