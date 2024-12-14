@@ -58,7 +58,7 @@ export class AbstractSelector implements Selector {
      */
     private _select(object: THREE.Object3D) {
         this.editor.selected.push(object);
-        this.editor.config.setKey(
+        this.editor.config?.setKey(
             'selected',
             this.editor.selected.map((o) => o.uuid),
         );

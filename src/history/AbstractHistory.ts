@@ -30,7 +30,7 @@ export class AbstractHistory implements History {
      */
     public timeDifferenceLimit: number;
 
-    constructor(editor: Editor) {
+    constructor(editor: Editor & Required<Pick<Editor, 'config'>>) {
         this.editor = editor;
         this.undos = [];
         this.redos = [];
