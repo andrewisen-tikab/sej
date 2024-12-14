@@ -4,13 +4,7 @@ import * as THREE from 'three';
 import * as signals from 'signals';
 
 import { AddObjectCommand } from '../commands/AddObjectCommand';
-import { MultiCommandsCommand } from '../commands/MultiCommandsCommand';
-import { RemoveObjectCommand } from '../commands/RemoveObjectCommand';
-import { SetPositionCommand } from '../commands/SetPositionCommand';
-import { SetRotationCommand } from '../commands/SetRotationCommand';
-import { SetScaleCommand } from '../commands/SetScaleCommand';
 import type { Command } from '../commands/types';
-import { ErrorManager, Errors } from '../core/ErrorManager';
 import type { SupportedCameras } from '../core/types';
 import type { Debugger } from '../debugger/types';
 import { AbstractGISHelper } from '../gis/AbstractGISHelper';
