@@ -15,9 +15,9 @@ jobs:
             - name: 🛠️ Install Dependencies
               run: |
                   yarn install
-            - name: ⏳ Checking TypeScript...
+            - name: ⏳ Checking...
               run: |
-                  yarn ts
                   yarn lint
                   yarn build
                   yarn docs
+                  yarn test
