@@ -8,7 +8,6 @@ import type { GISHelper } from '../gis/types';
 import type { History } from '../history/types';
 import type { LoaderManager } from '../loader/types';
 import { Selector } from '../selector/types';
-import type { SpatialHashGrid } from '../spatial/types';
 import { Config } from './Config';
 
 type GenericSignalType = signals.Signal;
@@ -78,8 +77,6 @@ export type Editor = {
     selector: Selector;
 
     selected: Object3D[];
-
-    spatialHashGrid: SpatialHashGrid;
 
     gisHelper: GISHelper;
 
