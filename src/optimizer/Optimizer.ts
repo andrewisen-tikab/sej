@@ -390,7 +390,7 @@ export class Optimizer {
      * If an optimization function does not return a boolean value, a warning is logged
      * and the return value is coerced to a boolean.
      */
-    private _iterate(delta: number): void {
+    private _iterate(delta: number): boolean {
         let done = false;
         while (this.currPriority! <= this.maxPriority && this.currPriority! >= this.minPriority) {
             // search for a optimization we can perform to improve performance
