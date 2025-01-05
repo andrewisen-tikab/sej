@@ -1505,9 +1505,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/three@npm:^0.170.0":
-  version: 0.170.0
-  resolution: "@types/three@npm:0.170.0"
+"@types/three@npm:^0.171.0":
+  version: 0.171.0
+  resolution: "@types/three@npm:0.171.0"
   dependencies:
     "@tweenjs/tween.js": "npm:~23.1.3"
     "@types/stats.js": "npm:*"
@@ -1515,7 +1515,7 @@ __metadata:
     "@webgpu/types": "npm:*"
     fflate: "npm:~0.8.2"
     meshoptimizer: "npm:~0.18.1"
-  checksum: 10/51751fed7f86897fde0929511d26a4d24bc059e52b77cd1462389a90c6c757ca743bef4f4776f04a5e8effdac712b4b9bf946ca173b7de1132410c5691275c1b
+  checksum: 10/8bd25771616e2191918726a29f3ba545fb04679730f41594591edf7a439c0d17cd91fdecea0c89334f00201f2da3e35721e246fbb62e0d91906d9eb2ef39809d
   languageName: node
   linkType: hard
 
@@ -5840,7 +5840,7 @@ __metadata:
     "@trivago/prettier-plugin-sort-imports": "npm:^4.2.0"
     "@types/proj4": "npm:^2.5.4"
     "@types/signals": "npm:^1.0.3"
-    "@types/three": "npm:^0.170.0"
+    "@types/three": "npm:^0.171.0"
     "@typescript-eslint/eslint-plugin": "npm:^6.4.0"
     camera-controls: "npm:^2.9.0"
     dependency-cruiser: "npm:^14.1.2"
@@ -5863,7 +5863,7 @@ __metadata:
     proj4: "npm:^2.15.0"
     signals: "npm:^1.0.0"
     stats-gl: "npm:^2.2.8"
-    three: "npm:^0.171.0"
+    three: "npm:^0.172.0"
     three-mesh-bvh: "npm:^0.8.3"
     three-multi-select: "npm:^0.0.23"
     three-shape-3d: "npm:^0.0.26"
@@ -6438,10 +6438,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three@npm:^0.171.0":
-  version: 0.171.0
-  resolution: "three@npm:0.171.0"
-  checksum: 10/ca66784004375cc6a476a40b4af3436510bec6037876195792a4edd70167105684fa3db066ac0c7ed4970d05cb0d4a64a4ac34e0f4b6bdd1bd79fa4728a09ce9
+"three@npm:^0.172.0":
+  version: 0.172.0
+  resolution: "three@npm:0.172.0"
+  checksum: 10/ad166a56290258331b358ab70e57fccc25eece7879cdf5638f209709b77b7277002e8653ce517c28566d6529908f08c9ba96d4fbb4a1a553a3ffcc0f57c21b1a
   languageName: node
   linkType: hard
 
