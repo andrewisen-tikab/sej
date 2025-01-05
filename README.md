@@ -1,14 +1,16 @@
-# Sej Engine
+# Sej
 
-Sej \[ˈsɛj\]. (Pronounced like the word "say")
+Sej \[ˈsɛj\]. ("say") is a game engine for the web.
+It's heavily inspired by [three.js](https://threejs.org/)'s editor.
 
-`SejEngine` is an performance oriented 3D editor.
-It is written in TypeScript and rewrite [three.js](https://threejs.org/)'s editor.
+Sej is:
 
-`SejEngine` is:
+-   High-performance
+-   Flexible
+-   Very opinionated (!)
 
--   Performance oriented, but
--   Heavily opinionated
+It supposed to be a batteries included game engine that allows you to create performant 3D scenes with ease.
+However, it's not production ready yet!
 
 [![PR Checker](https://github.com/andrewisen-tikab/sej/actions/workflows/pr.yml/badge.svg)](https://github.com/andrewisen-tikab/sej/actions/workflows/pr.yml)
 
@@ -28,18 +30,20 @@ Use the `SEJ` namespace to avoid conflicts with other libraries:
 import * as SEJ from 'sej';
 ```
 
-The `SejEngine` consists of multiple parts.
+## Building your own `Sej`
+
+The Sej engine consists of multiple parts.
 You are free to pick and choose which parts you want to use.
 This will determine how your application will look and behave.
 
-To aid you with this, there are some factories that you can use to build your own `SejEngine`:
+To aid you with this, there are some factories that you can use to build your own `Sej`:
 
 ```ts
 const factory = new AbstractExampleFactory();
 const sej = factory.build();
 ```
 
-The variable `sej` will now contain a `SejEngine` that has all the bells and whistles that you need to create simple scene.
+The variable `sej` will now contain a engine that has all the bells and whistles that you need to create simple scene.
 
 ## Demo
 
@@ -52,13 +56,6 @@ A list of working examples can be found here:
 Auto-generated documentation can be found here:
 
 -   [https://andrewisen-tikab.github.io/sej/docs/](https://andrewisen-tikab.github.io/sej/docs/)
-
-## WIP
-
-The purpose of `Sej` is to be "the future of 3D editors".
-
-This means that `Sej` will drop support for WebGL in favor WebGPU.
-However, because of the state of WebGPU (and web in general - yes, I'm looking at you Safari), `sej` will not be production ready for a while.
 
 ## Models used
 
@@ -80,7 +77,8 @@ However, because of the state of WebGPU (and web in general - yes, I'm looking a
 
 ## Tests
 
-Testing is done locally with `cypress`.
+E2E testing is done locally with `cypress`.
+Unit tests are done with `vitest`.
 
 ## Development
 
@@ -95,4 +93,4 @@ yarn dev
 ```
 
 Navigate to [http://localhost:5173/examples/](http://localhost:5173/examples/).
-Select one of the examples to see the `SejEngine` in action.
+Select one of the examples to see the `Sej` in action.
