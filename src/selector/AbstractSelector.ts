@@ -77,12 +77,7 @@ export class AbstractSelector implements Selector {
                 this.editor.signals.objectDeselected.dispatch(object);
             } else {
                 // If the object is not in the this.editor.selected array, throw an error
-                ErrorManager.addHistory(
-                    new HistoryObject(
-                        Errors.SELECTOR_OBJECT_NOT_FOUND.key,
-                        Errors.SELECTOR_OBJECT_NOT_FOUND.message(object.uuid),
-                    ),
-                );
+                throw new Error('The object is not selected.');
             }
         }
     }
