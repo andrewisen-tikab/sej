@@ -18,45 +18,94 @@ export class Optimizer {
     /**
      * Whether to enable or disable he optimizer.
      */
-    _enabled: boolean;
+    private _enabled: boolean;
 
     /**
      * Whether or not the optimizer has stopped iterating and sampling the framerate.
      */
-    completed: boolean;
+    public completed: boolean;
 
     /**
-     * Options.
+     * See {@link OptimizerOptions} for more information.
      */
-    options: OptimizerOptions;
+    public options: OptimizerOptions;
 
     private _increasingWork: boolean;
 
-    optimizations: { [key: number]: Optimization[] };
+    /**
+     * A dictionary where the key is a number representing an optimization level
+     * and the value is an array of `Optimization` objects associated with that level.
+     */
+    public optimizations: { [key: number]: Optimization[] };
 
-    minPriority: number;
+    /**
+     * The minimum priority level for the optimizer.
+     * This value determines the lowest priority task that the optimizer will consider.
+     */
+    public minPriority: number;
 
-    maxPriority: number;
+    public maxPriority: number;
 
-    waitedFrames: number;
+    /**
+     * The number of frames that have been waited.
+     * This property keeps track of how many frames have passed while waiting for a certain condition or event.
+     */
+    public waitedFrames: number;
 
-    waitedMillis: number;
+    /**
+     * The number of milliseconds that the optimizer has waited.
+     * This value is used to track the waiting time for certain operations.
+     */
+    public waitedMillis: number;
 
-    elapsedFrames: number;
+    /**
+     * The number of frames that have elapsed since the start of the optimization process.
+     */
+    public elapsedFrames: number;
 
-    elapsedTime: number;
+    /**
+     * The amount of time that has elapsed, in milliseconds.
+     */
+    public elapsedTime: number;
 
-    beginTime: number;
+    /**
+     * The timestamp indicating when the optimization process begins.
+     * Represented as the number of milliseconds elapsed since the UNIX epoch.
+     */
+    public beginTime: number;
 
-    currPriority: number | null;
+    /**
+     * The current priority level of the optimizer.
+     * This can be a number representing the priority or null if no priority is set.
+     */
+    public currPriority: number | null;
 
-    currOptimization: number;
+    /**
+     * The current optimization level or state.
+     * This value represents the current stage or level of optimization being applied.
+     */
+    public currOptimization: number;
 
-    _windowFocused: boolean;
+    /**
+     * Indicates whether the window is currently focused.
+     *
+     * @private
+     */
+    private _windowFocused: boolean;
 
-    _windowBlurFunc: () => boolean;
+    /**
+     * A function that handles the window blur event.
+     *
+     * @private
+     * @type {() => boolean}
+     */
+    private _windowBlurFunc: () => boolean;
 
-    _windowFocusFunc: () => void;
+    /**
+     * A function that gets called when the window gains focus.
+     * This function does not take any parameters and does not return any value.
+     */
+    private _windowFocusFunc: () => void;
 
     /**
      * Getter and setter for enabling or disabling the optimizer.
@@ -72,7 +121,7 @@ export class Optimizer {
      */
     set enabled(val) {
         if (this._enabled !== val) {
-            this.resetCheck();
+            this._resetCheck();
         }
 
         this._enabled = val;
@@ -142,22 +191,33 @@ export class Optimizer {
         this._windowBlurFunc = () => (this._windowFocused = false);
         this._windowFocusFunc = () => {
             this._windowFocused = true;
-            this.resetCheck();
+            this._resetCheck();
         };
         window.addEventListener('blur', this._windowBlurFunc);
         window.addEventListener('focus', this._windowFocusFunc);
     }
 
-    dispose() {
+    /**
+     * Disposes of the optimizer by removing event listeners for window blur and focus events.
+     * This helps to clean up resources and prevent memory leaks when the optimizer is no longer needed.
+     */
+    public dispose(): void {
         window.removeEventListener('blur', this._windowBlurFunc);
         window.removeEventListener('focus', this._windowFocusFunc);
     }
 
-    /* Public API */
-    // restarts the optimization process by first improving quality then
-    // performance
-    restart() {
-        this.resetCheck();
+    /**
+     * Restarts the optimizer by resetting its state.
+     *
+     * This method performs the following actions:
+     * - Resets any checks by calling `resetCheck()`.
+     * - Sets the `_increasingWork` property to the value of `options.increaseWork`.
+     * - Sets `currPriority` to `null`.
+     * - Resets `currOptimization` to `0`.
+     * - Marks the optimizer as not completed by setting `completed` to `false`.
+     */
+    public restart(): void {
+        this._resetCheck();
 
         this._increasingWork = this.options.increaseWork;
         this.currPriority = null;
@@ -165,7 +225,20 @@ export class Optimizer {
         this.completed = false;
     }
 
-    addSample(sampleTime: number) {
+    /**
+     * Adds a sample time to the optimizer and performs optimization logic.
+     *
+     * @param sampleTime - The time of the sample to add, in milliseconds.
+     *
+     * This method performs the following steps:
+     * 1. Checks if the optimizer is enabled, the window is focused, and the optimization is not completed.
+     * 2. Waits for the required number of frames and milliseconds between calls.
+     * 3. Increments the elapsed time and frame count.
+     * 4. If the elapsed time or frame count exceeds the specified interval or maximum frame samples, it calculates the average frame time and determines if optimization is needed.
+     * 5. Depending on whether the optimizer is currently increasing or decreasing work, it adjusts the priority and performs optimization iterations.
+     * 6. Resets the elapsed time and frame count, and sets the wait time for the next call.
+     */
+    public addSample(sampleTime: number): void {
         // if we're not active for any reason, continue
         if (!this._enabled || !this._windowFocused || this.completed) return;
 
@@ -209,7 +282,7 @@ export class Optimizer {
                 } else {
                     // delta will always be ~0 when targeting 60 fps because the
                     // browser runs at a fixed framerate
-                    this.iterate(Math.max(delta, 1));
+                    this._iterate(Math.max(delta, 1));
                 }
             }
 
@@ -222,7 +295,7 @@ export class Optimizer {
                 let didOptimize = false;
 
                 if (needsImproving) {
-                    didOptimize = this.iterate(delta);
+                    didOptimize = this._iterate(delta);
                 }
 
                 if (!didOptimize) {
@@ -241,13 +314,23 @@ export class Optimizer {
         }
     }
 
-    // begin the code block to optimize
-    begin() {
+    /**
+     * Records the current time as the start time for an operation.
+     * This method uses the `window.performance.now()` function to get a high-resolution timestamp.
+     */
+    private _begin(): void {
         this.beginTime = window.performance.now();
     }
 
-    // end the code block to optimize
-    end() {
+    /**
+     * Ends the current timing iteration and records the elapsed time since `begin` was called.
+     * If `end` is called before `begin`, the method will return immediately without recording any time.
+     *
+     * @remarks
+     * This method calculates the time elapsed since `begin` was called using `window.performance.now()`
+     * and adds the sample to the collection of recorded times.
+     */
+    private _end(): void {
         // If end is called before begin then skip this iteration
         if (this.beginTime === -1) return;
 
@@ -255,15 +338,28 @@ export class Optimizer {
         this.addSample(timeFromBegin);
     }
 
-    // A single function to use _instead_ of "begin" and "end". The function
-    // should be called once per frame to optimize on the full frame time
-    update() {
-        this.end();
-        this.begin();
+    /**
+     * Updates the optimizer by ending the current process and beginning a new one.
+     * This method ensures that any ongoing operations are properly terminated
+     * before starting a new operation cycle.
+     */
+    public update(): void {
+        this._end();
+        this._begin();
     }
 
-    // add a optimization function at the given priority
-    addOptimization(optimization: Optimization, priority = 0) {
+    /**
+     * Adds an optimization to the optimizer with an optional priority.
+     *
+     * @param optimization - The optimization to add. Can be an instance of `Optimization` or a function.
+     * @param priority - The priority of the optimization. Defaults to 0 if not provided.
+     *
+     * If the `optimization` parameter is a function, it will be wrapped in an `Optimization` instance.
+     * The priority is parsed as an integer and defaults to 0 if parsing fails.
+     * The optimization is then added to the internal optimizations list at the specified priority.
+     * The `minPriority` and `maxPriority` properties are updated accordingly.
+     */
+    public addOptimization(optimization: Optimization, priority = 0): void {
         if (typeof optimization === 'function') {
             const optimizationFunc = optimization;
             optimization = new Optimization();
@@ -278,10 +374,23 @@ export class Optimizer {
         this.maxPriority = Math.max(this.maxPriority, priority);
     }
 
-    /* Private Functions */
-    // Iterates over the optimizations based on the delta. Improving quality if delta > 0
-    // and performance if delta < 0
-    iterate(delta: number) {
+    /**
+     * Iterates through the optimization process, adjusting the current priority level
+     * and applying optimizations to improve performance.
+     *
+     * @param delta - The change in priority level. Positive values increase the priority,
+     *                while negative values decrease it.
+     * @returns A boolean indicating whether an optimization was successfully applied.
+     *
+     * The method works by iterating through the current priority level's optimizations.
+     * If an optimization is successfully applied, the iteration stops. If no optimizations
+     * are applied at the current priority level, the priority level is adjusted by the delta
+     * value, and the process continues until the priority level is out of bounds.
+     *
+     * If an optimization function does not return a boolean value, a warning is logged
+     * and the return value is coerced to a boolean.
+     */
+    private _iterate(delta: number): boolean {
         let done = false;
         while (this.currPriority! <= this.maxPriority && this.currPriority! >= this.minPriority) {
             // search for a optimization we can perform to improve performance
@@ -316,8 +425,17 @@ export class Optimizer {
         return done;
     }
 
-    // resets the current frame check
-    resetCheck() {
+    /**
+     * Resets the internal tracking variables for the optimizer.
+     *
+     * This method sets the following properties to their initial values:
+     * - `elapsedFrames`: Number of frames that have elapsed since the last reset.
+     * - `elapsedTime`: Total time that has elapsed since the last reset.
+     * - `waitedFrames`: Number of frames to wait before performing the next optimization, based on `options.maxWaitFrames`.
+     * - `waitedMillis`: Number of milliseconds to wait before performing the next optimization, based on `options.waitMillis`.
+     * - `beginTime`: The start time for the current optimization cycle, set to -1 to indicate it hasn't started yet.
+     */
+    private _resetCheck(): void {
         this.elapsedFrames = 0;
         this.elapsedTime = 0;
         this.waitedFrames = this.options.maxWaitFrames;

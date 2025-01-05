@@ -50,7 +50,7 @@ export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
         });
         editor.loaderManager.loaders[loader.extension] = loader;
 
-        const { scene, camera, spatialHashGrid } = editor;
+        const { scene, camera } = editor;
 
         // Create a renderer that either from the params or the default renderer.
         const renderer = new Renderer(scene, camera) as InstanceType<typeof Renderer> &
@@ -106,10 +106,6 @@ export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
         const GISHelper = new NordicGISHelper();
         // GISHelper.dev(scene);
         editor.gisHelper = GISHelper;
-
-        viewportControls.setBoundary(spatialHashGrid.getBox());
-        const spatialHashGridFolder = _debugger.gui.addFolder('Spatial Hash Grid');
-        spatialHashGrid.addDebug(spatialHashGridFolder);
 
         return sejEngine;
     }

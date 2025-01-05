@@ -20,11 +20,22 @@ type Params = {
  * Model loader.
  */
 export class ModelLoader extends AbstractLoader implements Loader {
-    loader: GLTFLoader;
+    /**
+     * An instance of GLTFLoader used to load GLTF models.
+     */
+    public loader: GLTFLoader;
 
-    dracoLoader: DRACOLoader;
+    /**
+     * An instance of the DRACOLoader used to load Draco compressed 3D models.
+     */
+    public dracoLoader: DRACOLoader;
 
-    ktx2Loader: KTX2Loader;
+    /**
+     * Loader for KTX2 textures.
+     *
+     * @type {KTX2Loader}
+     */
+    public ktx2Loader: KTX2Loader;
 
     constructor(editor: Editor, extension: string, params: Params) {
         super(editor, extension);
