@@ -348,4 +348,15 @@ export abstract class AbstractEditor implements Editor {
         this.camera = camera === 'perspective' ? this.perspectiveCamera : this.orthographicCamera;
         this.signals.setCamera.dispatch(camera);
     }
+
+    toggleDebug(): void {
+        const domElement = this.debugger?.gui.domElement;
+        if (!domElement) return;
+
+        const display = domElement.style.display === 'none' ? 'block' : 'none';
+
+        if (this.debugger?.gui.domElement) this.debugger.gui.domElement.style.display = display;
+        if (this.debugger?.gameStats.dom) this.debugger.gameStats.dom.style.display = display;
+        if (this.debugger?.statsGL.dom) this.debugger.statsGL.dom.style.display = display;
+    }
 }

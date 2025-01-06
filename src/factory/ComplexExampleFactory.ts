@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import * as THREE from 'three';
 
 import { ViewportCameraControls } from '../controls/ViewportCameraControls';
@@ -110,6 +111,22 @@ export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
         viewportControls.setBoundary(spatialHashGrid.getBox());
         const spatialHashGridFolder = _debugger.gui.addFolder('Spatial Hash Grid');
         spatialHashGrid.addDebug(spatialHashGridFolder);
+
+        // eslint-disable-next-line require-jsdoc
+        const toggleDebug = () => {
+            editor.toggleDebug();
+        };
+
+        document.addEventListener('keydown', (e) => {
+            e.preventDefault();
+            switch (e.code) {
+                case 'Tab':
+                    toggleDebug();
+                    break;
+                default:
+                    break;
+            }
+        });
 
         return sejEngine;
     }

@@ -144,6 +144,10 @@ export type Editor = {
      * @param camera {@link SupportedCameras | Camera} to be set
      */
     setCamera: (camera: SupportedCameras) => void;
+    /**
+     * Whether to show the debug panel.
+     */
+    toggleDebug(): void;
 } & Pick<History, 'execute' | 'undo' | 'redo'> &
     Pick<Selector, 'select' | 'deselect'> &
     SerializableObject &
