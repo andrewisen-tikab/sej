@@ -18,4 +18,5 @@ const {
     editor: { scene, spatialHashGrid },
     keyboardControls,
 } = sejEngine;
+
 keyboardControls.init(scene, spatialHashGrid);

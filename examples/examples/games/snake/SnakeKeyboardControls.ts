@@ -32,7 +32,7 @@ export class SnakeKeyboardControls extends AbstractKeyboardControls implements K
 
     private _arrowHelper: THREE.ArrowHelper;
 
-    private _speed: number = 0.05;
+    private _speed: number = 5;
 
     public spatialHashGrid: SpatialHashGrid | null = null;
 
@@ -114,9 +114,9 @@ export class SnakeKeyboardControls extends AbstractKeyboardControls implements K
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    public update(_delta: number) {
+    public update(delta: number) {
         position.copy(this._snake.position);
-        this._calculatePositions();
+        this._calculatePositions(delta);
         this._checkCollision();
         this._updatePositions();
         this._checkFoodCollision();
@@ -139,8 +139,8 @@ export class SnakeKeyboardControls extends AbstractKeyboardControls implements K
         }
     }
 
-    protected _calculatePositions() {
-        position.addScaledVector(direction, this._speed);
+    protected _calculatePositions(delta: number) {
+        position.addScaledVector(direction, this._speed * delta);
 
         futurePosition.copy(position);
         futurePosition.add(direction.clone().multiplyScalar(this._snake.width / 2));

@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import * as THREE from 'three';
 
 import { ViewportCameraControls } from '../controls/ViewportCameraControls';
@@ -50,7 +51,7 @@ export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
         });
         editor.loaderManager.loaders[loader.extension] = loader;
 
-        const { scene, camera } = editor;
+        const { scene, camera, spatialHashGrid } = editor;
 
         // Create a renderer that either from the params or the default renderer.
         const renderer = new Renderer(scene, camera) as InstanceType<typeof Renderer> &
@@ -106,6 +107,26 @@ export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
         const GISHelper = new NordicGISHelper();
         // GISHelper.dev(scene);
         editor.gisHelper = GISHelper;
+
+        viewportControls.setBoundary(spatialHashGrid.getBox());
+        const spatialHashGridFolder = _debugger.gui.addFolder('Spatial Hash Grid');
+        spatialHashGrid.addDebug(spatialHashGridFolder);
+
+        // eslint-disable-next-line require-jsdoc
+        const toggleDebug = () => {
+            editor.toggleDebug();
+        };
+
+        document.addEventListener('keydown', (e) => {
+            e.preventDefault();
+            switch (e.code) {
+                case 'Tab':
+                    toggleDebug();
+                    break;
+                default:
+                    break;
+            }
+        });
 
         return sejEngine;
     }

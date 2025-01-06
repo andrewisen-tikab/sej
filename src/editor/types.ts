@@ -8,6 +8,7 @@ import type { GISHelper } from '../gis/types';
 import type { History } from '../history/types';
 import type { LoaderManager } from '../loader/types';
 import { Selector } from '../selector/types';
+import type { SpatialHashGrid } from '../spatial/types';
 import { Config } from './Config';
 
 type GenericSignalType = signals.Signal;
@@ -78,6 +79,8 @@ export type Editor = {
 
     selected: Object3D[];
 
+    spatialHashGrid: SpatialHashGrid;
+
     gisHelper: GISHelper;
 
     debugger: Debugger | null;
@@ -141,6 +144,10 @@ export type Editor = {
      * @param camera {@link SupportedCameras | Camera} to be set
      */
     setCamera: (camera: SupportedCameras) => void;
+    /**
+     * Whether to show the debug panel.
+     */
+    toggleDebug(): void;
 } & Pick<History, 'execute' | 'undo' | 'redo'> &
     Pick<Selector, 'select' | 'deselect'> &
     SerializableObject &

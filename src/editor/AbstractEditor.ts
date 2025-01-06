@@ -14,6 +14,8 @@ import type { History } from '../history/types';
 import { AbstractLoaderManager } from '../loader/AbstractLoaderManager';
 import type { LoaderManager } from '../loader/types';
 import { AbstractSelector } from '../selector/AbstractSelector';
+import { AbstractSpatialHashGrid } from '../spatial/AbstractSpatialHashGrid';
+import type { SpatialHashGrid } from '../spatial/types';
 import { MobileUtils } from '../utils/MobileUtils';
 import { Config } from './Config';
 import type { Editor, EditorJSON, EditorSignals, Object3D, Storage } from './types';
@@ -98,6 +100,8 @@ export abstract class AbstractEditor implements Editor {
 
     public selected: Object3D[];
 
+    public spatialHashGrid: SpatialHashGrid;
+
     public gisHelper: GISHelper;
 
     public history: History;
@@ -134,6 +138,9 @@ export abstract class AbstractEditor implements Editor {
 
         this.selector = new AbstractSelector(this);
         this.selected = [];
+
+        this.spatialHashGrid = new AbstractSpatialHashGrid();
+        this.scene.add(this.spatialHashGrid as AbstractSpatialHashGrid);
 
         this.gisHelper = new AbstractGISHelper();
 
@@ -189,7 +196,7 @@ export abstract class AbstractEditor implements Editor {
         this.signals.sceneGraphChanged.dispatch();
     }
 
-    moveObject(
+    public moveObject(
         object: Object3D,
         parent?: Object3D | undefined,
         before?: Object3D | undefined,
@@ -209,14 +216,14 @@ export abstract class AbstractEditor implements Editor {
         this.signals.sceneGraphChanged.dispatch();
     }
 
-    nameObject(object: Object3D, name: string): void {
+    public nameObject(object: Object3D, name: string): void {
         // eslint-disable-next-line no-param-reassign
         object.name = name;
 
         this.signals.sceneGraphChanged.dispatch();
     }
 
-    removeObject(object: Object3D): void {
+    public removeObject(object: Object3D): void {
         if (object.parent === null) return; // avoid deleting the camera or scene
 
         object.parent.remove(object);
@@ -225,11 +232,11 @@ export abstract class AbstractEditor implements Editor {
         this.signals.sceneGraphChanged.dispatch();
     }
 
-    select(object: Object3D | Object3D[]): void {
+    public select(object: Object3D | Object3D[]): void {
         this.selector.select(object);
     }
 
-    selectById(id: number): void {
+    public selectById(id: number): void {
         if (id === this.camera.id) {
             this.select(this.camera);
             return;
@@ -245,7 +252,7 @@ export abstract class AbstractEditor implements Editor {
         this.select(object);
     }
 
-    selectByUuid(uuid: string, traverse: boolean = false): void {
+    public selectByUuid(uuid: string, traverse: boolean = false): void {
         /**
          * Determine if the child's uuid matches the uuid we are looking for.
          * @param child
@@ -257,27 +264,27 @@ export abstract class AbstractEditor implements Editor {
         traverse ? this.scene.traverse(callback) : this.scene.children.forEach(callback);
     }
 
-    deselect(object?: THREE.Object3D): void {
+    public deselect(object?: THREE.Object3D): void {
         this.selector.deselect(object);
     }
 
-    objectByUuid(uuid: string): Object3D | undefined {
+    public objectByUuid(uuid: string): Object3D | undefined {
         return this.scene.getObjectByProperty('uuid', uuid);
     }
 
-    execute(command: Command, optionalName?: string) {
+    public execute(command: Command, optionalName?: string) {
         this.history.execute(command, optionalName);
     }
 
-    undo() {
+    public undo() {
         return this.history.undo();
     }
 
-    redo() {
+    public redo() {
         return this.history.redo();
     }
 
-    fromJSON(json: EditorJSON) {
+    public fromJSON(json: EditorJSON) {
         /**
          * Asynchronously parse the JSON file.
          */
@@ -297,7 +304,7 @@ export abstract class AbstractEditor implements Editor {
         fromJSONAsync();
     }
 
-    toJSON(): EditorJSON {
+    public toJSON(): EditorJSON {
         const json: EditorJSON = {
             camera: this.camera.toJSON(),
             scene: this.scene.toJSON(),
@@ -306,13 +313,13 @@ export abstract class AbstractEditor implements Editor {
         return json;
     }
 
-    focus(object: Object3D) {
+    public focus(object: Object3D) {
         if (object == null) return;
         if (object.isObject3D !== true) return;
         this.signals.objectFocused.dispatch(object);
     }
 
-    test(): boolean {
+    public test(): boolean {
         // Create a new object
         const object = new THREE.Object3D();
         this.execute(new AddObjectCommand(this, object));
@@ -337,8 +344,19 @@ export abstract class AbstractEditor implements Editor {
         return true;
     }
 
-    setCamera(camera: SupportedCameras): void {
+    public setCamera(camera: SupportedCameras): void {
         this.camera = camera === 'perspective' ? this.perspectiveCamera : this.orthographicCamera;
         this.signals.setCamera.dispatch(camera);
+    }
+
+    public toggleDebug(): void {
+        const domElement = this.debugger?.gui.domElement;
+        if (!domElement) return;
+
+        const display = domElement.style.display === 'none' ? 'block' : 'none';
+
+        if (this.debugger?.gui.domElement) this.debugger.gui.domElement.style.display = display;
+        if (this.debugger?.gameStats.dom) this.debugger.gameStats.dom.style.display = display;
+        if (this.debugger?.statsGL.dom) this.debugger.statsGL.dom.style.display = display;
     }
 }
