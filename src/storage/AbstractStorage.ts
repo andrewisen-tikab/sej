@@ -12,7 +12,7 @@ type StorageData = any;
  *
  * @template T - The type of data to be stored and retrieved. Defaults to `any`.
  */
-export class AbstractStorage<T = StorageData> implements Storage {
+export abstract class AbstractStorage<T = StorageData> implements Storage {
     debug = false;
 
     version: number = 1;

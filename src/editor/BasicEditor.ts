@@ -1,7 +1,7 @@
+import { BasicStorage } from '../storage/BasicStorage';
 import { MobileUtils } from '../utils/MobileUtils';
 import { AbstractEditor, EditorParams } from './AbstractEditor';
 import { Config } from './Config';
-import { AbstractStorage } from './Storage';
 
 /**
  * The `BasicEditor` class extends the `AbstractEditor` class.
@@ -26,7 +26,7 @@ export class BasicEditor extends AbstractEditor {
         super(params);
 
         this.mobileUtils = MobileUtils;
-        this.storage = params.storage ?? new AbstractStorage();
+        this.storage = params.storage ?? new BasicStorage();
 
         this.config = new Config();
     }

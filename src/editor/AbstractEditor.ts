@@ -16,9 +16,10 @@ import type { LoaderManager } from '../loader/types';
 import { AbstractSelector } from '../selector/AbstractSelector';
 import { AbstractSpatialHashGrid } from '../spatial/AbstractSpatialHashGrid';
 import type { SpatialHashGrid } from '../spatial/types';
+import type { Storage } from '../storage/types';
 import { MobileUtils } from '../utils/MobileUtils';
 import { Config } from './Config';
-import type { Editor, EditorJSON, EditorSignals, Object3D, Storage } from './types';
+import type { Editor, EditorJSON, EditorSignals, Object3D } from './types';
 
 // eslint-disable-next-line prefer-destructuring
 const Signal = signals.Signal;

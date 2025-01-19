@@ -42,8 +42,8 @@ export { AbstractDebugger } from './debugger/AbstractDebugger';
 
 export * from './editor/types';
 export { AbstractEditor } from './editor/AbstractEditor';
+export { BasicEditor } from './editor/BasicEditor';
 export { Config } from './editor/Config';
-export { AbstractStorage } from './editor/Storage';
 
 // Factory
 
@@ -92,6 +92,12 @@ export { AbstractSelector } from './selector/AbstractSelector';
 
 export * from './spatial/types';
 export { AbstractSpatialHashGrid } from './spatial/AbstractSpatialHashGrid';
+
+// Storage
+
+export * from './storage/types';
+export { BasicStorage } from './storage/BasicStorage';
+export { AbstractStorage } from './storage/AbstractStorage';
 
 // Utils
 
