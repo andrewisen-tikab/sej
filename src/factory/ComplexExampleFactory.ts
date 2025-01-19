@@ -51,7 +51,7 @@ export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
         });
         editor.loaderManager.loaders[loader.extension] = loader;
 
-        const { scene, camera, spatialHashGrid } = editor;
+        const { scene, camera, spatialHashGrid, calendar } = editor;
 
         // Create a renderer that either from the params or the default renderer.
         const renderer = new Renderer(scene, camera) as InstanceType<typeof Renderer> &
@@ -111,6 +111,11 @@ export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
         viewportControls.setBoundary(spatialHashGrid.getBox());
         const spatialHashGridFolder = _debugger.gui.addFolder('Spatial Hash Grid');
         spatialHashGrid.addDebug(spatialHashGridFolder);
+        spatialHashGridFolder.close();
+
+        const calendarFolder = _debugger.gui.addFolder('Calendar');
+        calendar.addDebug(calendarFolder);
+        calendarFolder.close();
 
         // eslint-disable-next-line require-jsdoc
         const toggleDebug = () => {

@@ -3,6 +3,8 @@ import * as THREE from 'three';
 
 import * as signals from 'signals';
 
+import { BasicCalendar } from '../calendar/BasicCalendar';
+import { Calendar } from '../calendar/types';
 import { AddObjectCommand } from '../commands/AddObjectCommand';
 import type { Command } from '../commands/types';
 import type { SupportedCameras } from '../core/types';
@@ -113,6 +115,8 @@ export abstract class AbstractEditor implements Editor {
 
     public storage?: Storage;
 
+    public calendar: Calendar;
+
     public mobileUtils?: typeof MobileUtils;
 
     constructor(
@@ -144,6 +148,8 @@ export abstract class AbstractEditor implements Editor {
         this.scene.add(this.spatialHashGrid as AbstractSpatialHashGrid);
 
         this.gisHelper = new AbstractGISHelper();
+
+        this.calendar = new BasicCalendar(this);
 
         this.signals.windowResize.dispatch();
     }

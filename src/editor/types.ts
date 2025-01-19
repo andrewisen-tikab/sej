@@ -2,6 +2,7 @@ import * as THREE from 'three';
 
 import * as signals from 'signals';
 
+import { Calendar } from '../calendar/types';
 import type { SerializableObject, SupportedCameras, Test } from '../core/types';
 import type { Debugger } from '../debugger/types';
 import type { GISHelper } from '../gis/types';
@@ -84,6 +85,8 @@ export type Editor = {
     gisHelper: GISHelper;
 
     debugger: Debugger | null;
+
+    calendar: Calendar;
 
     /**
      * Set the {@link THREE.Scene | Scene} to be rendered.
