@@ -1505,9 +1505,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/three@npm:^0.171.0":
-  version: 0.171.0
-  resolution: "@types/three@npm:0.171.0"
+"@types/three@npm:^0.172.0":
+  version: 0.172.0
+  resolution: "@types/three@npm:0.172.0"
   dependencies:
     "@tweenjs/tween.js": "npm:~23.1.3"
     "@types/stats.js": "npm:*"
@@ -1515,7 +1515,7 @@ __metadata:
     "@webgpu/types": "npm:*"
     fflate: "npm:~0.8.2"
     meshoptimizer: "npm:~0.18.1"
-  checksum: 10/8bd25771616e2191918726a29f3ba545fb04679730f41594591edf7a439c0d17cd91fdecea0c89334f00201f2da3e35721e246fbb62e0d91906d9eb2ef39809d
+  checksum: 10/0f7a7154ba4a4cbc5046b1e458cbd03f0601bf333e952e5b3ca6dfe283130558f2448626fb39163edba82b6289297f9a0f3d243ff36f70f869498bad43d0e982
   languageName: node
   linkType: hard
 
@@ -5840,7 +5840,7 @@ __metadata:
     "@trivago/prettier-plugin-sort-imports": "npm:^4.2.0"
     "@types/proj4": "npm:^2.5.4"
     "@types/signals": "npm:^1.0.3"
-    "@types/three": "npm:^0.171.0"
+    "@types/three": "npm:^0.172.0"
     "@typescript-eslint/eslint-plugin": "npm:^6.4.0"
     camera-controls: "npm:^2.9.0"
     dependency-cruiser: "npm:^14.1.2"
