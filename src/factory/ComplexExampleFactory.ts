@@ -112,22 +112,6 @@ export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
         const spatialHashGridFolder = _debugger.gui.addFolder('Spatial Hash Grid');
         spatialHashGrid.addDebug(spatialHashGridFolder);
 
-        // eslint-disable-next-line require-jsdoc
-        const toggleDebug = () => {
-            editor.toggleDebug();
-        };
-
-        document.addEventListener('keydown', (e) => {
-            e.preventDefault();
-            switch (e.code) {
-                case 'Tab':
-                    toggleDebug();
-                    break;
-                default:
-                    break;
-            }
-        });
-
         return sejEngine;
     }
 }
