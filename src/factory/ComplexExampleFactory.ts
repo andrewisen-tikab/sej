@@ -118,20 +118,20 @@ export class ComplexExampleFactory<T> extends AbstractExampleFactory<T> {
         calendarFolder.close();
 
         // eslint-disable-next-line require-jsdoc
-        const toggleDebug = () => {
-            editor.toggleDebug();
-        };
+        // const toggleDebug = () => {
+        //     editor.toggleDebug();
+        // };
 
-        document.addEventListener('keydown', (e) => {
-            e.preventDefault();
-            switch (e.code) {
-                case 'Tab':
-                    toggleDebug();
-                    break;
-                default:
-                    break;
-            }
-        });
+        // document.addEventListener('keydown', (e) => {
+        //     e.preventDefault();
+        //     switch (e.code) {
+        //         case 'Tab':
+        //             toggleDebug();
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        // });
 
         return sejEngine;
     }
