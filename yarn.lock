@@ -5,15 +5,15 @@ __metadata:
   version: 8
   cacheKey: 10
 
-"3d-tiles-renderer@npm:^0.3.45":
-  version: 0.3.45
-  resolution: "3d-tiles-renderer@npm:0.3.45"
+"3d-tiles-renderer@npm:^0.4.8":
+  version: 0.4.8
+  resolution: "3d-tiles-renderer@npm:0.4.8"
   dependencies:
     "@react-three/fiber": "npm:^8.17.9"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
   peerDependencies:
-    three: ">=0.123.0"
+    three: ">=0.166.0"
   dependenciesMeta:
     "@react-three/fiber":
       optional: true
@@ -21,7 +21,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 10/ba580b5f55c3708f6bd16c6629df468930c59b9a53cf05483395abad259b5b9638c84c33b0c77215bb51072ea27e3fbe24f0950a4cf9a962dd45a164241d0ba0
+  checksum: 10/0bc7e1c170ce28745e780c1a704015df52ee1d2fd4bb53675e64b8e540b93c636ebf3db933c8618f483475552b9e21542ab85611725daee1a16bb7e8379f4ff8
   languageName: node
   linkType: hard
 
@@ -451,6 +451,13 @@ __metadata:
     "@babel/helper-validator-identifier": "npm:^7.19.1"
     to-fast-properties: "npm:^2.0.0"
   checksum: 10/3411d24b1fcb2d7e8e7ee35cc8829ac34b59873506c33644abac63e4710aaf684d9af3dfee8c64e668693f3f9fb1db100ae1ebfff9c4077f287da382d2f2f9af
+  languageName: node
+  linkType: hard
+
+"@dimforge/rapier3d-compat@npm:^0.12.0":
+  version: 0.12.0
+  resolution: "@dimforge/rapier3d-compat@npm:0.12.0"
+  checksum: 10/56cd538b59d534d2ed91de3eb7efd804af5defe146f65294e8ce81982a4bd6c27d61c1014c15a77bb5f5eff0de7a12fbc9b16bf895a2ec56ea5496fd80c78e26
   languageName: node
   linkType: hard
 
@@ -1516,17 +1523,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/three@npm:^0.171.0":
-  version: 0.171.0
-  resolution: "@types/three@npm:0.171.0"
+"@types/three@npm:^0.176.0":
+  version: 0.176.0
+  resolution: "@types/three@npm:0.176.0"
   dependencies:
+    "@dimforge/rapier3d-compat": "npm:^0.12.0"
     "@tweenjs/tween.js": "npm:~23.1.3"
     "@types/stats.js": "npm:*"
     "@types/webxr": "npm:*"
     "@webgpu/types": "npm:*"
     fflate: "npm:~0.8.2"
     meshoptimizer: "npm:~0.18.1"
-  checksum: 10/8bd25771616e2191918726a29f3ba545fb04679730f41594591edf7a439c0d17cd91fdecea0c89334f00201f2da3e35721e246fbb62e0d91906d9eb2ef39809d
+  checksum: 10/e3aae7e9137e9f2c5eaba1b594e5848d09a81f02ef1fcf70aa0d21374c1a7d5f1d4f8514e9b1def577a3f971c5df016713ba1178aa5690be55c9777d96b3ed6d
   languageName: node
   linkType: hard
 
@@ -2408,12 +2416,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"camera-controls@npm:^2.9.0":
-  version: 2.9.0
-  resolution: "camera-controls@npm:2.9.0"
+"camera-controls@npm:^2.10.1":
+  version: 2.10.1
+  resolution: "camera-controls@npm:2.10.1"
   peerDependencies:
     three: ">=0.126.1"
-  checksum: 10/f121d626f3c85210573a58de4d6c20082f8dce31623c9e6f3b72c7fbc2352b12f324e36c1098aafe3c6e3d4f848f5cce5895ffaae4629986b4dd2b6ae014332e
+  checksum: 10/2d6c7e6f5a5bf41681dbf92c689b14ebe4273d41c02fb138fede6f742fb03429a4add10fe064ac93241b55bbe99905a80adf576709c19eeb1a1c18a342963c99
   languageName: node
   linkType: hard
 
@@ -5976,14 +5984,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "sej@workspace:."
   dependencies:
-    3d-tiles-renderer: "npm:^0.3.45"
+    3d-tiles-renderer: "npm:^0.4.8"
     "@andrewisen/error-manager": "npm:^0.0.5"
     "@trivago/prettier-plugin-sort-imports": "npm:^4.2.0"
     "@types/proj4": "npm:^2.5.4"
     "@types/signals": "npm:^1.0.3"
-    "@types/three": "npm:^0.171.0"
+    "@types/three": "npm:^0.176.0"
     "@typescript-eslint/eslint-plugin": "npm:^6.4.0"
-    camera-controls: "npm:^2.9.0"
+    camera-controls: "npm:^2.10.1"
     dependency-cruiser: "npm:^14.1.2"
     eslint: "npm:^8.0.1"
     eslint-config-airbnb: "npm:^19.0.4"
@@ -6004,8 +6012,8 @@ __metadata:
     proj4: "npm:^2.15.0"
     signals: "npm:^1.0.0"
     stats-gl: "npm:^2.2.8"
-    three: "npm:^0.172.0"
-    three-mesh-bvh: "npm:^0.8.3"
+    three: "npm:^0.176.0"
+    three-mesh-bvh: "npm:^0.9.0"
     three-multi-select: "npm:^0.0.23"
     three-shape-3d: "npm:^0.0.26"
     three-spatial-hash-grid: "npm:^0.0.5"
@@ -6018,7 +6026,7 @@ __metadata:
     vitest: "npm:^3.1.2"
     zod: "npm:^3.24.1"
   peerDependencies:
-    three: ^0.171.0
+    three: ^0.176.0
   languageName: unknown
   linkType: soft
 
@@ -6507,12 +6515,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three-mesh-bvh@npm:^0.8.3":
-  version: 0.8.3
-  resolution: "three-mesh-bvh@npm:0.8.3"
+"three-mesh-bvh@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "three-mesh-bvh@npm:0.9.0"
   peerDependencies:
     three: ">= 0.159.0"
-  checksum: 10/834d5ceac3c0c4e22ab74e8125eae647d6394785dffb2958f90eefe112738d8f79cba99b027b9de782c2eaec9b81c97a1500e7c92897f74d24534687c0fd6730
+  checksum: 10/71e73bddb3c9defe0e16531dacddb087d4bf55e496359b1e9c1fe3e001cb8ab27ad5b291ccab92811f4ba7ff132d69529913b4d1b43b40d348102dfb61893768
   languageName: node
   linkType: hard
 
@@ -6562,10 +6570,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three@npm:^0.172.0":
-  version: 0.172.0
-  resolution: "three@npm:0.172.0"
-  checksum: 10/ad166a56290258331b358ab70e57fccc25eece7879cdf5638f209709b77b7277002e8653ce517c28566d6529908f08c9ba96d4fbb4a1a553a3ffcc0f57c21b1a
+"three@npm:^0.176.0":
+  version: 0.176.0
+  resolution: "three@npm:0.176.0"
+  checksum: 10/b4081a211a9672bc38563ec75e8131f388f18d2d03672ccbc78dd1c4783018b0d490a67b02f5dcca5d7c8d0fa9d82b3a617d0e5ae0398877cdfe77e39f63dde0
   languageName: node
   linkType: hard
 

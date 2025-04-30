@@ -27,7 +27,7 @@
         "@trivago/prettier-plugin-sort-imports": "^4.2.0",
         "@types/proj4": "^2.5.4",
         "@types/signals": "^1.0.3",
-        "@types/three": "^0.171.0",
+        "@types/three": "^0.176.0",
         "@typescript-eslint/eslint-plugin": "^6.4.0",
         "dependency-cruiser": "^14.1.2",
         "eslint": "^8.0.1",
@@ -51,17 +51,17 @@
         "vitest": "^3.1.2"
     },
     "dependencies": {
-        "3d-tiles-renderer": "^0.3.45",
+        "3d-tiles-renderer": "^0.4.8",
         "@andrewisen/error-manager": "^0.0.5",
-        "camera-controls": "^2.9.0",
+        "camera-controls": "^2.10.1",
         "gamestats.js": "^1.0.7",
         "lil-gui": "^0.20.0",
         "localforage": "^1.10.0",
         "proj4": "^2.15.0",
         "signals": "^1.0.0",
         "stats-gl": "^2.2.8",
-        "three": "^0.172.0",
-        "three-mesh-bvh": "^0.8.3",
+        "three": "^0.176.0",
+        "three-mesh-bvh": "^0.9.0",
         "three-multi-select": "^0.0.23",
         "three-shape-3d": "^0.0.26",
         "three-spatial-hash-grid": "^0.0.5",
@@ -69,7 +69,7 @@
         "zod": "^3.24.1"
     },
     "peerDependencies": {
-        "three": "^0.171.0"
+        "three": "^0.176.0"
     },
     "packageManager": "yarn@4.3.1"
 }
