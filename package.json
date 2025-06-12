@@ -59,7 +59,7 @@
         "localforage": "^1.10.0",
         "proj4": "^2.15.0",
         "signals": "^1.0.0",
-        "stats-gl": "^2.2.8",
+        "stats-gl": "^3.6.0",
         "three": "^0.176.0",
         "three-mesh-bvh": "^0.9.0",
         "three-multi-select": "^0.0.23",
