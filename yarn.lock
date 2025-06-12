@@ -1354,7 +1354,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tweenjs/tween.js@npm:~23.1.1, @tweenjs/tween.js@npm:~23.1.3":
+"@tweenjs/tween.js@npm:~23.1.3":
   version: 23.1.3
   resolution: "@tweenjs/tween.js@npm:23.1.3"
   checksum: 10/10ecaf311c975162459bd016ef7eb1f3118a257050c4886de9737dee823fc829100a0887f3fc298f7a5577140eac054f9609b823eb0748ca7b653ec85ffba75e
@@ -1489,19 +1489,6 @@ __metadata:
   version: 0.17.0
   resolution: "@types/stats.js@npm:0.17.0"
   checksum: 10/8195e71218584b456705c19aa365fcf513eb23bb6ab95f28eb06fb665c897bfb496264741131a680de3553aea14d10d1effae6587f21b0dcaa4dc8d4d33d0924
-  languageName: node
-  linkType: hard
-
-"@types/three@npm:^0.163.0":
-  version: 0.163.0
-  resolution: "@types/three@npm:0.163.0"
-  dependencies:
-    "@tweenjs/tween.js": "npm:~23.1.1"
-    "@types/stats.js": "npm:*"
-    "@types/webxr": "npm:*"
-    fflate: "npm:~0.8.2"
-    meshoptimizer: "npm:~0.18.1"
-  checksum: 10/81320c03aa89b67601cdc7d0a0dca93cf1d59ff564214859f0f87d0314062e3b7cb02f6d15c245cdae6755d1febc54d23432c25df16ff4aac9c65ba2efd9973d
   languageName: node
   linkType: hard
 
@@ -5993,7 +5980,7 @@ __metadata:
     prettier: "npm:^3.5.3"
     proj4: "npm:^2.15.0"
     signals: "npm:^1.0.0"
-    stats-gl: "npm:^2.2.8"
+    stats-gl: "npm:^3.6.0"
     three: "npm:^0.176.0"
     three-mesh-bvh: "npm:^0.9.0"
     three-multi-select: "npm:^0.0.23"
@@ -6002,7 +5989,7 @@ __metadata:
     three-timeline: "npm:^0.0.2"
     typedoc: "npm:^0.28.3"
     typescript: "npm:^5.8.3"
-    vite: "npm:^6.3.3"
+    vite: "npm:^6.3.5"
     vite-plugin-dts: "npm:^4.5.3"
     vite-plugin-top-level-await: "npm:^1.5.0"
     vitest: "npm:^3.1.2"
@@ -6274,12 +6261,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stats-gl@npm:^2.2.8":
-  version: 2.2.8
-  resolution: "stats-gl@npm:2.2.8"
-  dependencies:
-    "@types/three": "npm:^0.163.0"
-  checksum: 10/182f87f8856833e0c38c0b29c43fb3d4892e35bcfc974a04124e884f3f7fa645d3092460e806a67285dcd2eed58c38a96a314640eac11adb7cde65ce518ca684
+"stats-gl@npm:^3.6.0":
+  version: 3.6.0
+  resolution: "stats-gl@npm:3.6.0"
+  peerDependencies:
+    three: "*"
+  peerDependenciesMeta:
+    three:
+      optional: true
+  checksum: 10/241dc3f59a43a51b151f9a6b989889128f97e322461a523ea09976b24d38bda61250ab5ed36ed4b54d1d0ff9dbddec7f1226232d14fe85bc81989450039bba50
   languageName: node
   linkType: hard
 
@@ -6938,7 +6928,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^5.0.0 || ^6.0.0, vite@npm:^6.3.3":
+"vite@npm:^5.0.0 || ^6.0.0":
   version: 6.3.3
   resolution: "vite@npm:6.3.3"
   dependencies:
@@ -6990,6 +6980,61 @@ __metadata:
   bin:
     vite: bin/vite.js
   checksum: 10/442e518d9da847db80bd19a9792d1d9a106a31d18f74bfd06574776932dd0907f7205b99e34d455ba505a7dd9e57a807354633b90acd46a11db849a15ae26ad4
+  languageName: node
+  linkType: hard
+
+"vite@npm:^6.3.5":
+  version: 6.3.5
+  resolution: "vite@npm:6.3.5"
+  dependencies:
+    esbuild: "npm:^0.25.0"
+    fdir: "npm:^6.4.4"
+    fsevents: "npm:~2.3.3"
+    picomatch: "npm:^4.0.2"
+    postcss: "npm:^8.5.3"
+    rollup: "npm:^4.34.9"
+    tinyglobby: "npm:^0.2.13"
+  peerDependencies:
+    "@types/node": ^18.0.0 || ^20.0.0 || >=22.0.0
+    jiti: ">=1.21.0"
+    less: "*"
+    lightningcss: ^1.21.0
+    sass: "*"
+    sass-embedded: "*"
+    stylus: "*"
+    sugarss: "*"
+    terser: ^5.16.0
+    tsx: ^4.8.1
+    yaml: ^2.4.2
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  peerDependenciesMeta:
+    "@types/node":
+      optional: true
+    jiti:
+      optional: true
+    less:
+      optional: true
+    lightningcss:
+      optional: true
+    sass:
+      optional: true
+    sass-embedded:
+      optional: true
+    stylus:
+      optional: true
+    sugarss:
+      optional: true
+    terser:
+      optional: true
+    tsx:
+      optional: true
+    yaml:
+      optional: true
+  bin:
+    vite: bin/vite.js
+  checksum: 10/7bc3a1c5ef79413ad70daeeaf69b76cd1218d16aa18ed8ee08d74648ef17284f4a17c11f5cf42b573b6dc5e3d5f115110b67b1d23c2c699cfe404757764a634a
   languageName: node
   linkType: hard
 

@@ -45,7 +45,7 @@
         "prettier": "^3.5.3",
         "typedoc": "^0.28.3",
         "typescript": "^5.8.3",
-        "vite": "^6.3.3",
+        "vite": "^6.3.5",
         "vite-plugin-dts": "^4.5.3",
         "vite-plugin-top-level-await": "^1.5.0",
         "vitest": "^3.1.2"
@@ -59,7 +59,7 @@
         "localforage": "^1.10.0",
         "proj4": "^2.15.0",
         "signals": "^1.0.0",
-        "stats-gl": "^2.2.8",
+        "stats-gl": "^3.6.0",
         "three": "^0.176.0",
         "three-mesh-bvh": "^0.9.0",
         "three-multi-select": "^0.0.23",
